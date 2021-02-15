@@ -1,9 +1,18 @@
+import java.util.Scanner;
 
 public class SystemApplication {
 
+	private static Scanner scanner;
+	private static boolean isMember = false; //pending
+	private static ArrayList <User> userList; //waiting for 
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 
+	}
+	
+	public void loadingData() {
+		
 	}
 
 }
