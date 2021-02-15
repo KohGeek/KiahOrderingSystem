@@ -1,0 +1,4 @@
+50,Lorong Tun Mamat 3,Kampung Morten,75300,Melaka,Melaka
+676,Lorong 1 Jalan Bahagia 2,Bukit Baru,75150,Melaka,Melaka
+4466,Jalan Tanjung,Bukit Baru,75150,Melaka,Melaka
+260,Jalan Permata 5,Taman Harta Pertama,75150,Melaka,Melaka
