@@ -1,34 +1,35 @@
 
 public class Address {
 
-	private String area;
+	private int unitNumber;
+	private String streetName;
 	private String district;
+	private String area;
 	private int postalCode;
 	private String state;
-	private String streetName;
-	private int unitNumber;
 	
-	public Address(String area, String district, int postalCode, String state, String streetName, int unitNumber) {
+	
+	public Address(int unitNumber, String streetName, String district, String area, int postalCode, String state) {
 		
-		this.area = area;
+		this.unitNumber = unitNumber;
+		this.streetName = streetName;
 		this.district = district;
+		this.area = area;
 		this.postalCode = postalCode;
 		this.state = state;
-		this.streetName = streetName;
-		this.unitNumber = unitNumber;
 		
 	}
 		
 	
 	public String getArea() {
 		
-		return area;
+		return this.area;
 		
 	}
 	
-	Address getAddress() {
+	public String getFullAddress() {
 		
-		return new Address (area, district, postalCode, state, streetName, unitNumber);
+		return this.unitNumber + "," + this.streetName + "," + this.district + "," + this.area + "," + this.postalCode + "," + this.state;
 	}
 	
 	
