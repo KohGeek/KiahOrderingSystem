@@ -1,0 +1,20 @@
+Butter cake,Cake,46.00,46.80,false
+Marble cake,Cake,76.50,77.20,false
+Burnt Cheesecak,Cake,120.00,125.00,false
+Chocolate Indulgence,Cake,98.00,105.00,false
+Tiramisu Cake,Cake,98.00,105.00,false
+Oreo Cheese,Cake,98.00,105.00,false
+Black Forest,Cake,130.00,135.00,false
+Carrot Cake,Cake,70.00,75.00,false
+Chocolate Cake,Cake,85.00,90.00,alse
+Red Velvet,Cake,125.00,130.00,alse
+Absolute Durian,Cake,135.00,140.00,true
+Salted Caramel Macadamia Cheese,Cake,180.00,185.00,true
+White Chocolate Cake,Cake,95.00,98.00,true
+Apple pie (3 pieces),Pastry,9.30,9.90,false
+Cinnamon Roll (2 pieces),Pastry,8.20,8.70,false
+Croissant,Pastry,4.20,4.50,false
+Macaron (5 pieces),Pastry,15.00,15.50,false
+Pretzel (2 pieces),Pastry,13.00,13.60,false
+Pineapple tart (1 container),Pastry,39.00,42.00,true
+Spring roll (1 container),Pastry,30.00,32.00,true

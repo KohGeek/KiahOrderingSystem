@@ -1,0 +1,20 @@
+Alor Gajah,2.50
+Asahan,4.00
+Ayer Keroh,5.00
+Bandar Hilir,5.00
+Batu Berendam,3.50
+Bemban,4.00
+Bukit Beruang,3.50
+Durian Tunggal,3.50
+Jasin,4.00
+Kuala Linggi,3.00
+Kuala Sungai Baru,3.00
+Lubok China,3.00
+Masjid Tanah,2.50
+Melaka Tengah,5.00
+Merlimau,4.00
+Selandar,4.00
+Sungai Rambai,2.50
+Sungai Udang,2.50
+Tanjong Kling,4.50
+Ujong Pasir,4.50
