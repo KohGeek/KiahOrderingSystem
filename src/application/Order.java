@@ -18,9 +18,7 @@ public class Order implements Serializable {
 	private boolean isMember;
 	private final double minOrderValue = 25;
 
-
-	public Order(int id, User user, String deliveryAddress, HashMap<Item, Integer> purchaseList,
-			boolean isMember) {
+	public Order(int id, User user, String deliveryAddress, HashMap<Item, Integer> purchaseList, boolean isMember) {
 		this.id = id;
 		this.user = user;
 		this.deliveryAddress = deliveryAddress; // use method
@@ -28,15 +26,14 @@ public class Order implements Serializable {
 		this.isMember = isMember;
 		this.totalPrice = calculateTotalPrice(this.isMember);
 	}
-	
-	public Order(User user, String deliveryAddress,  HashMap<Item, Integer> purchaseList,
-			boolean isMember ) {
+
+	public Order(User user, String deliveryAddress, HashMap<Item, Integer> purchaseList, boolean isMember) {
 		this.id = generateID();
 		this.user = user;
 		this.deliveryAddress = deliveryAddress; // use method
 		this.purchaseList = purchaseList;
 		this.isMember = isMember;
-		this.totalPrice = calculateTotalPrice(this.isMember);	
+		this.totalPrice = calculateTotalPrice(this.isMember);
 	}
 
 	private int generateID(ArrayList<Order>) {
@@ -46,7 +43,7 @@ public class Order implements Serializable {
 	public User getUser() { // return User, not String, remark to change in EA
 		return this.user;
 	}
-	
+
 	public double getTotalPrice() {
 		return this.totalPrice;
 	}

@@ -1,4 +1,4 @@
-user0000,pass0000,0129635911,rickie,50,Lorong Tun Mamat 3,Kampung Morten,Alor Gajah,75300,
-user1111,pass1111,0112262104,jundong,676,Lorong 1 Jalan Bahagia 2,Bukit Baru,Asahan,75150,
-user2222,pass2222,0123520441,zexin,4466,Jalan Tanjung,Bukit Baru,Ayer Keroh,75150,
-user3333,pass3333,0123232873,susin,260,Jalan Permata 5,Taman Harta Pertama,Bandar Hilir,75150,
+user0000,pass0000,0129635911,rickie,50,Lorong Tun Mamat 3,Kampung Morten,75300,Alor Gajah
+user1111,pass1111,0112262104,jundong,676,Lorong 1 Jalan Bahagia 2,Bukit Baru,75150,Asahan
+user2222,pass2222,0123520441,zexin,4466,Jalan Tanjung,Bukit Baru,75150,Ayer Keroh
+user3333,pass3333,0123232873,susin,260,Jalan Permata 5,Taman Harta Pertama,75150,Bandar Hilir

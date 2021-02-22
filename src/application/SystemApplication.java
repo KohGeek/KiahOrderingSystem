@@ -1,4 +1,5 @@
 package application;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,7 +11,6 @@ import java.util.Scanner;
 
 public class SystemApplication {
 
-
 	private static Scanner scanner = new Scanner(System.in);
 	private static User user;
 	private static ArrayList<User> userList;
@@ -18,11 +18,10 @@ public class SystemApplication {
 	private static HashMap<Item, Integer> purchaseList;
 	private static HashMap<String, Double> deliveryRateList;
 
-	@SuppressWarnings("unused")
 	private static boolean isMember; // pending
 
 	public static void main(String[] args) {
-		
+
 		final String userFile = "userData.txt";
 		final String itemFile = "itemData.txt";
 		final String deliveryFile = "deliveryData.txt";
@@ -72,7 +71,8 @@ public class SystemApplication {
 				isMember = false;
 				break;
 			case 3:
-				user = user.signUp(userFile);
+				String TBC = "to be confirm";
+				user = user.signUp(userFile, TBC);
 				if (user != null)
 					isMember = true;
 				break;
@@ -117,17 +117,20 @@ public class SystemApplication {
 			case 2:
 				String decision;
 				do {
-					viewCart();
+					qty = 0; // tbc
+					viewCart(purchaseList);
 					System.out.print("Do you want to edit cart? (Y/N)");
 					decision = scanner.nextLine();
 					if (decision == "Y")
-						editCart();
+						editCart(item, qty, purchaseList);
 					clearScreen();
 				} while (decision != "N");
 				break;
 			case 3:
-				viewCart();
-				checkOut();
+				String deliveryAddress = "to be confirm";
+				viewCart(purchaseList);
+				Order order = new Order(user, deliveryAddress, purchaseList, isMember);
+				checkOut(user, order, purchaseList);
 
 			}
 		} while (choice < 1 || choice > 3);
@@ -135,11 +138,10 @@ public class SystemApplication {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void importUserList(ArrayList<User> userList, String userFile)
-			throws FileNotFoundException, IOException {
+	public static void importUserList(ArrayList<User> userList, String userFile) {
 		// import userlist from file
 		try {
-			File file = new File(itemFile);
+			File file = new File(userFile);
 			ObjectInputStream objin = new ObjectInputStream(new FileInputStream(file));
 			itemList = (ArrayList<Item>) objin.readObject();
 			objin.close();
@@ -153,8 +155,7 @@ public class SystemApplication {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void importItemList(ArrayList<Item> itemList, String itemFile)
-			throws FileNotFoundException, IOException {
+	public static void importItemList(ArrayList<Item> itemList, String itemFile) {
 		// import itemList from file
 		try {
 			File file = new File(itemFile);
@@ -171,8 +172,7 @@ public class SystemApplication {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void importDeliveryRateList(HashMap<String, Double> deliveryRateList, String deliveryFile)
-			throws FileNotFoundException, IOException {
+	public static void importDeliveryRateList(HashMap<String, Double> deliveryRateList, String deliveryFile) {
 		// import itemList from file
 		try {
 			File file = new File(deliveryFile);

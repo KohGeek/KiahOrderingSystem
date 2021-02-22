@@ -1,8 +1,9 @@
 package application;
+
 import java.io.Serializable;
 
-public class Item implements Serializable{
-	
+public class Item implements Serializable {
+
 	// default serialVersion id
 	private static final long serialVersionUID = 1L;
 
@@ -17,8 +18,8 @@ public class Item implements Serializable{
 	private boolean isPromotional;
 
 	private final double discountRate = 0.95;
-	public Item (String name, String type, double memberPrice, double nonMemberPrice, boolean isPromotional) 
-	{
+
+	public Item(String name, String type, double memberPrice, double nonMemberPrice, boolean isPromotional) {
 		this.name = name;
 		this.type = type;
 		this.memberPrice = memberPrice;
@@ -26,32 +27,27 @@ public class Item implements Serializable{
 		this.isPromotional = isPromotional;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public String getType()
-	{
+	public String getType() {
 		return type;
 	}
 
-	public double getMemberPrice()
-	{
+	public double getMemberPrice() {
 		return memberPrice;
 	}
 
-	public double getNonMemberPrice()
-	{
+	public double getNonMemberPrice() {
 		return nonMemberPrice;
 	}
 
-	public boolean getIsPromotional()
-	{
+	public boolean getIsPromotional() {
 		return isPromotional;
 	}
 
-	public double getDiscountRate() 
-	{
+	public double getDiscountRate() {
 		return discountRate;
 	}
+}

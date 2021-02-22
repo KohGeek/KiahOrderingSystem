@@ -1,4 +1,5 @@
 package application;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -54,7 +55,7 @@ public class User implements Serializable {
 	}
 
 	public void setUser(ArrayList<User> userList) {
-		for (int i=0; i<userList.size();i++)
+		for (int i = 0; i < userList.size(); i++)
 			if (this.username == userList.get(i).getUsername()) {
 				this.name = userList.get(i).getName();
 				this.phoneNumber = userList.get(i).getPhoneNumber();
@@ -75,7 +76,7 @@ public class User implements Serializable {
 	public User signUp(String userFile, String addressFile) {
 		// ask user to key-in member's details, then store the new member into the file,
 		// and return a User account.
-		
+
 		return;
 	}
 

@@ -50,15 +50,14 @@ public class ImportData {
 				password = x.next();
 				phoneNumber = x.next();
 				name = x.next();
-				unitNumber = Integer.parseInt(x.next());
+				unitNumber = x.nextInt();
 				streetName = x.next();
 				district = x.next();
+				postalCode = x.nextInt();
 				area = x.next();
-				postalCode = Integer.parseInt(x.next());
-				x.next();
 
 				userList.add(new User(username, password, phoneNumber, name,
-						new Address(unitNumber, streetName, district, area, postalCode)));
+						new Address(unitNumber, streetName, district, postalCode, area)));
 			}
 		} catch (Exception e) {
 			System.out.println("userDatax.txt has error!");

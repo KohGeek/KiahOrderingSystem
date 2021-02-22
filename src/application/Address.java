@@ -1,4 +1,5 @@
 package application;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -14,12 +15,12 @@ public class Address implements Serializable {
 	private int postalCode;
 	private String state;
 
-	public Address(int unitNumber, String streetName, String district, String area, int postalCode) {
+	public Address(int unitNumber, String streetName, String district, int postalCode, String area) {
 		this.unitNumber = unitNumber;
 		this.streetName = streetName;
 		this.district = district;
-		this.area = area;
 		this.postalCode = postalCode;
+		this.area = area;
 		this.state = "Malacca";
 	}
 
