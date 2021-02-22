@@ -1,4 +1,10 @@
-public class Item {
+package application;
+import java.io.Serializable;
+
+public class Item implements Serializable{
+	
+	// default serialVersion id
+	private static final long serialVersionUID = 1L;
 	
 	private final double discountRate = 0.95;
 	private boolean isPromotional;
@@ -45,5 +51,6 @@ public class Item {
 		this.nonMemberPrice = nonMemberPrice;
 		this.isPromotional = isPromotional;
 	}
+	
 
 }

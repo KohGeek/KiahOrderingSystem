@@ -1,3 +1,4 @@
+package application;
 
 public class Payment {
 
@@ -5,7 +6,7 @@ public class Payment {
 		CreditCard, OnlineBanking;
 	}
 	
-	private Order order; //waiting for Beh
+	private Order order;
 	private Method paymentMethod;
 	private double totalPrice;
 	private boolean paymentStatus;
