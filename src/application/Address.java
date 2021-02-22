@@ -32,12 +32,12 @@ public class Address implements Serializable {
 		this.state = "Malacca";
 	}
 
-	public String getArea() {
-		return this.area;
-	}
-
 	public String getFullAddress() {
 		return this.unitNumber + "," + this.streetName + "," + this.district + "," + this.area + "," + this.postalCode
 				+ "," + this.state;
+	}
+
+	public String getArea() {
+		return this.area;
 	}
 }

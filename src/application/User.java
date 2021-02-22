@@ -22,8 +22,15 @@ public class User implements Serializable {
 	}
 
 	public User(String username, String password) {
+		//For user to login
 		this.username = username;
 		this.password = password;
+	}
+
+	public User(String name, Address address) {
+		//For guest to login
+		this.name = name;
+		this.address = address;
 	}
 
 	public String getPhoneNumber() {
@@ -36,21 +43,6 @@ public class User implements Serializable {
 
 	public Address getAddress() {
 		return this.address;
-	}
-
-	public boolean verifyMember(ArrayList<User> userList) {
-		for (int i = 0; i < userList.size(); i++) {
-			if (this.username.trim().equals(userList.get(i).getUsername().trim()))
-				if (this.password.trim().equals(userList.get(i).getPassword().trim()))
-					return true;
-		}
-
-		return false;
-	}
-
-	public User(String name, Address address) {
-		this.name = name;
-		this.address = address;
 	}
 
 	private String getUsername() {
@@ -68,6 +60,16 @@ public class User implements Serializable {
 				this.phoneNumber = userList.get(i).getPhoneNumber();
 				this.address = userList.get(i).getAddress();
 			}
+	}
+
+	public boolean verifyMember(ArrayList<User> userList) {
+		for (int i = 0; i < userList.size(); i++) {
+			if (this.username.trim().equals(userList.get(i).getUsername().trim()))
+				if (this.password.trim().equals(userList.get(i).getPassword().trim()))
+					return true;
+		}
+	
+		return false;
 	}
 
 	public User signUp(String userFile, String addressFile) {

@@ -10,12 +10,6 @@ import java.util.Scanner;
 
 public class SystemApplication {
 
-	final static String userFile = "userData.txt";
-	final static String itemFile = "itemData.txt";
-	final static String deliveryFile = "deliveryData.txt";
-
-	@SuppressWarnings("unused")
-	private static boolean isMember; // pending
 
 	private static Scanner scanner = new Scanner(System.in);
 	private static User user;
@@ -24,7 +18,14 @@ public class SystemApplication {
 	private static HashMap<Item, Integer> purchaseList;
 	private static HashMap<String, Double> deliveryRateList;
 
+	@SuppressWarnings("unused")
+	private static boolean isMember; // pending
+
 	public static void main(String[] args) {
+		
+		final String userFile = "userData.txt";
+		final String itemFile = "itemData.txt";
+		final String deliveryFile = "deliveryData.txt";
 		userList = new ArrayList<User>();
 		itemList = new ArrayList<Item>();
 		purchaseList = new HashMap<Item, Integer>();
@@ -134,13 +135,13 @@ public class SystemApplication {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void importDeliveryRateList(HashMap<String, Double> deliveryRateList, String deliveryFile)
+	public static void importUserList(ArrayList<User> userList, String userFile)
 			throws FileNotFoundException, IOException {
-		// import itemList from file
+		// import userlist from file
 		try {
-			File file = new File(deliveryFile);
+			File file = new File(itemFile);
 			ObjectInputStream objin = new ObjectInputStream(new FileInputStream(file));
-			deliveryRateList = (HashMap<String, Double>) objin.readObject();
+			itemList = (ArrayList<Item>) objin.readObject();
 			objin.close();
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
@@ -170,13 +171,13 @@ public class SystemApplication {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void importUserList(ArrayList<User> userList, String userFile)
+	public static void importDeliveryRateList(HashMap<String, Double> deliveryRateList, String deliveryFile)
 			throws FileNotFoundException, IOException {
-		// import userlist from file
+		// import itemList from file
 		try {
-			File file = new File(itemFile);
+			File file = new File(deliveryFile);
 			ObjectInputStream objin = new ObjectInputStream(new FileInputStream(file));
-			itemList = (ArrayList<Item>) objin.readObject();
+			deliveryRateList = (HashMap<String, Double>) objin.readObject();
 			objin.close();
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
@@ -191,10 +192,6 @@ public class SystemApplication {
 		// Printout the itemList
 	}
 
-	public static void viewOptionList() {
-		// Print the option
-	}
-
 	public static void addItem(int item, int qty, ArrayList<Item> itemList, HashMap<Item, Integer> purchaseList) {
 		if (purchaseList.containsKey(itemList.get(item))) {
 			Integer currentQty = purchaseList.get(itemList.get(item));
@@ -204,16 +201,16 @@ public class SystemApplication {
 		}
 	}
 
-	public static void viewCart() {
+	public static void viewCart(HashMap<Item, Integer> purchaseList) {
 		// print cart item
 	}
 
-	public static void editCart() {
+	public static void editCart(int item, int qty, HashMap<Item, Integer> purchaseList) {
 		// edit cart. ex: add or reduce item quantity, if quantity == 0, remove the
 		// item.
 	}
 
-	public static void checkOut() {
+	public static void checkOut(User user, Order order, HashMap<Item, Integer> purchaseList) {
 		// something goes with payment here.
 	}
 
@@ -222,7 +219,7 @@ public class SystemApplication {
 		// unitNumber, streetName, district, area, postalCode, state
 		// when come to "area" question, a list of valid area fetch from HashMap and
 		// displays for user to select.
-		// state is fixed to Melacca, no need to ask
+		// state is fixed to Malacca, no need to ask
 		ArrayList<String> details = new ArrayList<String>();
 
 		return details;

@@ -9,27 +9,50 @@ public class Order implements Serializable {
 	// default serialVersion id
 	private static final long serialVersionUID = 1L;
 
-	private String deliveryAddress;
-	private Delivery deliveryDetails;
 	private int id;
-	private final double minOrderValue = 25;
-	private HashMap<Item, Integer> purchaseList; // assume mySQL driver? stub?
-	private double totalPrice;
 	private User user;
+	private String deliveryAddress;
+	private HashMap<Item, Integer> purchaseList; // assume mySQL driver? stub?
+	private double deliveryFee;
+	private double totalPrice;
 	private boolean isMember;
+	private final double minOrderValue = 25;
 
-	public Order(int id, User user, String deliveryAddress, HashMap<Item, Integer> purchaseList, Delivery deliveryDetails,
+
+	public Order(int id, User user, String deliveryAddress, HashMap<Item, Integer> purchaseList,
 			boolean isMember) {
+		this.id = id;
 		this.user = user;
 		this.deliveryAddress = deliveryAddress; // use method
 		this.purchaseList = purchaseList;
-		this.deliveryDetails = deliveryDetails;
 		this.isMember = isMember;
 		this.totalPrice = calculateTotalPrice(this.isMember);
 	}
+	
+	public Order(User user, String deliveryAddress,  HashMap<Item, Integer> purchaseList,
+			boolean isMember ) {
+		this.id = generateID();
+		this.user = user;
+		this.deliveryAddress = deliveryAddress; // use method
+		this.purchaseList = purchaseList;
+		this.isMember = isMember;
+		this.totalPrice = calculateTotalPrice(this.isMember);	
+	}
 
+	private int generateID(ArrayList<Order>) {
+		return int;
+	}
+
+	public User getUser() { // return User, not String, remark to change in EA
+		return this.user;
+	}
+	
 	public double getTotalPrice() {
 		return this.totalPrice;
+	}
+
+	public HashMap<Item, Integer> getPurchaseList() {
+		return this.purchaseList;
 	}
 
 	public String getDeliveryAddress() {
@@ -38,10 +61,6 @@ public class Order implements Serializable {
 
 	public void setDeliveryAddress(String newAddress) {
 		this.deliveryAddress = newAddress;
-	}
-
-	public HashMap<Item, Integer> getPurchase() {
-		return this.purchaseList;
 	}
 
 	public double calculateTotalPrice(boolean isMember) { // need more info
@@ -59,9 +78,5 @@ public class Order implements Serializable {
 		}
 
 		return totalPrice;
-	}
-
-	public User getUser() { // return User, not String, remark to change in EA
-		return this.user;
 	}
 }
