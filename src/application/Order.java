@@ -2,6 +2,7 @@ package application;
 
 import java.util.Map.Entry;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Order implements Serializable {
@@ -36,8 +37,9 @@ public class Order implements Serializable {
 		this.totalPrice = calculateTotalPrice(this.isMember);
 	}
 
-	private int generateID(ArrayList<Order>) {
-		return int;
+	// Rickie
+	private int generateID(ArrayList<Order> orderList) {
+		
 	}
 
 	public User getUser() { // return User, not String, remark to change in EA

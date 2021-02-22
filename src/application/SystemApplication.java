@@ -44,6 +44,7 @@ public class SystemApplication {
 
 			switch (choice) {
 			case 1:
+				// completed rickie
 				System.out.println("Enter username: ");
 				String username = scanner.nextLine();
 				System.out.println("Enter password: ");
@@ -59,6 +60,7 @@ public class SystemApplication {
 				}
 				break;
 			case 2:
+				// completed rickie
 				System.out.println("Delivery limited in Malacca area.");
 				System.out.println("Guest is required to provide name and delivery address.");
 				System.out.println("Enter name: ");
@@ -79,6 +81,7 @@ public class SystemApplication {
 			}
 		} while (choice < 1 || choice > 3);
 
+		// 2nd Section
 		int item;
 		int qty;
 		do {
@@ -100,6 +103,7 @@ public class SystemApplication {
 			choice = scanner.nextInt();
 			switch (choice) {
 			case 1:
+				// completed rickie
 				do {
 					viewItemList(itemList);
 					System.out.print("Pick your item ----> ");
@@ -115,6 +119,7 @@ public class SystemApplication {
 				} while (item != 00);
 				break;
 			case 2:
+				// half completed rickie
 				String decision;
 				do {
 					qty = 0; // tbc
@@ -127,6 +132,7 @@ public class SystemApplication {
 				} while (decision != "N");
 				break;
 			case 3:
+
 				String deliveryAddress = "to be confirm";
 				viewCart(purchaseList);
 				Order order = new Order(user, deliveryAddress, purchaseList, isMember);
@@ -135,9 +141,11 @@ public class SystemApplication {
 			}
 		} while (choice < 1 || choice > 3);
 
+		// end of code
 	}
 
 	@SuppressWarnings("unchecked")
+	// completed Rickie
 	public static void importUserList(ArrayList<User> userList, String userFile) {
 		// import userlist from file
 		try {
@@ -154,7 +162,8 @@ public class SystemApplication {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") 
+	// completed Rickie
 	public static void importItemList(ArrayList<Item> itemList, String itemFile) {
 		// import itemList from file
 		try {
@@ -172,6 +181,7 @@ public class SystemApplication {
 	}
 
 	@SuppressWarnings("unchecked")
+	// completed Rickie
 	public static void importDeliveryRateList(HashMap<String, Double> deliveryRateList, String deliveryFile) {
 		// import itemList from file
 		try {
@@ -188,10 +198,15 @@ public class SystemApplication {
 		}
 	}
 
+	// Beh
 	public static void viewItemList(ArrayList<Item> itemList) {
 		// Printout the itemList
+		// 0 Chocolate Cake RM 10.00
+		// 1
+		// 00 Exit
 	}
 
+	// completed Rickie
 	public static void addItem(int item, int qty, ArrayList<Item> itemList, HashMap<Item, Integer> purchaseList) {
 		if (purchaseList.containsKey(itemList.get(item))) {
 			Integer currentQty = purchaseList.get(itemList.get(item));
@@ -201,19 +216,27 @@ public class SystemApplication {
 		}
 	}
 
+	// Chin
 	public static void viewCart(HashMap<Item, Integer> purchaseList) {
 		// print cart item
+		// Name           Price  Qty  Total
+		// Chocolate Cake RM 10  x2    RM20
+		// refer user class .calculateTotalPrice
+		
 	}
 
+	// Koh
 	public static void editCart(int item, int qty, HashMap<Item, Integer> purchaseList) {
-		// edit cart. ex: add or reduce item quantity, if quantity == 0, remove the
-		// item.
+		// edit cart. ex: remove the entire obj or change the item quantity 
+		// if quantity == 0, remove the item.
 	}
 
+	// Rickie
 	public static void checkOut(User user, Order order, HashMap<Item, Integer> purchaseList) {
 		// something goes with payment here.
 	}
 
+	// Beh
 	public static ArrayList<String> askForAddressDetails(HashMap<String, Double> deliveryRateList) {
 		// ask for addressDetails
 		// unitNumber, streetName, district, area, postalCode, state

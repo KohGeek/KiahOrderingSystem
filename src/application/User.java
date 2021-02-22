@@ -64,6 +64,7 @@ public class User implements Serializable {
 	}
 
 	public boolean verifyMember(ArrayList<User> userList) {
+		
 		for (int i = 0; i < userList.size(); i++) {
 			if (this.username.trim().equals(userList.get(i).getUsername().trim()))
 				if (this.password.trim().equals(userList.get(i).getPassword().trim()))
@@ -73,6 +74,7 @@ public class User implements Serializable {
 		return false;
 	}
 
+	// Koh (pending)
 	public User signUp(String userFile, String addressFile) {
 		// ask user to key-in member's details, then store the new member into the file,
 		// and return a User account.
