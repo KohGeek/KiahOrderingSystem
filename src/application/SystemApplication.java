@@ -229,6 +229,12 @@ public class SystemApplication {
 	public static void editCart(int item, int qty, HashMap<Item, Integer> purchaseList) {
 		// edit cart. ex: remove the entire obj or change the item quantity 
 		// if quantity == 0, remove the item.
+		// missing handler - what if item does not exists
+		if (qty > 0) {
+			purchaseList.replace(itemList.get(item), qty);
+		} else {
+			purchaseList.remove(itemList.get(item));
+		}
 	}
 
 	// Rickie
