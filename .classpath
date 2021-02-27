@@ -11,6 +11,7 @@
 	<classpathentry kind="lib" path="C:/jars/mockito-all-1.9.5.jar"/>
 	<classpathentry kind="lib" path="C:/jars/mockito-all-1.10.19.jar"/>
 	<classpathentry kind="lib" path="C:/jars/mockito-all-2.0.2-beta.jar"/>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src/main"/>
+	<classpathentry kind="src" output="test_result" path="src/testing"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
