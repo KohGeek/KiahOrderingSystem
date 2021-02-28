@@ -162,7 +162,7 @@ public class SystemApplication {
 		}
 	}
 
-	@SuppressWarnings("unchecked") 
+	@SuppressWarnings("unchecked")
 	// completed Rickie
 	public static void importItemList(ArrayList<Item> itemList, String itemFile) {
 		// import itemList from file
@@ -201,9 +201,25 @@ public class SystemApplication {
 	// Beh
 	public static void viewItemList(ArrayList<Item> itemList) {
 		// Printout the itemList
+		// No. Name MemberPrice nonMemberPrice Promotion(Yes/no)
 		// 0 Chocolate Cake RM 10.00
 		// 1
 		// 00 Exit
+		System.out.println("No.   Name /t/t/tMemberPrice   nonMemberPrice   Promotion(5%)");
+		for (int i = 0; i < itemList.size(); i++) {
+			System.out.printf("%d   %s /t/t/t%.2f/t%.2f   /t   ", i + 1, itemList.get(i).getName(),
+					itemList.get(i).getMemberPrice(), itemList.get(i).getNonMemberPrice());
+			if (itemList.get(i).getIsPromotional() == true) {
+				System.out.println("Yes");
+			}
+			if (itemList.get(i).getIsPromotional() == false) {
+				System.out.println("No");
+			}
+		}
+		
+		System.out.println("00   Exit");
+		
+
 	}
 
 	// completed Rickie
@@ -219,15 +235,15 @@ public class SystemApplication {
 	// Chin
 	public static void viewCart(HashMap<Item, Integer> purchaseList) {
 		// print cart item
-		// Name           Price  Qty  Total
-		// Chocolate Cake RM 10  x2    RM20
+		// Name Price Qty Total
+		// Chocolate Cake RM 10 x2 RM20
 		// refer user class .calculateTotalPrice
-		
+
 	}
 
 	// Koh
 	public static void editCart(int item, int qty, HashMap<Item, Integer> purchaseList) {
-		// edit cart. ex: remove the entire obj or change the item quantity 
+		// edit cart. ex: remove the entire obj or change the item quantity
 		// if quantity == 0, remove the item.
 		// missing handler - what if item does not exists
 		if (qty > 0) {
@@ -243,14 +259,36 @@ public class SystemApplication {
 	}
 
 	// Beh
-	public static ArrayList<String> askForAddressDetails(HashMap<String, Double> deliveryRateList) {
+	public static ArrayList<String> askForAddressDetails(ArrayList<Delivery> deliveryRateList) {
 		// ask for addressDetails
 		// unitNumber, streetName, district, area, postalCode, state
 		// when come to "area" question, a list of valid area fetch from HashMap and
 		// displays for user to select.
 		// state is fixed to Malacca, no need to ask
 		ArrayList<String> details = new ArrayList<String>();
+		Input input = new Input();
+		int unitNumber = Integer.parseInt(input.getInput("Unit Number: "));
+		String streetName = input.getInput("Street Name: ");
+		String district = input.getInput("District: ");
 
+		boolean isOptionValid = false;
+		String area = "";
+		do {
+			for (int i = 0; i < deliveryRateList.size(); i++) {
+				System.out.println(i + 1 + " " + deliveryRateList.get(i) + "/n");
+			}
+			int areaOption = Integer.parseInt(input.getInput("Pick an area from the menu: "));
+			if (areaOption > deliveryRateList.size() + 1 || areaOption < 1) {
+				System.out.println("Area entered invalid.");
+			}
+			if (areaOption >= 1 && areaOption < deliveryRateList.size() + 1) {
+				isOptionValid = true;
+				area = deliveryRateList.get(areaOption - 1).getArea();
+			}
+		} while (isOptionValid != false);
+
+		int postalCode = Integer.parseInt(input.getInput("Postal Code: "));
+		Address address = new Address(unitNumber, streetName, district, postalCode, area);
 		return details;
 	}
 
