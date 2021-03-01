@@ -8,5 +8,4 @@ public class DeliveryCost {
 	public DeliveryCost(String area, double rate) {
 
 	}
-
 }

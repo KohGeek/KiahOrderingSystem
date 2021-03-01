@@ -22,8 +22,10 @@ public class OrderingSystem {
 		do {
 			menuUI.menuOptions();
 			menuOption = menuUI.selectMenuOption();
-			if (menuOption == 3)
-				checkOutUI.checkOut(loginUI.getUser,menuUI.getPurchaseList());
+			
+			if (menuOption == 3) {
+
+			
 		}while(menuOption != 4);
 
 	}
