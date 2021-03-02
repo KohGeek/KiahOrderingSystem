@@ -16,12 +16,12 @@ public class Order implements InitialOrder {
 
 	@Override
 	public int generateOrderID() {
-
+		//Pending
 	}
 
 	@Override
-	public Address verifyDeliveryAddress() {
-
+	public void verifyDeliveryAddress() {
+		// Pending
 	}
 
 	@Override
@@ -54,26 +54,26 @@ public class Order implements InitialOrder {
 	}
 
 	public int getOrderID() {
-
+		return orderID;
 	}
 
 	public User getUser() {
-
+		return user;
 	}
 
 	public Address getDeliveryAddress() {
-
+		return deliveryAddress;
 	}
 
 	public aDelivery getDeliveryFee() { // remark, might the aDelivery is DeliveryCost or deliveryFee
-
+		return deliveryFee;
 	}
 
 	public aPayment getPaymentDetails() { // remark, might the aPayment is Payment
-
+		return paymentDetails;
 	}
 
 	public double getTotalPrice() {
-
+		return totalPrice;
 	}
 }
