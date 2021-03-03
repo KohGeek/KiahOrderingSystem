@@ -17,11 +17,12 @@ public class CheckOutCtrl {
 	}
 
 	public void makePayment() {
-
+		
 	}
 
 	public void exitSystem() {
-
+		System.out.println("Thank you for using Kiah Ordering System.");
+		exitSystem();
 	}
 
 	public CheckOutCtrl(User user, PurchaseList purchaseList) {

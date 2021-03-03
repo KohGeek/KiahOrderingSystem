@@ -1,8 +1,10 @@
 package system_interface;
 
+import java.util.ArrayList;
+
 import system_entity.Member;
 
-public interface aMember {
+public interface IMember {
 
 	public boolean validateMember(String username, String password);
 
@@ -12,6 +14,8 @@ public interface aMember {
 
 	public Member fillMemberDetails(String username);
 
-	public Member getMember();
+	public Member getMember(String username);
+	
+	public void setMemberList(ArrayList<Member> memberList);
 
 }

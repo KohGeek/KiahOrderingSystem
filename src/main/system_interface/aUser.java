@@ -2,7 +2,7 @@ package system_interface;
 
 import system_entity.Address;
 
-public interface aUser {
+public interface aUser{
 
 	public void login(String username, String password);
 

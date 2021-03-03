@@ -7,17 +7,17 @@ public class Item {
 	private double memberPrice;
 	private double nonMemberPrice;
 	private boolean isPromotional;
-	private static double discountRate = 0.95;
+	final private double discountRate = 0.95;
 
 	public Item(String name, String type, double memberPrice, double nonMemberPrice, boolean isPromotional) {
-
 		this.name = name;
 		this.type = type;
 		this.memberPrice = memberPrice;
 		this.nonMemberPrice = nonMemberPrice;
 		this.isPromotional = isPromotional;
-
 	}
+	
+	public Item() {};
 
 	public String getName() {
 		return this.name;
@@ -25,7 +25,6 @@ public class Item {
 
 	public String getType() {
 		return this.type;
-
 	}
 
 	public double getMemberPrice() {
@@ -34,16 +33,13 @@ public class Item {
 
 	public double getNonMemberPrice() {
 		return this.nonMemberPrice;
-
 	}
 
-	public boolean getIsPromotonal() {
+	public boolean getIsPromotional() {
 		return this.isPromotional;
-
 	}
 
 	public double getDiscountRate() {
 		return this.discountRate;
-
 	}
 }

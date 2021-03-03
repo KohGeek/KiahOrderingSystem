@@ -1,6 +1,7 @@
 package system_entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import system_interface.Database;
 import system_interface.aMember;
@@ -52,4 +53,15 @@ public class MemberList implements aMember, Database {
 		return null;
 	}
 
+	@Override
+	public ArrayList<Member> getData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMemberList(ArrayList<Member> memberList) {
+		// TODO Auto-generated method stub
+		
+	}
 }

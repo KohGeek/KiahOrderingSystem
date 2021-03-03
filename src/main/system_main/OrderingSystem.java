@@ -1,5 +1,6 @@
 package system_main;
 
+import system_entity.Input;
 import system_ui.SystemCheckOutUI;
 import system_ui.SystemLoginUI;
 import system_ui.SystemMenuUI;
@@ -11,27 +12,42 @@ public class OrderingSystem {
 	private static SystemCheckOutUI checkOutUI;
 
 	public static void main(String[] args) {
+
+		System.out.println("Welcome to Kiah Ordering System.");
+
+		Input input = new Input();
 		loginUI = new SystemLoginUI();
 
-		boolean loginStatus = false;
+		int option;
+		boolean optionVAL;
 		do {
-			loginUI.loginOptions();
-			loginStatus = loginUI.selectLoginOption();
-		} while (loginStatus != true);
+			loginUI.displayLoginOptions();
+			option = Integer.parseInt(input.getInput("Select your option ----> "));
+			optionVAL = loginUI.validateOption(option);
+			while (optionVAL == true)
+				loginUI.selectLoginOption(option);
+		} while (optionVAL == false);
 
 		menuUI = new SystemMenuUI();
-		checkOutUI = new SystemCheckOutUI();
-
-		int menuOption;
 		do {
-			menuUI.menuOptions();
-			menuOption = menuUI.selectMenuOption();
+			menuUI.displayMenuOptions();
+			option = Integer.parseInt(input.getInput("Select your option ----> "));
+			optionVAL = menuUI.validateOption(option);
+			while (optionVAL == true)
+				if (option == 1 || option == 2)
+					menuUI.selectMenuOption(option);
+				else if (option == 3) {
+					checkOutUI = new SystemCheckOutUI(loginUI.getUser(), menuUI.getPurchaseList());
+					do {
+						checkOutUI.displayCheckOutOptions();
+						option = Integer.parseInt(input.getInput("Select your option ----> "));
+						optionVAL = checkOutUI.validateOption(option);
+						while (optionVAL == true)
+							checkOutUI.selectCheckOutOptions(option);
+					} while (optionVAL == false);
+				}
+		} while (optionVAL == false);
 
-			if (menuOption == 3) {
-				checkOutUI.checkOut(loginUI, null);
-			}
-
-		} while (menuOption != 4);
-
+		System.out.println("Thank you for using Kiah Ordering System.");
 	}
 }
