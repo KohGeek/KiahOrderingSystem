@@ -1,33 +1,12 @@
 package system_entity;
 
-import system_interface.aMember;
-import system_interface.aUser;
+//Super class for both Guest and Member 
 
-public class User implements aUser {
+public abstract class User {
 
-	private UserType type;
-	private aMember memberList;
-	private Member member;
-	private Address address;
-	private String guestName;
-
-	@Override
-	public void login(String username, String password) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void guestLogin(String name, Address address) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void signUp(String username) {
-		// TODO Auto-generated method stub
-
-	}
+	protected String name;
+	protected UserType type;
+	protected Address address;
 
 	public User() {
 

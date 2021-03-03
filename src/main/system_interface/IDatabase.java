@@ -1,6 +1,8 @@
 package system_interface;
 
-public interface Database {
+//Interface for any File IO
+
+public interface IDatabase {
 
 	public void initDataFromFile(String fileName);
 

@@ -1,38 +1,70 @@
 package system_entity;
 
-import system_interface.isMember;
+// Member class
+// Stores data about individual registered member
+// For an array of member, check MemberList
 
-public class Member implements isMember {
+public class Member extends User {
 
 	private String username;
 	private String password;
 	private String phoneNumber;
-	private String name;
-	private Address address;
 
-	@Override
-	public boolean verifyMember(String username, String password) {
-
-		return false;
-	}
-
-	public Member(String username, String password, String phoneNumber, String[] addressDetails) {
+	// Constructor
+	public Member(String username, String password, String phoneNumber, String name, Address address) {
 
 		this.username = username;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
-		// TODO addressdetails
+		this.name = name;
+		this.address = address;
+		this.type = UserType.Member;
 
 	}
 
+	// getUsername()
+	// Return type: String
+	// returns username
 	public String getUsername() {
 
-		return null;
+		return this.username;
+
 	}
 
+	// getPassword()
+	// Return type: String
+	// returns password
 	public String getPassword() {
 
-		return null;
+		return this.password;
+
+	}
+
+	// getPhoneNumber()
+	// Return type: String
+	// returns phone number
+	public String getPhoneNumber() {
+
+		return this.phoneNumber;
+
+	}
+
+	// getName()
+	// Return type: String
+	// returns user's full name
+	public String getName() {
+
+		return this.name;
+
+	}
+
+	// getAddress()
+	// Return type: Address object
+	// returns address as an object
+	public Address getAddress() {
+
+		return this.address;
+
 	}
 
 }
