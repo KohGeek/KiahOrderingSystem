@@ -6,7 +6,7 @@ import system_entity.User;
 public class SystemLoginUI {
 
 	private EntryCtrl entry;
-	public User user;
+	private User user;
 
 	public void displayLoginOptions() {
 		System.out.println("This is the Login Menu");
@@ -28,13 +28,13 @@ public class SystemLoginUI {
 
 		switch ($$option) {
 		case 1:
-			this.user = entry.login();
+			entry.login();
 			break;
 		case 2:
-			this.user = entry.guestLogin();
+			entry.guestLogin();
 			break;
 		case 3:
-			this.user = entry.signUp();
+			entry.signUp();
 			break;
 		case 4:
 			entry.exitSystem();
@@ -42,11 +42,11 @@ public class SystemLoginUI {
 		}
 	}
 
-	public SystemLoginUI() {
-		this.entry = new EntryCtrl();
-	}
-	
 	public User getUser() {
 		return this.user;
+	}
+
+	public SystemLoginUI() {
+		entry = new EntryCtrl();
 	}
 }

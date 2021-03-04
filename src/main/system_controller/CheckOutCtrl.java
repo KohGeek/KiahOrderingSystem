@@ -9,10 +9,11 @@ public class CheckOutCtrl {
 
 	private InitialOrder order;
 	private aPayment payment;
-	private User user;
+	private User User;
 	private PurchaseList purchaseList;
 
 	public void displayCheckOutDetails() {
+
 	}
 
 	public void makePayment() {
@@ -28,7 +29,7 @@ public class CheckOutCtrl {
 		User $user = user;
 		PurchaseList $purchaseList = purchaseList;
 
-		this.user = $user;
+		this.User = $user;
 		this.purchaseList = $purchaseList;
 	}
 
