@@ -1,0 +1,2 @@
+user0000,pass0000,0129635911,rickie,50,Lorong Tun Mamat 3,Kampung Morten,Melaka,75300
+user1111,pass1111,0112262104,jundong,676,Lorong 1 Jalan Bahagia 2,Bukit Baru,Melaka,75150

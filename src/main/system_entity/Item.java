@@ -1,23 +1,13 @@
-package application;
+package system_entity;
 
-import java.io.Serializable;
-
-public class Item implements Serializable {
-
-	// default serialVersion id
-	private static final long serialVersionUID = 1L;
+public class Item {
 
 	private String name;
-
 	private String type;
-
 	private double memberPrice;
-
 	private double nonMemberPrice;
-
 	private boolean isPromotional;
-
-	private final double discountRate = 0.95;
+	final private double discountRate = 0.95;
 
 	public Item(String name, String type, double memberPrice, double nonMemberPrice, boolean isPromotional) {
 		this.name = name;
@@ -26,28 +16,30 @@ public class Item implements Serializable {
 		this.nonMemberPrice = nonMemberPrice;
 		this.isPromotional = isPromotional;
 	}
+	
+	public Item() {};
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public String getType() {
-		return type;
+		return this.type;
 	}
 
 	public double getMemberPrice() {
-		return memberPrice;
+		return this.memberPrice;
 	}
 
 	public double getNonMemberPrice() {
-		return nonMemberPrice;
+		return this.nonMemberPrice;
 	}
 
 	public boolean getIsPromotional() {
-		return isPromotional;
+		return this.isPromotional;
 	}
 
 	public double getDiscountRate() {
-		return discountRate;
+		return this.discountRate;
 	}
 }
