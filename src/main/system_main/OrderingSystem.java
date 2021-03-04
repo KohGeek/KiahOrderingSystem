@@ -26,7 +26,7 @@ public class OrderingSystem {
 			optionVAL = loginUI.validateOption(option);
 			while (optionVAL == true)
 				loginUI.selectLoginOption(option);
-		} while (optionVAL == false);
+		} while (optionVAL == false && loginUI.getUser() == null);
 
 		menuUI = new SystemMenuUI();
 		do {

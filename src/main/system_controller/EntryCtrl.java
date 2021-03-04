@@ -5,150 +5,81 @@ import system_entity.Guest;
 import system_entity.Input;
 import system_entity.Member;
 import system_entity.MemberList;
-import system_entity.User;
 import system_interface.IMember;
-import system_ui.SystemLoginUI;
-import system_ui.SystemMenuUI;
 
 // EntryController Class
 
 public class EntryCtrl {
 
-	private User user;
-	private SystemMenuUI menu; // TODO remove
 	private IMember memberList;
-//
-//	public void login() {
-//		Input input = new Input();
-//		String username = input.getInput("Username ----> ");
-//		String password = input.getInput("Password ----> ");
-//		boolean found = memberList.validateMember(username, username);
-//		if (found != true) {
-//			System.out.println("Invalid username or password.");
-//		} else if (found == true) {
-//			this.user = memberList.getMember(username);
-//		}
-//	}
 
-	// login()
-	// Return type: void
-	// Starts the login process for members
-	public void login() {
-
-		String $username;
-		String $password;
-		boolean isVerified = false;
-		Input i = new Input();
-
-		do {
-			$username = i.getInput("Please enter your username (Case sensitive): ");
-			$password = i.getInput("Please enter your password (Case sensitive): ");
-
-			if (memberList.verifyMember($username, $password)) {
-				isVerified = true;
-				this.user = memberList.getMember($username);
-			} else {
-				System.out.println("\nWrong username or password! Please try again. \n");
-			}
-
-		} while (!isVerified);
-
+	public Member login() {
+		Input input = new Input();
+		String username = input.getInput("Username ----> ");
+		String password = input.getInput("Password ----> ");
+		boolean isVerified = memberList.verifyMember(username, password);
+		if (isVerified == false) {
+			System.out.println("Invalid username or password.");
+		} else if (isVerified == true) {
+			return memberList.getMember(username);
+		}
+		return null;
 	}
 
-	// guestLogin()
-	// Return type: void
 	// Starts the login process for guests
-	public void guestLogin() {
-
-		String $name;
-		Address $address;
-
+	public Guest guestLogin() {
 		Input i = new Input();
-
-		$name = i.getInput("Please enter your name: ");
+		String name = i.getInput("Please enter your name: ");
 		System.out.println("Please note that addresses are restricted to within the Melacca state.");
-		$address = obtainAddressFromUserInput();
-		this.user = new Guest($name, $address);
-
+		Address address = fillAddressDets();
+		return new Guest(name, address);
 	}
 
-	// signUp()
-	// Return type: void
 	// Starts the registration/sign up process for people looking to be members
-	public void signUp() {
-
-		String $username;
-		String $password;
-		String $passwordVerify;
-		String $name;
-		String $phoneNumber;
-		Address $address;
-
-		Member m;
-
+	public Member signUp() {
 		Input i = new Input();
-
-		boolean isUsernameTaken = true;
-		boolean isMatchPassword = false;
-
+		String username;
+		boolean found;
 		do {
+			username = i.getInput("Enter your username: ");
 
-			$username = i.getInput("Please enter your desired username (Case sensitive): ");
+			found = memberList.searchUsername(username);
+			if (found == true)
+				System.out.println("Username has been taken.\n");
+		} while (found == true);
 
-			if (memberList.searchUsername($username)) {
-				System.out.println("\nUsername has already been taken, please try again! \n");
-			} else {
-				isUsernameTaken = false;
-			}
-
-		} while (isUsernameTaken);
-
+		String password;
+		String passwordVAL;
+		boolean match = false;
 		do {
-
-			$password = i.getInput("Please enter your password (Case sensitive): ");
-			$passwordVerify = i.getInput("Please enter your password again (Case sensitive): ");
-
-			if ($password != $passwordVerify) {
+			password = i.getInput("Please enter your password (Case sensitive): ");
+			passwordVAL = i.getInput("Please enter your password again (Case sensitive): ");
+			if (password != passwordVAL) {
 				System.out.println("\nPassword does not match, please try again! \n");
-			} else {
-				isMatchPassword = true;
+				match = false;
+			} else if (password == passwordVAL) {
+				match = true;
 			}
-
-		} while (!isMatchPassword);
-
-		$name = i.getInput("Please enter your name: ");
-		$phoneNumber = i.getInput("Please enter your phone number: ");
+		} while (match == false);
+	
+		String name = i.getInput("Enter your name: ");
+		String phoneNumber = i.getInput("Enter your phone number: ");
 		System.out.println("Please note that addresses are restricted to within the Melacca state.");
-		$address = obtainAddressFromUserInput();
-
-		m = new Member($username, $password, $name, $phoneNumber, $address);
-		memberList.addMember(m);
-		this.user = m;
-
+		Address address = fillAddressDets();
+		Member newMember = new Member(username, password, name, phoneNumber, address);
+		memberList.addMember(newMember);
+		return newMember;
 	}
 
-	// exitSystem()
-	// Return type: void
 	// exits the system?
 	public void exitSystem() {
-
+		System.out.println("Thank you for using Kiah Ordering System.");
+		exitSystem();
 	}
 
-	// getUser()
-	// Return type: User object
-	// returns the current user instance as an object
-	public User getUser() {
-
-		return this.user;
-
-	}
-
-	// PRIVATE
-	// obtainAddressFromUserInput()
-	// Return type: Address object
 	// Starts the process of obtaining address from user
 	// TODO find a better way for address input? Maybe under an address interface
-	private Address obtainAddressFromUserInput() {
+	private Address fillAddressDets() {
 
 		int $unitNumber;
 		String $streetName;
@@ -172,11 +103,8 @@ public class EntryCtrl {
 
 	}
 
-	// Constructor
 	// initialises the member list
 	public EntryCtrl() {
-
 		memberList = new MemberList("Data/newMemberData.txt");
-
 	}
 }
