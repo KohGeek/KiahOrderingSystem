@@ -4,13 +4,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import system.file.IDatabase;
 
 public class MemberList implements IMember, IDatabase {
 
-	private ArrayList<Member> memberList;
+	private List<Member> memberList;
 
 	public MemberList(String filename) {
 		this.memberList = new ArrayList<Member>();

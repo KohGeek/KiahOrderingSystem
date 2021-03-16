@@ -8,19 +8,21 @@ import system.menu.IDelivery;
 
 public class DeliveryCostList implements IDelivery, IDatabase {
 
-	private List<DeliveryCost> deliveryCostList;
+	private List<DeliveryCost> deliveryInfo;
 
 	public DeliveryCostList(String fileName) {
-		this.deliveryCostList = new ArrayList<DeliveryCost>();
+		this.deliveryInfo = new ArrayList<DeliveryCost>();
 		initDataFromFile(fileName);
 	}
 
 	@Override
 	public double getRate(String area) {
 		double rate = 0;
-		for (int i = 0; i < deliveryCostList.size(); i++)
-			if (this.deliveryCostList.get(i).getArea() == area)
-				rate = (this.deliveryCostList.get(i)).getRate();
+		for (int i = 0; i < this.deliveryInfo.size(); i++)
+			if (this.deliveryInfo.get(i).getArea() == area) {
+				rate = (this.deliveryInfo.get(i)).getRate();
+				break;
+			}
 		return rate;
 	}
 

@@ -6,9 +6,6 @@ public abstract class User {
 	protected String name;
 	protected Address address;
 
-	public User() {
-	}
-	
 	public String getName() {
 		return this.name;
 	}

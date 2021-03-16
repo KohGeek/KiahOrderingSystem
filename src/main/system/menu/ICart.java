@@ -10,5 +10,5 @@ public interface ICart {
 
 	public double getCartTotalPrice(boolean isMember);
 
-	public void editItem(Item item, int quantity);
+	public void editItem(Item item, int qty);
 }

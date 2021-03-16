@@ -16,8 +16,6 @@ public class Item {
 		this.nonMemberPrice = nonMemberPrice;
 		this.isPromotional = isPromotional;
 	}
-	
-	public Item() {};
 
 	public String getName() {
 		return this.name;

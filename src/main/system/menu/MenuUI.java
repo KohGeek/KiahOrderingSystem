@@ -199,7 +199,7 @@ public class MenuUI {
 		} while (choice != 2);
 	}
 
-	public void displayItemList() {
+	private void displayItemList() {
 		List<Item> item = this.menuCtrl.getItemList();
 		System.out.println("No.   Name /t/t/tMemberPrice   nonMemberPrice   Promotion(5% off)");
 		for (int i = 0; i < item.size(); i++) {

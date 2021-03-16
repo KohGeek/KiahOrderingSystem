@@ -13,7 +13,7 @@ public class Order {
 	private double deliveryCost;
 	private Payment paymentDetails;
 	private double totalPrice;
-	private static double minOrderValue = 25;
+	private double minOrderValue = 25;
 
 	public Order(User user, ICart cart) {
 		this.user = user;
@@ -30,7 +30,7 @@ public class Order {
 	public User getUser() {
 		return this.user;
 	}
-	
+
 	public ICart getCart() {
 		return this.cart;
 	}
@@ -38,11 +38,11 @@ public class Order {
 	public void setDeliveryFee(double fee) {
 		this.deliveryCost = fee;
 	}
-	
+
 	public double getDeliveryFee() {
 		return this.deliveryCost;
 	}
-	
+
 	private double computeTotalPrice() {
 		/*
 		 * Total Price = Cart Total Price + Delivery Fee
@@ -53,7 +53,7 @@ public class Order {
 			totalPrice += this.cart.getCartTotalPrice(true);
 		else if (this.user instanceof Guest)
 			totalPrice += this.cart.getCartTotalPrice(false);
-		while (totalPrice < Order.minOrderValue)
+		while (totalPrice < this.minOrderValue)
 			totalPrice += 5; // Additional Charges
 		totalPrice += deliveryCost;
 		return totalPrice;
@@ -62,13 +62,12 @@ public class Order {
 	public double getTotalPrice() {
 		return totalPrice;
 	}
-	
+
 	public Payment getPaymentDetails() {
 		return this.paymentDetails;
 	}
-	
+
 	public int getOrderID() {
 		return orderID;
 	}
-
 }
