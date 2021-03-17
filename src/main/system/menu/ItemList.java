@@ -1,9 +1,13 @@
 package system.menu;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import system.file.IDatabase;
+import system.login.Address;
+import system.login.Member;
 
 public class ItemList implements IItem, IDatabase {
 
@@ -31,8 +35,17 @@ public class ItemList implements IItem, IDatabase {
 
 	@Override
 	public void initDataFromFile(String fileName) {
-		// TODO Auto-generated method stub
-
+		String $filename = fileName;
+		try {
+			Scanner s = new Scanner(new File($filename));
+			s.useDelimiter("(,|\r\n|\r|\n)");
+			while (s.hasNext()) {
+				this.itemList.add(new Item(s.next(), s.next(), s.nextDouble(), s.nextDouble(), s.nextBoolean()));
+			}
+			s.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
