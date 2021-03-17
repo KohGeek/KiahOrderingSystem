@@ -23,7 +23,7 @@ public class MemberList implements IMember, IDatabase {
 		String $username = username;
 		String $password = password;
 		for (Member member : this.memberList) {
-			if (member.getUsername() == $username && member.getPassword() == $password) {
+			if ($username.equals(member.getUsername()) && $password.equals(member.getPassword())) {
 				return true;
 			}
 		}
@@ -51,7 +51,7 @@ public class MemberList implements IMember, IDatabase {
 	public Member getMember(String username) {
 		String $username = username;
 		for (Member member : memberList) {
-			if (member.getUsername() == $username)
+			if ($username.equals(member.getUsername()))
 				return member;
 		}
 		return null;
@@ -94,5 +94,4 @@ public class MemberList implements IMember, IDatabase {
 			e.printStackTrace();
 		}
 	}
-
 }

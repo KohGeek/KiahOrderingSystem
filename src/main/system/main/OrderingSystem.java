@@ -15,6 +15,7 @@ public class OrderingSystem {
 		
 		System.out.println("Welcome to Kiah Ordering System.");
 
+//		Scanner scanner = new Scanner(System.in) might can use DI 
 		IMember memberList = new MemberList("memberData.txt");
 		LoginCtrl loginCtrl = new LoginCtrl(memberList);
 		LoginUI login = new LoginUI(loginCtrl);

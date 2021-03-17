@@ -46,7 +46,7 @@ public class LoginUI {
 				System.out.println("Thank you for using Kiah Ordering System.");
 				System.exit(0);
 			}
-		} while (this.user != null);
+		} while (this.user == null);
 	}
 
 	public void login() {

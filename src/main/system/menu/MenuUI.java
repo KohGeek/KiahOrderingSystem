@@ -17,6 +17,7 @@ public class MenuUI {
 
 	public MenuUI(MenuCtrl menuCtrl) {
 		this.menuCtrl = menuCtrl;
+		this.scanner = new Scanner(System.in);
 	}
 
 	public void start() {
@@ -36,7 +37,7 @@ public class MenuUI {
 			choice = scanner.nextInt();
 			scanner.nextLine();
 
-			while (choice < 1 || choice > 4) {
+			while (choice < 1 || choice > 5) {
 				System.out.println("Invalid choice.");
 				// Clear ENTER key after integer input
 				scanner.nextLine();
@@ -56,10 +57,9 @@ public class MenuUI {
 				checkOut();
 				break;
 			case 5:
-				System.out.println("Thank you for using Kiah Ordering System.");
-				System.exit(0);
+				break;
 			}
-		} while (choice == 3);
+		} while (choice !=5);
 	}
 
 	public void ordering() {
@@ -79,13 +79,16 @@ public class MenuUI {
 		do {
 			System.out.print("Select item ----> ");
 			itemNo = scanner.nextInt();
-			if (itemNo < 1 || itemNo > itemListSize)
+			if (itemNo == 00)
+				break;
+			else if (itemNo < 1 || itemNo > itemListSize)
 				System.out.println("Selected invalid item.\n");
 			else if (itemNo >= 1 || itemNo <= itemListSize) {
 				item = this.menuCtrl.getItem(itemNo);
-				System.out.println("Enter the item's quantity ----> ");
+				System.out.print("Enter the item's quantity ----> ");
 				itemQty = scanner.nextInt();
 				this.menuCtrl.addItem(item, itemQty);
+				System.out.println("Item added to the cart!");
 			}
 		} while (itemNo != 00);
 	}
@@ -201,16 +204,19 @@ public class MenuUI {
 
 	private void displayItemList() {
 		List<Item> item = this.menuCtrl.getItemList();
-		System.out.println("No.   Name /t/t/tMemberPrice   nonMemberPrice   Promotion(5% off)");
+		System.out.printf("%-6s%-35s%12s%17s%19s%n", "No.", "Name", "MemberPrice", "nonMemberPrice",
+				"Promotion(5% off)");
+		String isPromotion = "";
 		for (int i = 0; i < item.size(); i++) {
-			System.out.printf("%d   %s /t/t/t%.2f/t%.2f   /t   ", i + 1, item.get(i).getName(),
-					item.get(i).getMemberPrice(), item.get(i).getNonMemberPrice());
 			if (item.get(i).getIsPromotional() == true) {
-				System.out.println("Yes");
+				isPromotion = "Yes";
 			} else if (item.get(i).getIsPromotional() == false) {
-				System.out.println("No");
+				isPromotion = "No";
 			}
+			System.out.printf("%-6d%-35s%12.2f%17.2f%19s%n", i + 1, item.get(i).getName(), item.get(i).getMemberPrice(),
+					item.get(i).getNonMemberPrice(), isPromotion);
+
 		}
-		System.out.println("00   Exit");
+		System.out.println("00    Exit");
 	}
 }
