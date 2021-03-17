@@ -19,7 +19,7 @@ public class Order {
 		this.user = user;
 		this.cart = cart;
 		this.paymentDetails = new Payment();
-		this.totalPrice = computeTotalPrice();
+		this.totalPrice = 0;
 	}
 
 	public int generateOrderID() {
@@ -43,7 +43,7 @@ public class Order {
 		return this.deliveryCost;
 	}
 
-	private double computeTotalPrice() {
+	private void computeTotalPrice() {
 		/*
 		 * Total Price = Cart Total Price + Delivery Fee
 		 * + Additional Charges RM5 (if didn't reach the minOrderValue)
@@ -56,10 +56,11 @@ public class Order {
 		while (totalPrice < this.minOrderValue)
 			totalPrice += 5; // Additional Charges
 		totalPrice += deliveryCost;
-		return totalPrice;
+		this.totalPrice = totalPrice;
 	}
 
 	public double getTotalPrice() {
+		computeTotalPrice();
 		return totalPrice;
 	}
 

@@ -47,11 +47,11 @@ public class MenuCtrl {
 	}
 
 	public double getCartTotalPrice(boolean isMember) {
-		return this.getCartTotalPrice(isMember);
+		return this.order.getCart().getCartTotalPrice(isMember);
 	}
 
 	public void editItem(Item item, int qty) {
-		this.editItem(item, qty);
+		this.order.getCart().editItem(item, qty);
 	}
 
 	public double getDeliveryRate(String area) {

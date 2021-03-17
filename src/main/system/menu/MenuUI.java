@@ -59,7 +59,7 @@ public class MenuUI {
 			case 5:
 				break;
 			}
-		} while (choice !=5);
+		} while (choice != 5);
 	}
 
 	public void ordering() {
@@ -101,31 +101,32 @@ public class MenuUI {
 		 * getNonMemberPrice
 		 */
 
-		System.out.println("No.   Name /t/t/tPrice   Quantity   Promotion(5% off)");
+		System.out.printf("%-6s%-35s%12s%12s%19s%n", "No.", "Name", "Price", "Quantity", "Promotion(5% off)");
+
 		HashMap<Item, Integer> cart = this.menuCtrl.getCart();
 		int i = 1;
 		double cartTotalPrice = 0;
+		String isPromotion = "";
 		User user = this.menuCtrl.getUser();
 		for (Entry<Item, Integer> item : cart.entrySet()) {
-			if (user instanceof Member)
-				System.out.printf("%d   %s /t/t/t%.2f   %d   ", i, item.getKey().getName(),
-						item.getKey().getMemberPrice(), item.getValue());
-			else if (user instanceof Guest)
-				System.out.printf("%d   %s /t/t/t%.2f   %d   ", i, item.getKey().getName(),
-						item.getKey().getNonMemberPrice(), item.getValue());
-
 			if (item.getKey().getIsPromotional() == true)
-				System.out.println("Yes");
+				isPromotion = "Yes";
 			else if (item.getKey().getIsPromotional() == false)
-				System.out.println("No");
+				isPromotion = "No";
 
 			if (user instanceof Member)
-				cartTotalPrice = this.menuCtrl.getCartTotalPrice(true);
+				System.out.printf("%-6s%-35s%12.2f%12d%19s%n", i, item.getKey().getName(), item.getKey().getMemberPrice(),
+						item.getValue(), isPromotion);
 			else if (user instanceof Guest)
-				cartTotalPrice = this.menuCtrl.getCartTotalPrice(false);
-
-			System.out.printf("Cart Total Price = %.2f\n\n", cartTotalPrice);
+				System.out.printf("%-6s%-35s%12.2f%12d%19s%n", i, item.getKey().getName(),
+						item.getKey().getNonMemberPrice(), item.getValue(), isPromotion);
 		}
+		if (user instanceof Member)
+			cartTotalPrice = this.menuCtrl.getCartTotalPrice(true);
+		else if (user instanceof Guest)
+			cartTotalPrice = this.menuCtrl.getCartTotalPrice(false);
+
+		System.out.printf("Cart Total Price = %.2f\n\n", cartTotalPrice);
 	}
 
 	public void editCart() {
@@ -145,12 +146,14 @@ public class MenuUI {
 				newQty = scanner.nextInt();
 				scanner.nextLine();
 				this.menuCtrl.editItem(item, newQty);
+				viewCart();
 				System.out.println("Cart updated!");
 				System.out.println("Continue editing cart?");
 				System.out.println("1 - Continue.");
 				System.out.println("00 - Back to the menu.");
 				choice = scanner.nextInt();
-				while (choice == 00)
+				scanner.nextLine();
+				if (choice == 00)
 					repeat = false;
 			}
 		} while (repeat);
@@ -175,12 +178,15 @@ public class MenuUI {
 		Order order = this.menuCtrl.getOrder();
 
 		System.out.println("Proceeding checkout.");
+		System.out.println("-----------------------------------------------------------------------");
 		System.out.println("User information:- ");
 		System.out.printf("\tName: %s\n", user.getName());
 		System.out.printf("\tDelivery Address: %s\n\n", user.getAddress().getFullAddress());
+		System.out.println("Cart Items:-");
 		viewCart();
 		System.out.printf("Delivery Fee: %.2f\n", order.getDeliveryFee());
 		System.out.printf("Total Price: %.2f\n\n", order.getTotalPrice());
+		System.out.println("-----------------------------------------------------------------------");
 
 		int choice;
 		do {

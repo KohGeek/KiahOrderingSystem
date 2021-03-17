@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import system.file.IDatabase;
-import system.login.Address;
-import system.login.Member;
 
 public class ItemList implements IItem, IDatabase {
 

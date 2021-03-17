@@ -15,7 +15,11 @@ public class Cart implements ICart {
 	public void addItem(Item item, int qty) {
 		Item $item = item;
 		int $qty = qty;
-		cart.put($item, $qty);
+		if (this.cart.containsKey($item)) {
+			int newQty = this.cart.get($item) + qty;
+			this.cart.replace($item, newQty);
+		} else if (!this.cart.containsKey($item))
+			this.cart.put($item, $qty);
 	}
 
 	@Override
@@ -29,24 +33,28 @@ public class Cart implements ICart {
 		if (isMember)
 			for (Entry<Item, Integer> item : cart.entrySet()) {
 				if (item.getKey().getIsPromotional())
-					totalPrice += item.getKey().getMemberPrice() * item.getValue();
-				else if (!item.getKey().getIsPromotional())
 					totalPrice += item.getKey().getMemberPrice() * item.getValue() * item.getKey().getDiscountRate();
+				else if (!item.getKey().getIsPromotional())
+					totalPrice += item.getKey().getMemberPrice() * item.getValue();
 			}
 		else if (!isMember)
 			for (Entry<Item, Integer> item : cart.entrySet()) {
 				if (item.getKey().getIsPromotional())
-					totalPrice += item.getKey().getNonMemberPrice() * item.getValue();
-				else if (!item.getKey().getIsPromotional())
 					totalPrice += item.getKey().getNonMemberPrice() * item.getValue() * item.getKey().getDiscountRate();
+				else if (!item.getKey().getIsPromotional())
+					totalPrice += item.getKey().getNonMemberPrice() * item.getValue();
 			}
 		return totalPrice;
 	}
 
 	@Override
-	public void editItem(Item item, int quantity) {
+	public void editItem(Item item, int qty) {
 		Item $item = item;
-		int $quantity = quantity;
-		cart.replace($item, $quantity);
+		int $qty = qty;
+		if ($qty == 0)
+			this.cart.remove($item);
+		else if ($qty != 0)
+			this.cart.replace($item, $qty);
+
 	}
 }

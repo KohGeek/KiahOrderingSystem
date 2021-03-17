@@ -22,7 +22,7 @@ public class DeliveryCostList implements IDelivery, IDatabase {
 	public double getRate(String area) {
 		double rate = 0;
 		for (int i = 0; i < this.deliveryInfo.size(); i++)
-			if (this.deliveryInfo.get(i).getArea() == area) {
+			if (area.equals(this.deliveryInfo.get(i).getArea())) {
 				rate = (this.deliveryInfo.get(i)).getRate();
 				break;
 			}
