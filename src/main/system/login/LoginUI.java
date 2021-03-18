@@ -22,7 +22,7 @@ public class LoginUI {
 			System.out.println("3. Sign up");
 			System.out.println("4. Exit");
 
-			System.out.println("Enter your choice (1-4) ----> ");
+			System.out.print("Enter your choice (1-4) ----> ");
 			choice = scanner.nextInt();
 			scanner.nextLine();
 
@@ -50,53 +50,56 @@ public class LoginUI {
 	}
 
 	public void login() {
-		System.out.println("Enter username ----> ");
+		System.out.print("Enter username ----> ");
 		String username = scanner.nextLine();
-		System.out.println("Enter password ----> ");
+		System.out.print("Enter password ----> ");
 		String password = scanner.nextLine();
 		boolean VAL = loginCtrl.validateMember(username, password);
 		if (!VAL) {
 			this.user = null;
-			System.out.println("The username or password is invalid!!");
+			System.out.println("The username or password is invalid!!\n\n");
 		}
 		else if (VAL) {
 			this.user = loginCtrl.getMember(username);
-			System.out.printf("Welcome back %s\n", this.user.getName());
+			System.out.printf("%n%nWelcome back %s%n", this.user.getName());
 		}
 	}
 
 	public void guestLogin() {
-		System.out.println("Enter your name ----> ");
+		System.out.print("Enter your name ----> ");
 		String name = scanner.nextLine();
 		Address address = fillAddressDets();
 		this.user = new Guest(name, address);
+		System.out.printf("%n%nWelcome %s%n", this.user.getName());
 	}
 
 	public void signUp() {
-		System.out.println("Enter a username ----> ");
+		System.out.print("Enter a username ----> ");
 		String username = scanner.nextLine();
-		boolean VAL = loginCtrl.searchUsername(username);
-		if (!VAL) {
+		boolean usernameTaken = loginCtrl.searchUsername(username);
+		if (usernameTaken) {
 			this.user = null;
 			System.out.println("This username has been taken.");
+			System.out.println("Please try again.\n");
 		}
-		else if (VAL) {
+		else if (!usernameTaken) {
 			String password;
 			boolean passwordMatch = true;
 			do {
-				System.out.println("Enter a password ----> ");
+				System.out.print("Enter a password ----> ");
 				password = scanner.nextLine();
-				System.out.println("Re-enter the password ----> ");
+				System.out.print("Re-enter the password ----> ");
 				String password2 = scanner.nextLine();
-				while (password != password2) {
+				if(!password.contentEquals(password2)) {
 					System.out.println("Those password didn't match. Try again.");
+					passwordMatch = false;
 				}
 			} while (!passwordMatch);
 
-			System.out.println("Kindly enter the following details:-");
-			System.out.println("Name ----> ");
+			System.out.print("Kindly enter the following details:-");
+			System.out.print("Name ----> ");
 			String name = scanner.nextLine();
-			System.out.println("Phone Number ----> ");
+			System.out.print("Phone Number ----> ");
 			String phoneNumber = scanner.nextLine();
 			Address address = fillAddressDets();
 			Member member = new Member(username, password, name, phoneNumber, address);
@@ -108,16 +111,16 @@ public class LoginUI {
 	private Address fillAddressDets() {
 		System.out.println("Please note that the address is restricted to within the Melacca state.");
 		System.out.println("Kindly enter the following details:-");
-		System.out.println("Unit number ----> ");
+		System.out.print("Unit number ----> ");
 		int unitNumber = scanner.nextInt();
 		scanner.nextLine();
-		System.out.println("Street name ----> ");
+		System.out.print("Street name ----> ");
 		String streetName = scanner.nextLine();
-		System.out.println("District ----> ");
+		System.out.print("District ----> ");
 		String district = scanner.nextLine();
-		System.out.println("Area (0~x) ----> "); // TODO ask for area but with a list of numbers
+		System.out.print("Area (0~x) ----> "); // TODO ask for area but with a list of numbers
 		String area = scanner.nextLine();
-		System.out.println("Postal code ----> ");
+		System.out.print("Postal code ----> ");
 		int postalCode = scanner.nextInt();
 		scanner.nextLine();
 		return new Address(unitNumber, streetName, district, area, postalCode);

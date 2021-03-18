@@ -57,4 +57,9 @@ public class Cart implements ICart {
 			this.cart.replace($item, $qty);
 
 	}
+
+	@Override
+	public int getCartSize() {
+		return this.cart.size();
+	}
 }

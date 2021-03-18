@@ -26,16 +26,17 @@ public class MenuUI {
 
 		int choice;
 		do {
-			System.out.println("Select a option to continue:- ");
+			System.out.println("\nSelect a option to continue:- ");
 			System.out.println("1. Start Ordering");
 			System.out.println("2. View Cart");
 			System.out.println("3. Edit Cart");
 			System.out.println("4. Check out for payment");
 			System.out.println("5. Exit");
 
-			System.out.print("Enter your choice (1-4) ----> ");
+			System.out.print("Enter your choice (1-5) ----> ");
 			choice = scanner.nextInt();
 			scanner.nextLine();
+			System.out.println("");
 
 			while (choice < 1 || choice > 5) {
 				System.out.println("Invalid choice.");
@@ -88,7 +89,7 @@ public class MenuUI {
 				System.out.print("Enter the item's quantity ----> ");
 				itemQty = scanner.nextInt();
 				this.menuCtrl.addItem(item, itemQty);
-				System.out.println("Item added to the cart!");
+				System.out.println("Item added to the cart!\n");
 			}
 		} while (itemNo != 00);
 	}
@@ -101,6 +102,11 @@ public class MenuUI {
 		 * getNonMemberPrice
 		 */
 
+		while (this.menuCtrl.getOrder().getCart().getCartSize() == 0) {
+			System.out.println("You have not added item yet.");
+			return;
+		}
+		
 		System.out.printf("%-6s%-35s%12s%12s%19s%n", "No.", "Name", "Price", "Quantity", "Promotion(5% off)");
 
 		HashMap<Item, Integer> cart = this.menuCtrl.getCart();
@@ -115,18 +121,19 @@ public class MenuUI {
 				isPromotion = "No";
 
 			if (user instanceof Member)
-				System.out.printf("%-6s%-35s%12.2f%12d%19s%n", i, item.getKey().getName(), item.getKey().getMemberPrice(),
-						item.getValue(), isPromotion);
+				System.out.printf("%-6s%-35s%12.2f%12d%19s%n", i, item.getKey().getName(),
+						item.getKey().getMemberPrice(), item.getValue(), isPromotion);
 			else if (user instanceof Guest)
 				System.out.printf("%-6s%-35s%12.2f%12d%19s%n", i, item.getKey().getName(),
 						item.getKey().getNonMemberPrice(), item.getValue(), isPromotion);
+			i++;
 		}
 		if (user instanceof Member)
 			cartTotalPrice = this.menuCtrl.getCartTotalPrice(true);
 		else if (user instanceof Guest)
 			cartTotalPrice = this.menuCtrl.getCartTotalPrice(false);
 
-		System.out.printf("Cart Total Price = %.2f\n\n", cartTotalPrice);
+		System.out.printf("%n%41s%12.2f\n\n", "Cart Total Price = ", cartTotalPrice);
 	}
 
 	public void editCart() {
@@ -134,25 +141,33 @@ public class MenuUI {
 		int newQty;
 		Item item;
 		boolean repeat = true;
+		
+		while (this.menuCtrl.getOrder().getCart().getCartSize() == 0) {
+			System.out.println("You have not added item yet.");
+			return;
+		}
+		
 		do {
 			viewCart();
-			System.out.println("Enter the item number to be editted ----> ");
+			System.out.print("Enter the item number to be editted ----> ");
 			choice = scanner.nextInt();
 			if (choice < 1 || choice > this.menuCtrl.getItemListSize())
-				System.out.println("Invalid item number!! Try again.");
+				System.out.println("Invalid item number!! Try again.\n");
 			else {
 				item = this.menuCtrl.getItem(choice);
-				System.out.println("Enter the new quantity of the item ----> ");
+				System.out.print("Enter the new quantity of the item ----> ");
 				newQty = scanner.nextInt();
 				scanner.nextLine();
 				this.menuCtrl.editItem(item, newQty);
+				System.out.println("\n--------Cart updated!--------");
 				viewCart();
-				System.out.println("Cart updated!");
 				System.out.println("Continue editing cart?");
 				System.out.println("1 - Continue.");
 				System.out.println("00 - Back to the menu.");
+				System.out.print("----> ");
 				choice = scanner.nextInt();
 				scanner.nextLine();
+				System.out.println("");
 				if (choice == 00)
 					repeat = false;
 			}
@@ -177,11 +192,15 @@ public class MenuUI {
 		User user = this.menuCtrl.getUser();
 		Order order = this.menuCtrl.getOrder();
 
+		while (order.getCart().getCartSize() == 0) {
+			System.out.println("You have not added item yet.");
+			return;
+		}
 		System.out.println("Proceeding checkout.");
 		System.out.println("-----------------------------------------------------------------------");
 		System.out.println("User information:- ");
-		System.out.printf("\tName: %s\n", user.getName());
-		System.out.printf("\tDelivery Address: %s\n\n", user.getAddress().getFullAddress());
+		System.out.printf("Name: %s\n", user.getName());
+		System.out.printf("Delivery Address: %s\n\n", user.getAddress().getFullAddress());
 		System.out.println("Cart Items:-");
 		viewCart();
 		System.out.printf("Delivery Fee: %.2f\n", order.getDeliveryFee());
@@ -190,6 +209,7 @@ public class MenuUI {
 
 		int choice;
 		do {
+			System.out.println("Select an option (1-2):-");
 			System.out.println("1. Make Payment");
 			System.out.println("2. Back to Menu");
 			System.out.print("----> ");
@@ -223,6 +243,6 @@ public class MenuUI {
 					item.get(i).getNonMemberPrice(), isPromotion);
 
 		}
-		System.out.println("00    Exit");
+		System.out.println("00    Exit\n");
 	}
 }

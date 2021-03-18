@@ -40,7 +40,7 @@ public class MemberList implements IMember, IDatabase {
 	public boolean searchUsername(String username) {
 		String $username = username;
 		for (Member member : memberList) {
-			if (member.getUsername() == $username) {
+			if ($username.equals(member.getUsername())) {
 				return true;
 			}
 		}
