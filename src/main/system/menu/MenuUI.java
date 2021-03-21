@@ -1,6 +1,7 @@
 package system.menu;
 
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Map.Entry;
@@ -24,7 +25,7 @@ public class MenuUI {
 
 		menuCtrl.setDeliveryFee(this.menuCtrl.getUser().getAddress().getArea());
 
-		int choice;
+		int choice = 0;
 		do {
 			System.out.println("\nSelect a option to continue:- ");
 			System.out.println("1. Start Ordering");
@@ -34,17 +35,28 @@ public class MenuUI {
 			System.out.println("5. Exit");
 
 			System.out.print("Enter your choice (1-5) ----> ");
-			choice = scanner.nextInt();
-			scanner.nextLine();
-			System.out.println("");
-
-			while (choice < 1 || choice > 5) {
-				System.out.println("Invalid choice.");
-				System.out.print("Enter your choice (1-5) ----> ");
-				choice = scanner.nextInt();
-				// Clear ENTER key after integer input
-				scanner.nextLine();
-			}
+			boolean status;
+			do {
+				try {
+					status = true;
+					choice = scanner.nextInt();
+					scanner.nextLine();
+					System.out.println("");
+					while (choice < 1 || choice > 5) {
+						System.out.println("Invalid choice.");
+						System.out.print("Enter your choice (1-5) ----> ");
+						choice = scanner.nextInt();
+						// Clear ENTER key after integer input
+						scanner.nextLine();
+					}
+				} catch (InputMismatchException e) {
+					scanner.nextLine();
+					System.out.println("");
+					System.out.println("Invalid choice.");
+					System.out.print("Enter your choice (1-5) ----> ");
+					status = false;
+				}
+			} while (!status);
 
 			switch (choice) {
 			case 1:
@@ -63,6 +75,7 @@ public class MenuUI {
 				break;
 			}
 		} while (choice != 5);
+
 	}
 
 	public void ordering() {
@@ -108,7 +121,7 @@ public class MenuUI {
 			System.out.println("You have not added item yet.");
 			return;
 		}
-		
+
 		System.out.printf("%-6s%-35s%12s%12s%19s%n", "No.", "Name", "Price", "Quantity", "Promotion(5% off)");
 
 		HashMap<Item, Integer> cart = this.menuCtrl.getCart();
@@ -146,7 +159,7 @@ public class MenuUI {
 			System.out.println("You have not added item yet.");
 			return;
 		}
-		
+
 		boolean repeat = true;
 		do {
 			viewCart();
