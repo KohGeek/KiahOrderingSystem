@@ -28,6 +28,8 @@ public class LoginUI {
 
 			while (choice < 1 || choice > 4) {
 				System.out.println("Invalid choice.");
+				System.out.print("Enter your choice (1-4) ----> ");
+				choice = scanner.nextInt();
 				// Clear ENTER key after integer input
 				scanner.nextLine();
 			}

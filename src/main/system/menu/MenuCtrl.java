@@ -50,6 +50,10 @@ public class MenuCtrl {
 		return this.order.getCart().getCartTotalPrice(isMember);
 	}
 
+	public int getCartSize() {
+		return this.order.getCart().getCartSize();
+	}
+	
 	public void editItem(Item item, int qty) {
 		this.order.getCart().editItem(item, qty);
 	}

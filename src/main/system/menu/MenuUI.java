@@ -40,6 +40,8 @@ public class MenuUI {
 
 			while (choice < 1 || choice > 5) {
 				System.out.println("Invalid choice.");
+				System.out.print("Enter your choice (1-5) ----> ");
+				choice = scanner.nextInt();
 				// Clear ENTER key after integer input
 				scanner.nextLine();
 			}
@@ -140,18 +142,17 @@ public class MenuUI {
 		int choice;
 		int newQty;
 		Item item;
-		boolean repeat = true;
-		
 		while (this.menuCtrl.getOrder().getCart().getCartSize() == 0) {
 			System.out.println("You have not added item yet.");
 			return;
 		}
 		
+		boolean repeat = true;
 		do {
 			viewCart();
 			System.out.print("Enter the item number to be editted ----> ");
 			choice = scanner.nextInt();
-			if (choice < 1 || choice > this.menuCtrl.getItemListSize())
+			if (choice < 1 || choice > this.menuCtrl.getCartSize())
 				System.out.println("Invalid item number!! Try again.\n");
 			else {
 				item = this.menuCtrl.getItem(choice);
@@ -214,8 +215,11 @@ public class MenuUI {
 			System.out.println("2. Back to Menu");
 			System.out.print("----> ");
 			choice = scanner.nextInt();
+			scanner.nextLine();
 			while (choice < 1 || choice > 2) {
 				System.out.println("Invalid choice.");
+				System.out.println("Select an option (1-2) ----> ");
+				choice = scanner.nextInt();
 				// Clear ENTER key after integer input
 				scanner.nextLine();
 			}
