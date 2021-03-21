@@ -180,6 +180,7 @@ public class MenuUI {
 		int choice;
 		int newQty;
 		Item item;
+		boolean inputStatus;
 		while (this.menuCtrl.getOrder().getCart().getCartSize() == 0) {
 			System.out.println("You have not added item yet.");
 			return;
@@ -187,6 +188,7 @@ public class MenuUI {
 
 		boolean repeat = true;
 		do {
+			try {
 			viewCart();
 			System.out.print("Enter the item number to be editted ----> ");
 			choice = scanner.nextInt();
@@ -210,6 +212,12 @@ public class MenuUI {
 				if (choice == 00)
 					repeat = false;
 			}
+			} catch (InputMismatchException e) {
+				scanner.nextLine();
+				System.out.println("\nInvalid input, please try again.\n");
+				inputStatus = false;
+			}
+			
 		} while (repeat);
 	}
 
