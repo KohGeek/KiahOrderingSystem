@@ -2,14 +2,14 @@ package system.login;
 
 public class Address {
 
-	private int unitNumber;
+	private String unitNumber;
 	private String streetName;
 	private String district;
 	private String area;
 	private int postalCode;
 	private String state = "Melacca";
 
-	public Address(int unitNumber, String streetName, String district, String area, int postalCode) {
+	public Address(String unitNumber, String streetName, String district, String area, int postalCode) {
 		this.unitNumber = unitNumber;
 		this.streetName = streetName;
 		this.district = district;
@@ -27,7 +27,7 @@ public class Address {
 	}
 
 	public String[] getAddressAsArray() {
-		return new String[] { String.valueOf(this.unitNumber), this.streetName, this.district, this.area,
+		return new String[] { this.unitNumber, this.streetName, this.district, this.area,
 				String.valueOf(this.postalCode), this.state };
 	}
 }

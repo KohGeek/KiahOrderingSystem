@@ -65,7 +65,7 @@ public class MemberList implements IMember, IDatabase {
 			s.useDelimiter("(,|\r\n|\r|\n)");
 			while (s.hasNext()) {
 				this.memberList.add(new Member(s.next(), s.next(), s.next(), s.next(),
-						new Address(s.nextInt(), s.next(), s.next(), s.next(), s.nextInt())));
+						new Address(s.next(), s.next(), s.next(), s.next(), s.nextInt())));
 			}
 			s.close();
 		} catch (Exception e) {
