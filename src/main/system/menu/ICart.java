@@ -1,12 +1,12 @@
 package system.menu;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public interface ICart {
 
 	public void addItem(Item item, int qty);
 
-	public HashMap<Item, Integer> getCart();
+	public LinkedHashMap<Item, Integer> getCart();
 
 	public double getCartTotalPrice(boolean isMember);
 

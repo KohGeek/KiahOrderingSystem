@@ -1,6 +1,6 @@
 package system.menu;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import system.login.User;
@@ -42,7 +42,7 @@ public class MenuCtrl {
 		this.order.getCart().addItem(item, qty);
 	}
 
-	public HashMap<Item, Integer> getCart() {
+	public LinkedHashMap<Item, Integer> getCart() {
 		return this.order.getCart().getCart();
 	}
 
