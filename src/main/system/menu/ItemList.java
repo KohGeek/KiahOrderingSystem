@@ -28,7 +28,7 @@ public class ItemList implements IItem, IDatabase {
 
 	@Override
 	public Item getItem(int itemNo) {
-		return this.itemList.get(itemNo);
+		return this.itemList.get(itemNo-1);
 	}
 
 	@Override

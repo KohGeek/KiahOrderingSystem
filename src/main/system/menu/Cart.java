@@ -1,14 +1,14 @@
 package system.menu;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
 public class Cart implements ICart {
 
-	private HashMap<Item, Integer> cart;
+	private LinkedHashMap<Item, Integer> cart;
 
 	public Cart() {
-		this.cart = new HashMap<Item, Integer>();
+		this.cart = new LinkedHashMap<Item, Integer>();
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class Cart implements ICart {
 	}
 
 	@Override
-	public HashMap<Item, Integer> getCart() {
+	public LinkedHashMap<Item, Integer> getCart() {
 		return this.cart;
 	}
 
