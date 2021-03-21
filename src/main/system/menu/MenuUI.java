@@ -75,12 +75,8 @@ public class MenuUI {
 
 	public void ordering() {
 		/*
-		 * if entered itemNo is invalid
-		 * ----> print invalid
-		 * if entered itemNo is valid
-		 * ----> add into cart
-		 * if entered itemNo == 00
-		 * ----> exit the ordering
+		 * if entered itemNo is invalid ----> print invalid if entered itemNo is valid
+		 * ----> add into cart if entered itemNo == 00 ----> exit the ordering
 		 */
 		displayItemList();
 		int itemNo = 0;
@@ -111,7 +107,7 @@ public class MenuUI {
 
 			if (!loop)
 				break;
-			
+
 			do {
 				try {
 					System.out.print("Enter the item's quantity ----> ");
@@ -136,9 +132,7 @@ public class MenuUI {
 
 	public void viewCart() {
 		/*
-		 * if the user logged in as member
-		 * getMemberPrice
-		 * if the user logged in as guest
+		 * if the user logged in as member getMemberPrice if the user logged in as guest
 		 * getNonMemberPrice
 		 */
 
@@ -189,52 +183,53 @@ public class MenuUI {
 		boolean repeat = true;
 		do {
 			try {
-			viewCart();
-			System.out.print("Enter the item number to be editted ----> ");
-			choice = scanner.nextInt();
-			if (choice < 1 || choice > this.menuCtrl.getCartSize())
-				System.out.println("Invalid item number!! Try again.\n");
-			else {
-				item = this.menuCtrl.getCartItem(choice);
-				System.out.print("Enter the new quantity of the item ----> ");
-				newQty = scanner.nextInt();
-				scanner.nextLine();
-				this.menuCtrl.editItem(item, newQty);
-				System.out.println("\n--------Cart updated!--------");
 				viewCart();
-				System.out.println("Continue editing cart?");
-				System.out.println("1 - Continue.");
-				System.out.println("00 - Back to the menu.");
-				System.out.print("----> ");
+				System.out.print("Enter the item number to be editted ----> ");
 				choice = scanner.nextInt();
-				scanner.nextLine();
-				System.out.println("");
-				if (choice == 00)
-					repeat = false;
-			}
+				if (choice < 1 || choice > this.menuCtrl.getCartSize())
+					System.out.println("Invalid item number!! Try again.\n");
+				else {
+					item = this.menuCtrl.getCartItem(choice);
+					System.out.print("Enter the new quantity of the item ----> ");
+					newQty = scanner.nextInt();
+					scanner.nextLine();
+					inputStatus = true;
+					if (newQty > 100) {
+						System.out.println("Accepted quantity limited to 1~100\n");
+						inputStatus = false;
+						break;
+					} 
+					this.menuCtrl.editItem(item, newQty);
+					System.out.println("\n--------Cart updated!--------");
+					viewCart();
+					System.out.println("Continue editing cart?");
+					System.out.println("1 - Continue.");
+					System.out.println("00 - Back to the menu.");
+					System.out.print("----> ");
+					choice = scanner.nextInt();
+					scanner.nextLine();
+					System.out.println("");
+					if (choice == 00)
+						repeat = false;
+				}
 			} catch (InputMismatchException e) {
 				scanner.nextLine();
 				System.out.println("\nInvalid input, please try again.\n");
 				inputStatus = false;
 			}
-			
+
 		} while (repeat);
 	}
 
 	public void checkOut() {
 		/*
-		 * Proceeding checkout
-		 * User information:-
-		 * Name:
-		 * Delivery Address:
+		 * Proceeding checkout User information:- Name: Delivery Address:
 		 * 
 		 * #viewCart()
 		 * 
-		 * Delivery Fee:
-		 * Total Price:
+		 * Delivery Fee: Total Price:
 		 * 
-		 * 1. Make Payment
-		 * 2. Back to Menu
+		 * 1. Make Payment 2. Back to Menu
 		 */
 		User user = this.menuCtrl.getUser();
 		Order order = this.menuCtrl.getOrder();
