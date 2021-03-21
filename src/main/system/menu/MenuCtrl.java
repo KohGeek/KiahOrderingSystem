@@ -54,6 +54,10 @@ public class MenuCtrl {
 		return this.order.getCart().getCartSize();
 	}
 	
+	public Item getCartItem(int itemNo) {
+		return this.order.getCart().getCartItem(itemNo);
+	}
+	
 	public void editItem(Item item, int qty) {
 		this.order.getCart().editItem(item, qty);
 	}

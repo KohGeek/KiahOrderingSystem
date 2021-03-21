@@ -195,7 +195,7 @@ public class MenuUI {
 			if (choice < 1 || choice > this.menuCtrl.getCartSize())
 				System.out.println("Invalid item number!! Try again.\n");
 			else {
-				item = this.menuCtrl.getItem(choice);
+				item = this.menuCtrl.getCartItem(choice);
 				System.out.print("Enter the new quantity of the item ----> ");
 				newQty = scanner.nextInt();
 				scanner.nextLine();

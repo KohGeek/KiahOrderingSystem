@@ -31,14 +31,14 @@ public class Cart implements ICart {
 	public double getCartTotalPrice(boolean isMember) {
 		double totalPrice = 0;
 		if (isMember)
-			for (Entry<Item, Integer> item : cart.entrySet()) {
+			for (Entry<Item, Integer> item : this.cart.entrySet()) {
 				if (item.getKey().getIsPromotional())
 					totalPrice += item.getKey().getMemberPrice() * item.getValue() * item.getKey().getDiscountRate();
 				else if (!item.getKey().getIsPromotional())
 					totalPrice += item.getKey().getMemberPrice() * item.getValue();
 			}
 		else if (!isMember)
-			for (Entry<Item, Integer> item : cart.entrySet()) {
+			for (Entry<Item, Integer> item : this.cart.entrySet()) {
 				if (item.getKey().getIsPromotional())
 					totalPrice += item.getKey().getNonMemberPrice() * item.getValue() * item.getKey().getDiscountRate();
 				else if (!item.getKey().getIsPromotional())
@@ -54,12 +54,25 @@ public class Cart implements ICart {
 		if ($qty == 0)
 			this.cart.remove($item);
 		else if ($qty != 0)
-			this.cart.replace($item, $qty);
+			this.cart.put($item, $qty);
 
 	}
 
 	@Override
 	public int getCartSize() {
 		return this.cart.size();
+	}
+
+	@Override
+	public Item getCartItem(int itemNo) {
+		int $itemNo = itemNo - 1;
+		int i = 0;
+		Item theItem = null;
+		for (Entry<Item, Integer> item : this.cart.entrySet()) {
+			if (i == $itemNo)
+				theItem = item.getKey();
+			i++;
+		}
+		return theItem;
 	}
 }

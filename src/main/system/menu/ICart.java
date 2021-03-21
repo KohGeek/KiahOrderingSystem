@@ -9,6 +9,8 @@ public interface ICart {
 	public LinkedHashMap<Item, Integer> getCart();
 
 	public double getCartTotalPrice(boolean isMember);
+	
+	public Item getCartItem(int itemNo);
 
 	public void editItem(Item item, int qty);
 	
