@@ -8,9 +8,9 @@ public class LoginUI {
 	private Scanner scanner;
 	private User user;
 
-	public LoginUI(LoginCtrl loginCtrl) {
+	public LoginUI(LoginCtrl loginCtrl, Scanner scanner) {
 		this.loginCtrl = loginCtrl;
-		this.scanner = new Scanner(System.in);
+		this.scanner = scanner;
 	}
 
 	public void start() {

@@ -15,9 +15,9 @@ public class MenuUI {
 	private MenuCtrl menuCtrl;
 	private Scanner scanner;
 
-	public MenuUI(MenuCtrl menuCtrl) {
+	public MenuUI(MenuCtrl menuCtrl, Scanner scanner) {
 		this.menuCtrl = menuCtrl;
-		this.scanner = new Scanner(System.in);
+		this.scanner = scanner;
 	}
 
 	public void start() {
