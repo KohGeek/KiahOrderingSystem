@@ -1,5 +1,6 @@
 package system.login;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class LoginUI {
@@ -14,7 +15,7 @@ public class LoginUI {
 	}
 
 	public void start() {
-		int choice;
+		int choice = 1;
 		do {
 			System.out.println("This is the Login Menu");
 			System.out.println("1. Already a member");
@@ -22,18 +23,27 @@ public class LoginUI {
 			System.out.println("3. Sign up");
 			System.out.println("4. Exit");
 
-			System.out.print("Enter your choice (1-4) ----> ");
-			choice = scanner.nextInt();
-			scanner.nextLine();
-
-			while (choice < 1 || choice > 4) {
-				System.out.println("Invalid choice.");
+			boolean inputStatus;
+			do {
+				try {
+				inputStatus = true;
 				System.out.print("Enter your choice (1-4) ----> ");
 				choice = scanner.nextInt();
-				// Clear ENTER key after integer input
 				scanner.nextLine();
-			}
-
+				
+				if (choice < 1 || choice > 4) {
+					System.out.println("Value not within range, please try again.");
+					inputStatus = false;
+				}
+				
+				} catch (InputMismatchException e) {
+					scanner.nextLine();
+					System.out.println("Invalid number, please try again.");
+					inputStatus = false;
+				}
+			}while (!inputStatus);
+			
+		
 			switch (choice) {
 			case 1:
 				login();
