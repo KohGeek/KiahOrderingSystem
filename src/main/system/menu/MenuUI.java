@@ -34,29 +34,24 @@ public class MenuUI {
 			System.out.println("4. Check out for payment");
 			System.out.println("5. Exit");
 
-			System.out.print("Enter your choice (1-5) ----> ");
-			boolean status;
+			boolean inputStatus;
 			do {
 				try {
-					status = true;
+					System.out.print("Enter your choice (1-5) ----> ");
 					choice = scanner.nextInt();
+					inputStatus = true;
 					scanner.nextLine();
 					System.out.println("");
-					while (choice < 1 || choice > 5) {
-						System.out.println("Invalid choice.");
-						System.out.print("Enter your choice (1-5) ----> ");
-						choice = scanner.nextInt();
-						// Clear ENTER key after integer input
-						scanner.nextLine();
+					if (choice < 1 || choice > 5) {
+						System.out.println("Value not within range, please try again.");
+						inputStatus = false;
 					}
 				} catch (InputMismatchException e) {
 					scanner.nextLine();
-					System.out.println("");
-					System.out.println("Invalid choice.");
-					System.out.print("Enter your choice (1-5) ----> ");
-					status = false;
+					System.out.println("\nInvalid number, please try again.");
+					inputStatus = false;
 				}
-			} while (!status);
+			} while (!inputStatus);
 
 			switch (choice) {
 			case 1:
@@ -88,25 +83,55 @@ public class MenuUI {
 		 * ----> exit the ordering
 		 */
 		displayItemList();
-		int itemNo;
-		int itemQty;
+		int itemNo = 0;
+		int itemQty = 0;
 		int itemListSize = this.menuCtrl.getItemListSize();
 		Item item;
+		boolean inputStatus;
+		boolean loop = true;
 		do {
-			System.out.print("Select item ----> ");
-			itemNo = scanner.nextInt();
-			if (itemNo == 00)
+			do {
+				try {
+					System.out.print("Select item ----> ");
+
+					itemNo = scanner.nextInt();
+					inputStatus = true;
+					if (itemNo == 99)
+						loop = false;
+					else if (itemNo < 1 || itemNo > itemListSize) {
+						System.out.println("Entered item number is invalid.\n");
+						inputStatus = false;
+					}
+				} catch (InputMismatchException e) {
+					scanner.nextLine();
+					System.out.println("\nInvalid quantity, please try again.");
+					inputStatus = false;
+				}
+			} while (!inputStatus);
+
+			if (!loop)
 				break;
-			else if (itemNo < 1 || itemNo > itemListSize)
-				System.out.println("Selected invalid item.\n");
-			else if (itemNo >= 1 || itemNo <= itemListSize) {
-				item = this.menuCtrl.getItem(itemNo);
-				System.out.print("Enter the item's quantity ----> ");
-				itemQty = scanner.nextInt();
-				this.menuCtrl.addItem(item, itemQty);
-				System.out.println("Item added to the cart!\n");
-			}
-		} while (itemNo != 00);
+			
+			do {
+				try {
+					System.out.print("Enter the item's quantity ----> ");
+					itemQty = scanner.nextInt();
+					inputStatus = true;
+					if (itemQty <= 0 || itemQty > 100) {
+						System.out.println("Accepted quantity limited to 1~100\n");
+						inputStatus = false;
+					}
+				} catch (InputMismatchException e) {
+					scanner.nextLine();
+					System.out.println("\nInvalid quantity, please try again.");
+					inputStatus = false;
+				}
+			} while (!inputStatus);
+
+			item = this.menuCtrl.getItem(itemNo);
+			this.menuCtrl.addItem(item, itemQty);
+			System.out.println("Item added to the cart!\n");
+		} while (loop);
 	}
 
 	public void viewCart() {
@@ -260,6 +285,6 @@ public class MenuUI {
 					item.get(i).getNonMemberPrice(), isPromotion);
 
 		}
-		System.out.println("00    Exit\n");
+		System.out.println("99    Exit\n");
 	}
 }
