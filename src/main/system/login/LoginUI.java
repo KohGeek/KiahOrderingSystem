@@ -84,9 +84,9 @@ public class LoginUI {
 
 			System.out.println("Kindly enter the following details:-");
 			String name = validate("Name ----> ", scanner, 0, 0);
-			String phoneNumber = validate("Phone Number (without space or dashes) ----> ", scanner, 10, 11);
+			String phoneNumber = validate("Phone Number (ex: 0129876543) ----> ", scanner, 10, 11);
 			Address address = fillAddressDets();
-			Member member = new Member(username, password, name, phoneNumber, address);
+			Member member = new Member(username, password, phoneNumber, name, address);
 			loginCtrl.addMember(member);
 			this.user = member;
 		}
@@ -149,15 +149,12 @@ public class LoginUI {
 			} else {
 				try {
 					integer = Integer.parseInt(inputData);
-					if (integer < min) {
+					if (integer < min || integer > max) {
 						exceptionThrown = true;
-						System.out.printf("Input must at least be %d. Please try again. \n", min);
-					} else if (integer > max) {
-						exceptionThrown = true;
-						System.out.printf("Input must at most be %d. Please try again. \n", max);
+						System.out.printf("Input must be between %d and %d. Please try again. \n", min, max);
 					}
 				} catch (NumberFormatException e) {
-					//e.printStackTrace();
+					// e.printStackTrace();
 					exceptionThrown = true;
 					System.out.println("Input is not a number! Please try again.");
 				}
