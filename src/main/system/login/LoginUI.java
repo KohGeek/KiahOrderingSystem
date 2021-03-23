@@ -23,7 +23,7 @@ public class LoginUI {
 			System.out.println("3. Sign up");
 			System.out.println("4. Exit");
 
-			choice = validateInt("Enter your choice (1-4) ----> ", scanner, 1, 4);
+			choice = validateInt("Enter your choice (1-4) ----> ", 1, 4);
 
 			switch (choice) {
 			case 1:
@@ -43,8 +43,8 @@ public class LoginUI {
 	}
 
 	public void login() {
-		String username = validate("Enter username ----> ", scanner, 0, 0);
-		String password = validate("Enter password ----> ", scanner, 0, 0);
+		String username = validate("Enter username ----> ", 0, 0);
+		String password = validate("Enter password ----> ", 0, 0);
 		boolean VAL = loginCtrl.validateMember(username, password);
 		if (!VAL) {
 			this.user = null;
@@ -56,14 +56,14 @@ public class LoginUI {
 	}
 
 	public void guestLogin() {
-		String name = validate("Enter your name ----> ", scanner, 0, 0);
+		String name = validate("Enter your name ----> ", 0, 0);
 		Address address = fillAddressDets();
 		this.user = new Guest(name, address);
 		System.out.printf("%n%nWelcome %s%n", this.user.getName());
 	}
 
 	public void signUp() {
-		String username = validate("Enter a username ----> ", scanner, 0, 0);
+		String username = validate("Enter a username ----> ", 0, 0);
 		boolean usernameTaken = loginCtrl.searchUsername(username);
 		if (usernameTaken) {
 			this.user = null;
@@ -74,8 +74,8 @@ public class LoginUI {
 			boolean passwordMatch;
 			do {
 				passwordMatch = true;
-				password = validate("Enter a password ----> ", scanner, 0, 0);
-				String password2 = validate("Re-enter the password ----> ", scanner, 0, 0);
+				password = validate("Enter a password ----> ", 0, 0);
+				String password2 = validate("Re-enter the password ----> ", 0, 0);
 				if (!password.contentEquals(password2)) {
 					System.out.println("Those password didn't match. Try again.");
 					passwordMatch = false;
@@ -83,8 +83,8 @@ public class LoginUI {
 			} while (!passwordMatch);
 
 			System.out.println("Kindly enter the following details:-");
-			String name = validate("Name ----> ", scanner, 0, 0);
-			String phoneNumber = validate("Phone Number (ex: 0129876543) ----> ", scanner, 10, 11);
+			String name = validate("Name ----> ", 0, 0);
+			String phoneNumber = validate("Phone Number (ex: 0129876543) ----> ", 10, 11);
 			Address address = fillAddressDets();
 			Member member = new Member(username, password, phoneNumber, name, address);
 			loginCtrl.addMember(member);
@@ -95,12 +95,12 @@ public class LoginUI {
 	private Address fillAddressDets() {
 		System.out.println("Please note that the address is restricted to within the Melacca state.");
 		System.out.println("Kindly enter the following details:-");
-		String unitNumber = validate("Unit number ----> ", scanner, 0, 0);
-		String streetName = validate("Street name ----> ", scanner, 5, 0);
-		String district = validate("District ----> ", scanner, 0, 0);
+		String unitNumber = validate("Unit number ----> ", 0, 0);
+		String streetName = validate("Street name ----> ", 5, 0);
+		String district = validate("District ----> ", 0, 0);
 		System.out.print("Area (0~x) ----> "); // TODO ask for area but with a list of numbers
 		String area = scanner.nextLine(); // TODO this isn't going to be NextLine
-		int postalCode = validateInt("Postal code ----> ", scanner, 75000, 78999);
+		int postalCode = validateInt("Postal code ----> ", 75000, 78999);
 		return new Address(unitNumber, streetName, district, area, postalCode);
 	}
 
@@ -108,7 +108,7 @@ public class LoginUI {
 		return this.user;
 	}
 
-	private String validate(String prompt, Scanner scanner, int minlength, int maxlength) {
+	private String validate(String prompt, int minlength, int maxlength) {
 		boolean exceptionThrown;
 		String inputData;
 
@@ -133,7 +133,7 @@ public class LoginUI {
 		return inputData;
 	}
 
-	private int validateInt(String prompt, Scanner scanner, int min, int max) {
+	private int validateInt(String prompt, int min, int max) {
 		boolean exceptionThrown;
 		String inputData;
 		int integer = 0;
