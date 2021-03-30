@@ -15,4 +15,6 @@ public interface ICart {
 	public void editItem(Item item, int qty);
 	
 	public int getCartSize();
+	
+	public boolean isItemInCart();
 }
