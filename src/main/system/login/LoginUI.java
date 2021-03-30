@@ -1,7 +1,10 @@
 package system.login;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import system.menu.checkout.DeliveryCost;
 
 public class LoginUI {
 
@@ -23,7 +26,19 @@ public class LoginUI {
 			System.out.println("3. Sign up");
 			System.out.println("4. Exit");
 
-			choice = validateInt("Enter your choice (1-4) ----> ", 1, 4);
+			boolean inputCorrect = false;
+			while (!inputCorrect) {
+				try {
+					System.out.println("Enter your choice (1-4) ---->");
+					choice = scanner.nextInt();
+					scanner.nextLine();
+					inputCorrect = true;
+				} catch (InputMismatchException e) {
+					System.out.println("Input is not a number, please try again.");
+					scanner.nextLine();
+				}
+
+			}
 
 			switch (choice) {
 			case 1:
@@ -38,13 +53,44 @@ public class LoginUI {
 			case 4:
 				System.out.println("Thank you for using Kiah Ordering System.");
 				System.exit(0);
+				break;
+			default:
+				System.out.println("\nInput must be within 1-4.\n");
 			}
 		} while (this.user == null);
 	}
 
 	public void login() {
-		String username = validate("Enter username ----> ", 0, 0);
-		String password = validate("Enter password ----> ", 0, 0);
+		int status = -1;
+		Member member = loginCtrl.createMember();
+		String username = "";
+		String password = "";
+		String password2 = "";
+
+		while (status != 0) {
+			System.out.print("Enter username ----> ");
+			username = scanner.nextLine();
+			status = loginCtrl.setUsername(member, username);
+			if (status == 1) {
+				System.out.println("Username must be at least 5 character long.");
+			} else if (status == 2) {
+				System.out.println("Username is blank!");
+			}
+		}
+
+		status = -1;
+
+		while (status != 0) {
+			System.out.print("Enter password ----> ");
+			password = scanner.nextLine();
+			status = loginCtrl.setPassword(member, password, password);
+			if (status == 1) {
+				System.out.println("Password must be at least 5 character long.");
+			} else if (status == 2) {
+				System.out.println("Password is blank!");
+			}
+		}
+
 		boolean VAL = loginCtrl.validateMember(username, password);
 		if (!VAL) {
 			this.user = null;
@@ -56,112 +102,198 @@ public class LoginUI {
 	}
 
 	public void guestLogin() {
-		String name = validate("Enter your name ----> ", 0, 0);
-		Address address = fillAddressDets();
-		this.user = new Guest(name, address);
+		int status = -1;
+		Guest guest = loginCtrl.createGuest();
+		Address address;
+		String name = "";
+
+		while (status != 0) {
+			System.out.print("Enter your name ----> ");
+			name = scanner.nextLine();
+			status = loginCtrl.setName(guest, name);
+			if (status == 1) {
+				System.out.println("Name must be at least 5 character long.");
+			} else if (status == 2) {
+				System.out.println("Name is blank!");
+			}
+		}
+
+		address = fillAddressDets();
+		loginCtrl.setAddress(guest, address);
+		this.user = guest;
 		System.out.printf("%n%nWelcome %s%n", this.user.getName());
 	}
 
 	public void signUp() {
-		String username = validate("Enter a username ----> ", 0, 0);
-		boolean usernameTaken = loginCtrl.searchUsername(username);
-		if (usernameTaken) {
-			this.user = null;
-			System.out.println("This username has been taken.");
-			System.out.println("Please try again.\n");
-		} else if (!usernameTaken) {
-			String password;
-			boolean passwordMatch;
-			do {
-				passwordMatch = true;
-				password = validate("Enter a password ----> ", 0, 0);
-				String password2 = validate("Re-enter the password ----> ", 0, 0);
-				if (!password.contentEquals(password2)) {
-					System.out.println("Those password didn't match. Try again.");
-					passwordMatch = false;
-				}
-			} while (!passwordMatch);
+		int status = -1;
+		Member member = loginCtrl.createMember();
+		String username = "";
+		String password = "";
+		String password2 = "";
+		String phoneNumber = "";
+		String name = "";
+		Address address;
 
-			System.out.println("Kindly enter the following details:-");
-			String name = validate("Name ----> ", 0, 0);
-			String phoneNumber = validate("Phone Number (ex: 0129876543) ----> ", 10, 11);
-			Address address = fillAddressDets();
-			Member member = new Member(username, password, phoneNumber, name, address);
-			loginCtrl.addMember(member);
-			this.user = member;
+		while (status != 0) {
+			System.out.print("Enter username ----> ");
+			username = scanner.nextLine();
+			status = loginCtrl.setUsername(member, username);
+			if (status == 1) {
+				System.out.println("Username must be at least 5 character long.");
+			} else if (loginCtrl.searchUsername(username)) {
+				status = 3;
+				System.out.println("Username has been taken!");
+			} else if (status == 2) {
+				System.out.println("Username is blank!");
+			}
 		}
+
+		status = -1;
+
+		while (status != 0) { // expected behaviour - submit both password before checking, but if you don't
+								// want you can split it
+			System.out.print("Enter password ----> ");
+			password = scanner.nextLine();
+			System.out.print("Enter password again ----> ");
+			password2 = scanner.nextLine();
+			status = loginCtrl.setPassword(member, password, password2);
+			if (status == 1) {
+				System.out.println("Password must be at least 5 character long.");
+			} else if (status == 2) {
+				System.out.println("Password is blank!");
+			} else if (status == 3) {
+				System.out.println("Password does not match!");
+			}
+		}
+
+		status = -1;
+
+		while (status != 0) {
+			System.out.print("Enter your name ----> ");
+			name = scanner.nextLine();
+			status = loginCtrl.setName(member, name);
+			if (status == 1) {
+				System.out.println("Name must be at least 5 character long.");
+			} else if (status == 2) {
+				System.out.println("Name is blank!");
+			}
+		}
+
+		status = -1;
+
+		while (status != 0) {
+			System.out.print("Enter your phone number ----> ");
+			phoneNumber = scanner.nextLine();
+			status = loginCtrl.setPhoneNumber(member, phoneNumber);
+			if (status == 1) {
+				System.out.println("Phone number must be between 10-11 character long.");
+			} else if (status == 2) {
+				System.out.println("Phone number must be numbers only, without spaces!");
+			}
+		}
+
+		address = fillAddressDets();
+		loginCtrl.setAddress(member, address);
+		loginCtrl.addMember(member);
+		this.user = member;
+		System.out.printf("%n%nWelcome %s%n", this.user.getName());
 	}
 
 	private Address fillAddressDets() {
+		int status = -1;
+		ArrayList<DeliveryCost> deliveryCosts = (ArrayList<DeliveryCost>) loginCtrl.getAreaList();
+		Address address = loginCtrl.createAddress();
+		String unitNumber = "";
+		String streetName = "";
+		String district = "";
+		int areaCode;
+		int postalCode;
+
 		System.out.println("Please note that the address is restricted to within the Melacca state.");
 		System.out.println("Kindly enter the following details:-");
-		String unitNumber = validate("Unit number ----> ", 0, 0);
-		String streetName = validate("Street name ----> ", 5, 0);
-		String district = validate("District ----> ", 0, 0);
-		System.out.print("Area (0~x) ----> "); // TODO ask for area but with a list of numbers
-		String area = scanner.nextLine(); // TODO this isn't going to be NextLine
-		int postalCode = validateInt("Postal code ----> ", 75000, 78999);
-		return new Address(unitNumber, streetName, district, area, postalCode);
+
+		while (status != 0) {
+			System.out.print("Unit Number ----> ");
+			unitNumber = scanner.nextLine();
+			status = loginCtrl.setUnitNumber(address, unitNumber);
+			if (status == 1) {
+				System.out.println("Unit number is blank!");
+			}
+		}
+
+		status = -1;
+
+		while (status != 0) {
+			System.out.print("Street Name ----> ");
+			streetName = scanner.nextLine();
+			status = loginCtrl.setStreetName(address, streetName);
+			if (status == 1) {
+				System.out.println("Street name must be at least 5 character long.");
+			} else if (status == 2) {
+				System.out.println("Street name is blank!");
+			}
+		}
+
+		status = -1;
+
+		while (status != 0) {
+			System.out.print("District ----> ");
+			district = scanner.nextLine();
+			status = loginCtrl.setDistrict(address, district);
+			if (status == 1) {
+				System.out.println("District must be at least 5 character long.");
+			} else if (status == 2) {
+				System.out.println("District is blank!");
+			}
+		}
+
+		status = -1;
+
+		System.out.println();
+		int counter = 1;
+		System.out.printf("%-5s%-20s\n", "No.", "Area");
+		for (DeliveryCost dc : deliveryCosts) {
+			System.out.printf("%-5d%-20s\n", counter, loginCtrl.getArea(dc));
+			counter++;
+		}
+		System.out.println();
+
+		while (status != 0) {
+			try {
+				System.out.print("Area code ----> ");
+				areaCode = scanner.nextInt();
+				scanner.nextLine();
+				status = loginCtrl.setArea(address, areaCode);
+			} catch (InputMismatchException e) {
+				System.out.println("Numbers only!");
+				scanner.nextLine();
+			}
+			if (status == 1) {
+				System.out.println("Please select the numbers shown above only!");
+			}
+		}
+
+		status = -1;
+
+		while (status != 0) {
+			try {
+				System.out.print("Postal Code ----> ");
+				postalCode = scanner.nextInt();
+				scanner.nextLine();
+				status = loginCtrl.setPostalCode(address, postalCode);
+			} catch (InputMismatchException e) {
+				System.out.println("Numbers only!");
+				scanner.nextLine();
+			}
+			if (status == 1) {
+				System.out.println("Only values between 75000-78999 is accepted.");
+			}
+		}
+
+		return address;
 	}
 
 	public User getUser() {
 		return this.user;
-	}
-
-	private String validate(String prompt, int minlength, int maxlength) {
-		boolean exceptionThrown;
-		String inputData;
-
-		do {
-			exceptionThrown = false;
-			System.out.print(prompt);
-			inputData = scanner.nextLine();
-
-			if (inputData.isBlank()) {
-				exceptionThrown = true;
-				System.out.println("Input is empty! Please try again.");
-			} else if (minlength != 0 && inputData.length() < minlength) {
-				exceptionThrown = true;
-				System.out.printf("Input must at least be %d char long. Please try again. \n", minlength);
-			} else if (maxlength != 0 && inputData.length() > maxlength) {
-				exceptionThrown = true;
-				System.out.printf("Input must at most be %d char long. Please try again. \n", maxlength);
-			}
-
-		} while (exceptionThrown);
-
-		return inputData;
-	}
-
-	private int validateInt(String prompt, int min, int max) {
-		boolean exceptionThrown;
-		String inputData;
-		int integer = 0;
-
-		do {
-			exceptionThrown = false;
-			System.out.print(prompt);
-			inputData = scanner.nextLine();
-
-			if (inputData.isBlank()) {
-				exceptionThrown = true;
-				System.out.println("Input is empty! Please try again.");
-			} else {
-				try {
-					integer = Integer.parseInt(inputData);
-					if (integer < min || integer > max) {
-						exceptionThrown = true;
-						System.out.printf("Input must be between %d and %d. Please try again. \n", min, max);
-					}
-				} catch (NumberFormatException e) {
-					// e.printStackTrace();
-					exceptionThrown = true;
-					System.out.println("Input is not a number! Please try again.");
-				}
-			}
-
-		} while (exceptionThrown);
-
-		return integer;
 	}
 }

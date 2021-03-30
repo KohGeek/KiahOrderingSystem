@@ -19,8 +19,9 @@ public class OrderingSystem {
 		System.out.println("Welcome to Kiah Ordering System.");
 
 		Scanner scanner = new Scanner(System.in);
+		IDelivery deliveryInfo = new DeliveryCostList("deliveryCostData.txt");
 		IMember memberList = new MemberList("memberData.txt");
-		LoginCtrl loginCtrl = new LoginCtrl(memberList);
+		LoginCtrl loginCtrl = new LoginCtrl(memberList, deliveryInfo);
 		LoginUI login = new LoginUI(loginCtrl, scanner);
 		login.start();
 
@@ -28,7 +29,6 @@ public class OrderingSystem {
 		ICart cart = new Cart();
 		Order order = new Order(user, cart);
 		IItem itemList = new ItemList("itemData.txt");
-		IDelivery deliveryInfo = new DeliveryCostList("deliveryCostData.txt");
 		MenuCtrl menuCtrl = new MenuCtrl(order, itemList, deliveryInfo);
 		MenuUI menu = new MenuUI(menuCtrl, scanner);
 		menu.start();

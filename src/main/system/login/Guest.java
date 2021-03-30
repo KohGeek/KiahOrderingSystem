@@ -6,4 +6,8 @@ public class Guest extends User {
 		this.name = name;
 		this.address = address;
 	}
+
+	public Guest() {
+
+	}
 }

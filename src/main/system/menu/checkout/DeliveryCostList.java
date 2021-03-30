@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import system.file.IDatabase;
 import system.menu.IDelivery;
-import system.menu.Item;
 
 public class DeliveryCostList implements IDelivery, IDatabase {
 
@@ -16,6 +15,20 @@ public class DeliveryCostList implements IDelivery, IDatabase {
 	public DeliveryCostList(String fileName) {
 		this.deliveryInfo = new ArrayList<DeliveryCost>();
 		initDataFromFile(fileName);
+	}
+
+	@Override
+	public List<DeliveryCost> getAreaList() {
+		return this.deliveryInfo;
+	}
+
+	@Override
+	public String getAreaName(int areaCode) {
+		areaCode--; // needed because input starts from 1, not 0
+		if (areaCode >= 0 && areaCode < deliveryInfo.size())
+			return this.deliveryInfo.get(areaCode).getArea();
+		else
+			return "";
 	}
 
 	@Override
