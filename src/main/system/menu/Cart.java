@@ -75,14 +75,23 @@ public class Cart implements ICart {
 		}
 		return theItem;
 	}
-	
+
 	@Override
 	public boolean isItemInCart() {
-		if ( this.cart.size() !=0 ) {
+		if (this.cart.size() != 0) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean isCartEmpty() {
+			if (this.cart.size() == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 }

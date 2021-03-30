@@ -50,4 +50,13 @@ public class ItemList implements IItem, IDatabase {
 	public void updateDataToFile(String fileName) {
 
 	}
+	
+	public boolean isitemInputVAL(int itemNo) {
+		if (this.itemList.size() <= 0 || this.itemList.size() > 20) {
+			return false;
+		} else {
+			return true;
+		}
+		
+	}
 }

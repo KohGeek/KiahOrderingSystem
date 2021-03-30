@@ -9,5 +9,7 @@ public interface IItem {
 	public int getItemListSize();
 
 	public Item getItem(int option);
+	
+	public boolean isitemInputVAL(int itemNo);
 
 }

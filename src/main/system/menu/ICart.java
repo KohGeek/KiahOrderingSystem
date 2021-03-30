@@ -17,4 +17,6 @@ public interface ICart {
 	public int getCartSize();
 	
 	public boolean isItemInCart();
+	
+	public boolean isCartEmpty();
 }
