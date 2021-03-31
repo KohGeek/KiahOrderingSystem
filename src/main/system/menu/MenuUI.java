@@ -1,13 +1,10 @@
 package system.menu;
 
-import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Map.Entry;
+import java.util.ArrayList;
 
-import system.login.Guest;
-import system.login.Member;
 import system.login.User;
 import system.menu.checkout.Order;
 
@@ -43,7 +40,7 @@ public class MenuUI {
 					scanner.nextLine();
 					System.out.println("");
 					if (choice < 1 || choice > 5) {
-						System.out.println("Value not within range, please try again.");
+						System.out.println("Choice not within range, please try again.");
 						inputStatus = false;
 					}
 				} catch (InputMismatchException e) {
@@ -81,51 +78,49 @@ public class MenuUI {
 		displayItemList();
 		int itemNo = 0;
 		int itemQty = 0;
-		int itemListSize = this.menuCtrl.getItemListSize();
-		Item item;
-		boolean inputStatus;
+		Item item = null;
+		boolean proceed = false;
 		boolean loop = true;
+
 		do {
-			do {
+			while (!proceed) {
 				try {
 					System.out.print("Select item ----> ");
-
 					itemNo = scanner.nextInt();
-					inputStatus = true;
-					if (itemNo == 99)
-						loop = false;
-					else if (itemNo < 1 || itemNo > itemListSize) {
-						System.out.println("Entered item number is invalid.\n");
-						inputStatus = false;
+					scanner.nextInt();
+					item = this.menuCtrl.getItemFromList(itemNo);
+					proceed = true;
+					if (item == null) {
+						return; // exit menu
 					}
+				} catch (IllegalArgumentException e) {
+					scanner.nextLine();
+					System.out.println(e.getMessage());
+					proceed = false;
 				} catch (InputMismatchException e) {
 					scanner.nextLine();
-					System.out.println("\nInvalid quantity, please try again.");
-					inputStatus = false;
+					System.out.println("Input must be numerical only.");
+					proceed = false;
 				}
-			} while (!inputStatus);
+			}
 
-			if (!loop)
-				break;
-
-			do {
+			while (!proceed) {
 				try {
 					System.out.print("Enter the item's quantity ----> ");
 					itemQty = scanner.nextInt();
-					inputStatus = true;
-					if (itemQty <= 0 || itemQty > 100) {
-						System.out.println("Accepted quantity limited to 1~100\n");
-						inputStatus = false;
-					}
+					scanner.nextInt();
+					this.menuCtrl.addItem(item, itemQty);
+					proceed = true;
+				} catch (IllegalArgumentException e) {
+					scanner.nextLine();
+					System.out.println(e.getMessage());
+					proceed = false;
 				} catch (InputMismatchException e) {
 					scanner.nextLine();
-					System.out.println("\nInvalid quantity, please try again.");
-					inputStatus = false;
+					System.out.println("Input must be numerical only.");
+					proceed = false;
 				}
-			} while (!inputStatus);
-
-			item = this.menuCtrl.getItem(itemNo);
-			this.menuCtrl.addItem(item, itemQty);
+			}
 			System.out.println("Item added to the cart!\n");
 		} while (loop);
 	}
@@ -136,89 +131,110 @@ public class MenuUI {
 		 * getNonMemberPrice
 		 */
 
-		while (this.menuCtrl.getOrder().getCart().getCartSize() == 0) {
-			System.out.println("You have not added item yet.");
-			return;
+		try {
+			this.menuCtrl.checkIsCartEmpty();
+		} catch (IllegalAccessException e) {
+			System.out.println(e.getMessage());
+			return; // exit menu
 		}
 
 		System.out.printf("%-6s%-35s%12s%12s%19s%n", "No.", "Name", "Price", "Quantity", "Promotion(5% off)");
 
-		HashMap<Item, Integer> cart = this.menuCtrl.getCart();
-		int i = 1;
+		int itemNumber = 1;
 		double cartTotalPrice = 0;
-		String isPromotion = "";
 		User user = this.menuCtrl.getUser();
-		for (Entry<Item, Integer> item : cart.entrySet()) {
-			if (item.getKey().getIsPromotional() == true)
-				isPromotion = "Yes";
-			else if (item.getKey().getIsPromotional() == false)
-				isPromotion = "No";
+		List<ArrayList<Object>> cartDataArr = this.menuCtrl.getCartData(user);
 
-			if (user instanceof Member)
-				System.out.printf("%-6s%-35s%12.2f%12d%19s%n", i, item.getKey().getName(),
-						item.getKey().getMemberPrice(), item.getValue(), isPromotion);
-			else if (user instanceof Guest)
-				System.out.printf("%-6s%-35s%12.2f%12d%19s%n", i, item.getKey().getName(),
-						item.getKey().getNonMemberPrice(), item.getValue(), isPromotion);
-			i++;
+		for (ArrayList<Object> cartData : cartDataArr) {
+			System.out.printf("%-6s%-35s%12.2f%12d%19s%n", itemNumber, cartData);
+			itemNumber++;
 		}
-		if (user instanceof Member)
-			cartTotalPrice = this.menuCtrl.getCartTotalPrice(true);
-		else if (user instanceof Guest)
-			cartTotalPrice = this.menuCtrl.getCartTotalPrice(false);
+
+		cartTotalPrice = this.menuCtrl.getCartTotalPrice(user);
 
 		System.out.printf("%n%41s%12.2f\n\n", "Cart Total Price = ", cartTotalPrice);
 	}
 
 	public void editCart() {
-		int choice;
-		int newQty;
-		Item item;
-		boolean inputStatus;
-		while (this.menuCtrl.getOrder().getCart().getCartSize() == 0) {
-			System.out.println("You have not added item yet.");
-			return;
+		try {
+			this.menuCtrl.checkIsCartEmpty();
+		} catch (IllegalAccessException e) {
+			System.out.println(e.getMessage());
+			return; // exit menu
 		}
 
-		boolean repeat = true;
+		int itemNo = 0;
+		int newQty = 0;
+		Item item = null;
+		boolean proceed = false;
+		boolean loop = false;
+
 		do {
-			try {
-				viewCart();
-				System.out.print("Enter the item number to be editted ----> ");
-				choice = scanner.nextInt();
-				if (choice < 1 || choice > this.menuCtrl.getCartSize())
-					System.out.println("Invalid item number!! Try again.\n");
-				else {
-					item = this.menuCtrl.getCartItem(choice);
+			while (!proceed) {
+				try {
+					viewCart();
+					System.out.print("Enter the item number to be edited ----> ");
+					itemNo = scanner.nextInt();
+					item = this.menuCtrl.getCartItem(itemNo);
+					proceed = true;
+				} catch (IllegalArgumentException e) {
+					scanner.nextLine();
+					System.out.println(e.getMessage());
+					proceed = false;
+				} catch (InputMismatchException e) {
+					scanner.nextLine();
+					System.out.println("Input must be numerical only.");
+					proceed = false;
+				}
+			}
+
+			while (!proceed) {
+				try {
 					System.out.print("Enter the new quantity of the item ----> ");
 					newQty = scanner.nextInt();
 					scanner.nextLine();
-					inputStatus = true;
-					if (newQty > 100) {
-						System.out.println("Accepted quantity limited to 1~100\n");
-						inputStatus = false;
-						break;
-					} 
 					this.menuCtrl.editItem(item, newQty);
-					System.out.println("\n--------Cart updated!--------");
+					proceed = true;
+				} catch (IllegalArgumentException e) {
+					scanner.nextLine();
+					System.out.println(e.getMessage());
+					proceed = false;
+				} catch (InputMismatchException e) {
+					scanner.nextLine();
+					System.out.println("Input must be numerical only.");
+					proceed = false;
+				}
+			}
+
+			System.out.println("\n--------Cart updated!--------");
+
+			int choice;
+			while (!proceed) {
+				try {
 					viewCart();
 					System.out.println("Continue editing cart?");
 					System.out.println("1 - Continue.");
 					System.out.println("00 - Back to the menu.");
-					System.out.print("----> ");
 					choice = scanner.nextInt();
 					scanner.nextLine();
 					System.out.println("");
-					if (choice == 00)
-						repeat = false;
+					if (choice == 00) {
+						proceed = true;
+						loop = false;
+					} else if (choice == 1) {
+						proceed = true;
+						loop = true;
+					} else {
+						System.out.println("Choice not within range, please try again.");
+						proceed = false;
+					}
+				} catch (InputMismatchException e) {
+					scanner.nextLine();
+					System.out.println("Input must be numerical only.");
+					proceed = false;
 				}
-			} catch (InputMismatchException e) {
-				scanner.nextLine();
-				System.out.println("\nInvalid input, please try again.\n");
-				inputStatus = false;
 			}
-
-		} while (repeat);
+		} while (loop);
 	}
 
 	public void checkOut() {
@@ -231,62 +247,70 @@ public class MenuUI {
 		 * 
 		 * 1. Make Payment 2. Back to Menu
 		 */
+
+		try {
+			this.menuCtrl.checkIsCartEmpty();
+		} catch (IllegalAccessException e) {
+			System.out.println(e.getMessage());
+			return; // exit menu
+		}
+
 		User user = this.menuCtrl.getUser();
 		Order order = this.menuCtrl.getOrder();
 
-		while (order.getCart().getCartSize() == 0) {
-			System.out.println("You have not added item yet.");
-			return;
-		}
 		System.out.println("Proceeding checkout.");
 		System.out.println("-----------------------------------------------------------------------");
 		System.out.println("User information:- ");
-		System.out.printf("Name: %s\n", user.getName());
-		System.out.printf("Delivery Address: %s\n\n", user.getAddress().getFullAddress());
+		System.out.printf("Name: %s\n", this.menuCtrl.getName(user));
+		System.out.printf("Delivery Address: %s\n\n", this.menuCtrl.getAddress(user));
 		System.out.println("Cart Items:-");
 		viewCart();
-		System.out.printf("Delivery Fee: %.2f\n", order.getDeliveryFee());
-		System.out.printf("Total Price: %.2f\n\n", order.getTotalPrice());
+		System.out.printf("Delivery Fee: %.2f\n", this.menuCtrl.getDeliveryFee(order));
+		System.out.printf("Total Price: %.2f\n\n", this.menuCtrl.getTotalPrice(order));
 		System.out.println("-----------------------------------------------------------------------");
 
-		int choice;
-		do {
-			System.out.println("Select an option (1-2):-");
-			System.out.println("1. Make Payment");
-			System.out.println("2. Back to Menu");
-			System.out.print("----> ");
-			choice = scanner.nextInt();
-			scanner.nextLine();
-			while (choice < 1 || choice > 2) {
-				System.out.println("Invalid choice.");
-				System.out.println("Select an option (1-2) ----> ");
+		int choice = 0;
+		boolean proceed = false;
+
+		while (!proceed) {
+			try {
+				System.out.println("Select an option (1-2):-");
+				System.out.println("1. Make Payment");
+				System.out.println("2. Back to Menu");
+				System.out.print("----> ");
 				choice = scanner.nextInt();
-				// Clear ENTER key after integer input
 				scanner.nextLine();
+				proceed = true;
+				if (choice != 1 && choice != 2) {
+					System.out.println("Invalid choice.");
+					proceed = false;
+				}
+			} catch (InputMismatchException e) {
+				scanner.nextLine();
+				System.out.println("Input must be numerical only.");
+				proceed = false;
 			}
-			if (choice == 1) {
-				order.getPaymentDetails().makePayment(order);
-				System.out.println("Payment has successful!");
-				System.out.println("Thank you for using Kiah Ordering System.");
-				System.exit(0);
-			}
-		} while (choice != 2);
+		}
+
+		if (choice == 1) {
+			order.getPaymentDetails().makePayment(order);
+			System.out.println("Payment has successful!");
+			System.out.println("Thank you for using Kiah Ordering System.");
+			System.exit(0);
+		} else if (choice == 2) {
+			return;
+		}
 	}
 
 	private void displayItemList() {
-		List<Item> item = this.menuCtrl.getItemList();
+
 		System.out.printf("%-6s%-35s%12s%17s%19s%n", "No.", "Name", "MemberPrice", "nonMemberPrice",
 				"Promotion(5% off)");
-		String isPromotion = "";
-		for (int i = 0; i < item.size(); i++) {
-			if (item.get(i).getIsPromotional() == true) {
-				isPromotion = "Yes";
-			} else if (item.get(i).getIsPromotional() == false) {
-				isPromotion = "No";
-			}
-			System.out.printf("%-6d%-35s%12.2f%17.2f%19s%n", i + 1, item.get(i).getName(), item.get(i).getMemberPrice(),
-					item.get(i).getNonMemberPrice(), isPromotion);
 
+		int itemNumber = 1;
+		List<ArrayList<Object>> itemDataList = this.menuCtrl.getItemData();
+		for (ArrayList<Object> itemData : itemDataList) {
+			System.out.printf("%-6d%-35s%12.2f%17.2f%19s%n", itemNumber, itemData);
 		}
 		System.out.println("99    Exit\n");
 	}
