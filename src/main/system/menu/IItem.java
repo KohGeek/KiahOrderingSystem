@@ -1,11 +1,15 @@
 package system.menu;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface IItem {
 
-	public Item getItemFromList(int itemNo);
+	public List<Item> getItemList();
+	
+	public int getItemListSize();
 
-	public List<ArrayList<Object>> getItemDataList();
+	public Item getItem(int option);
+	
+	public boolean isitemInputVAL(int itemNo);
+
 }

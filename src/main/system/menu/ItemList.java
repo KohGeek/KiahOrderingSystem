@@ -17,6 +17,21 @@ public class ItemList implements IItem, IDatabase {
 	}
 
 	@Override
+	public List<Item> getItemList() {
+		return this.itemList;
+	}
+
+	@Override
+	public int getItemListSize() {
+		return this.itemList.size();
+	}
+
+	@Override
+	public Item getItem(int itemNo) {
+		return this.itemList.get(itemNo-1);
+	}
+
+	@Override
 	public void initDataFromFile(String fileName) {
 		String $filename = fileName;
 		try {
@@ -35,45 +50,13 @@ public class ItemList implements IItem, IDatabase {
 	public void updateDataToFile(String fileName) {
 
 	}
-
-	public Item getItemFromList(int itemNo) {
-		int $itemNo = itemNo;
-		if ($itemNo > this.itemList.size()) {
-			throw new IllegalArgumentException("Item is not shown in the provided list.");
-		} else if ($itemNo <= 0) {
-			throw new IllegalArgumentException("Item number is invalid.");
-		} else if ($itemNo == 99) {
-			return null; // exit menu
-		}
-
-		return this.itemList.get(itemNo - 1);
-	}
-
+	
 	public boolean isitemInputVAL(int itemNo) {
 		if (this.itemList.size() <= 0 || this.itemList.size() > 20) {
 			return false;
 		} else {
 			return true;
 		}
-
-	}
-
-	@Override
-	public List<ArrayList<Object>> getItemDataList() {
-		List<ArrayList<Object>> itemDataArr = new ArrayList<ArrayList<Object>>();
-		ArrayList<Object> itemData;
-		for (Item item : this.itemList) {
-			itemData = new ArrayList<Object>();
-			itemData.add(item.getName());
-			itemData.add(item.getMemberPrice());
-			itemData.add(item.getNonMemberPrice());
-			if (item.getIsPromotional() == true) {
-				itemData.add("Yes");
-			} else if (item.getIsPromotional() == false) {
-				itemData.add("No");
-			}
-			itemDataArr.add(itemData);
-		}
-		return itemDataArr;
+		
 	}
 }

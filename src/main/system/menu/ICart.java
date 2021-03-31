@@ -1,21 +1,22 @@
 package system.menu;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import system.login.User;
+import java.util.LinkedHashMap;
 
 public interface ICart {
 
 	public void addItem(Item item, int qty);
 
-	public double getCartTotalPrice(User user);
+	public LinkedHashMap<Item, Integer> getCart();
 
+	public double getCartTotalPrice(boolean isMember);
+	
 	public Item getCartItem(int itemNo);
 
 	public void editItem(Item item, int qty);
-
-	public void checkIsCartEmpty();
-
-	public List<ArrayList<Object>> getCartData(User user);
+	
+	public int getCartSize();
+	
+	public boolean isItemInCart();
+	
+	public boolean isCartEmpty();
 }

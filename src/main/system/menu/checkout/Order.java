@@ -14,7 +14,6 @@ public class Order {
 	private Payment paymentDetails;
 	private double totalPrice;
 	private double minOrderValue = 25;
-	private double extraCharge = 3;
 
 	public Order(User user, ICart cart) {
 		this.user = user;
@@ -55,7 +54,7 @@ public class Order {
 		else if (this.user instanceof Guest)
 			totalPrice += this.cart.getCartTotalPrice(false);
 		while (totalPrice < this.minOrderValue)
-			totalPrice += this.extraCharge; // Additional Charges of RM3
+			totalPrice += 5; // Additional Charges
 		totalPrice += deliveryCost;
 		this.totalPrice = totalPrice;
 	}
