@@ -1,7 +1,7 @@
 package system.menu.checkout;
 
 public class Payment implements IPayment {
-	
+
 	private double totalPrice;
 	private PayStatus paymentStatus;
 
@@ -10,7 +10,7 @@ public class Payment implements IPayment {
 		this.paymentStatus = PayStatus.Unsuccessful;
 	}
 
-	public String getPaymentStatus() { //remark to try returning the enum instead
+	public String getPaymentStatus() { // remark to try returning the enum instead
 		String msg = "";
 		if (this.paymentStatus == PayStatus.Successful)
 			msg = "Payment is successful!";
@@ -22,12 +22,12 @@ public class Payment implements IPayment {
 	public double getPaymentTotalPrice() {
 		return this.totalPrice;
 	}
-	
+
 	@Override
 	public void makePayment(Order order) {
 		this.totalPrice = order.getTotalPrice();
 		this.paymentStatus = PayStatus.Successful;
-		
+
 //		if (payOption == 1) {
 //
 //			this.paymentMethod = PayMethod.CreditCard;

@@ -1,7 +1,5 @@
 package system.menu.checkout;
 
-import system.login.Guest;
-import system.login.Member;
 import system.login.User;
 import system.menu.ICart;
 
@@ -50,12 +48,10 @@ public class Order {
 		 * + Additional Charges RM5 (if didn't reach the minOrderValue)
 		 */
 		double totalPrice = 0;
-		if (this.user instanceof Member)
-			totalPrice += this.cart.getCartTotalPrice(true);
-		else if (this.user instanceof Guest)
-			totalPrice += this.cart.getCartTotalPrice(false);
-		while (totalPrice < this.minOrderValue)
+		totalPrice += this.cart.getCartTotalPrice(this.user);
+		while (totalPrice < this.minOrderValue) {
 			totalPrice += this.extraCharge; // Additional Charges of RM3
+		}
 		totalPrice += deliveryCost;
 		this.totalPrice = totalPrice;
 	}
