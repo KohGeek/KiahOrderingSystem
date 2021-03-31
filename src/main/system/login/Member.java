@@ -13,8 +13,13 @@ public class Member extends User {
 		this.address = address;
 	}
 
-	public Member() {
-
+	public Member(String username) {
+		if (username.isBlank()) {
+			throw new IllegalArgumentException("Name must not be blank!");
+		} else if (username.length() < 5) {
+			throw new IllegalArgumentException("Name must be at least 5 character long.");
+		}
+		this.username = username;
 	}
 
 	public String getUsername() {
@@ -29,63 +34,31 @@ public class Member extends User {
 		return this.phoneNumber;
 	}
 
-	// validate username
-	// 0 : successful
-	// 1 : too short
-	// 2 : only whitespace character
-	public int setUsername(String username) {
-		int status = 0;
-
-		if (username.isBlank()) {
-			status = 2;
-		} else if (username.length() < 5) {
-			status = 1;
-		} else {
-			status = 0;
-			this.username = username;
-		}
-
-		return status;
-	}
-
 	// validate password
-	// 0 : successful
-	// 1 : too short
-	// 2 : only whitespace character
-	// 3 : password mismatch
-	public int setPassword(String password, String password2) {
-		int status = 0;
+	public void setPassword(String password, String password2) {
 
 		if (password.isBlank()) {
-			status = 2;
+			throw new IllegalArgumentException("Password must not be blank!");
 		} else if (password.length() < 5) {
-			status = 1;
+			throw new IllegalArgumentException("Password must be at least 5 character long.");
 		} else if (!password.equals(password2)) {
-			status = 3;
-		} else {
-			status = 0;
-			this.password = password;
+			throw new IllegalArgumentException("Password does not match!");
 		}
 
-		return status;
+		this.password = password;
+
 	}
 
 	// validate phone number
-	// 0 : successful
-	// 1 : out of range
-	// 2 : contains non-number
-	public int setPhoneNumber(String phoneNumber) {
-		int status = 0;
+	public void setPhoneNumber(String phoneNumber) {
 
 		if (phoneNumber.matches("\\D+")) {
-			status = 2;
+			throw new IllegalArgumentException("Input must be numerical only!");
 		} else if (phoneNumber.length() < 11 || phoneNumber.length() > 12) {
-			status = 1;
-		} else {
-			status = 0;
-			this.phoneNumber = phoneNumber;
+			throw new IllegalArgumentException("Phone number must be between 11-12 characters long.");
 		}
 
-		return status;
+		this.phoneNumber = phoneNumber;
+
 	}
 }

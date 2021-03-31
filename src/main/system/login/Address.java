@@ -17,7 +17,12 @@ public class Address {
 		this.area = area;
 	}
 
-	public Address() {
+	public Address(String unitNumber) {
+
+		if (unitNumber.isBlank())
+			throw new IllegalArgumentException("Unit number must not be blank!");
+
+		this.unitNumber = unitNumber;
 
 	}
 
@@ -35,59 +40,30 @@ public class Address {
 				String.valueOf(this.postalCode), this.state };
 	}
 
-	// validate setting unit number
-	// 0 : successful
-	// 1 : empty/whitespace only
-	public int setUnitNumber(String unitNumber) {
-
-		int status = 0;
-
-		if (unitNumber.isBlank()) {
-			status = 1;
-		} else {
-			status = 0;
-			this.unitNumber = unitNumber;
-		}
-
-		return status;
-	}
-
 	// validate setting street name
-	// 0 : successful
-	// 1 : too short
-	// 2 : only whitespace characters
-	public int setStreetName(String streetName) {
-		int status = 0;
+	public void setStreetName(String streetName) {
 
 		if (streetName.isBlank()) {
-			status = 2;
+			throw new IllegalArgumentException("Street name must not be blank!");
 		} else if (streetName.length() < 5) {
-			status = 1;
-		} else {
-			status = 0;
-			this.streetName = streetName;
+			throw new IllegalArgumentException("Street name must be at least 5 character long.!");
 		}
 
-		return status;
+		this.streetName = streetName;
+
 	}
 
 	// validate setting district
-	// 0 : successful
-	// 1 : too short
-	// 2 : only whitespace characters
-	public int setDistrict(String district) {
-		int status = 0;
+	public void setDistrict(String district) {
 
 		if (district.isBlank()) {
-			status = 2;
+			throw new IllegalArgumentException("District must not be blank!");
 		} else if (district.length() < 5) { // Consider < 3, since "Raub" is a valid district name
-			status = 1;
-		} else {
-			status = 0;
-			this.district = district;
+			throw new IllegalArgumentException("District must be at least 5 character long.");
 		}
 
-		return status;
+		this.district = district;
+
 	}
 
 	public void setArea(String area) {
@@ -95,18 +71,12 @@ public class Address {
 	}
 
 	// validate setting postal code
-	// 0 : successful
-	// 1 : out of range
-	public int setPostalCode(int postalCode) {
-		int status = 0;
+	public void setPostalCode(int postalCode) {
 
-		if (postalCode < 75000 || postalCode > 78999) {
-			status = 1;
-		} else {
-			status = 0;
-			this.postalCode = postalCode;
-		}
+		if (postalCode < 75000 || postalCode > 78999)
+			throw new IllegalArgumentException("Postal code must be between 75000 and 78999!");
 
-		return status;
+		this.postalCode = postalCode;
+
 	}
 }

@@ -23,12 +23,13 @@ public class DeliveryCostList implements IDelivery, IDatabase {
 	}
 
 	@Override
-	public String getAreaName(int areaCode) {
-		areaCode--; // needed because input starts from 1, not 0
-		if (areaCode >= 0 && areaCode < deliveryInfo.size())
-			return this.deliveryInfo.get(areaCode).getArea();
-		else
-			return "";
+	public String getAreaName(int areaNo) {
+
+		if (areaNo < 0 || areaNo >= deliveryInfo.size())
+			throw new IndexOutOfBoundsException("Please select the numbers shown above only!");
+
+		return this.deliveryInfo.get(areaNo).getArea();
+
 	}
 
 	@Override

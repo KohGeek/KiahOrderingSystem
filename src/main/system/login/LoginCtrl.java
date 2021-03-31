@@ -28,12 +28,6 @@ public class LoginCtrl {
 		return member;
 	}
 
-	public boolean searchUsername(String username) {
-		String $username = username;
-		boolean VAL = this.memberList.searchUsername($username);
-		return VAL;
-	}
-
 	public void addMember(Member member) {
 		Member $member = member;
 		this.memberList.addMember($member);
@@ -44,68 +38,57 @@ public class LoginCtrl {
 	// New code from here onwards
 	//
 	//
-	public Guest createGuest() {
-		return new Guest();
+	public Guest createGuest(String name) {
+		return new Guest(name);
 	}
 
-	public Address createAddress() {
-		return new Address();
+	public Address createAddress(String unitNumber) {
+		return new Address(unitNumber);
+	}
+
+	public Member createMember(String username) {
+
+		if (memberList.searchUsername(username))
+			throw new IllegalArgumentException("Username has been taken!");
+
+		return new Member(username);
 
 	}
 
-	public Member createMember() {
-		return new Member();
+	public void setPassword(Member member, String password, String password2) {
+		member.setPassword(password, password2);
 	}
 
-	public int setUsername(Member member, String username) {
-		return member.setUsername(username);
+	public void setPhoneNumber(Member member, String phoneNumber) {
+		member.setPhoneNumber(phoneNumber);
 	}
 
-	public int setPassword(Member member, String password, String password2) {
-		return member.setPassword(password, password2);
+	public void setName(User user, String name) {
+		user.setName(name);
 	}
 
-	public int setPhoneNumber(Member member, String phoneNumber) {
-		return member.setPhoneNumber(phoneNumber);
+	public void setStreetName(Address address, String streetName) {
+		address.setStreetName(streetName);
 	}
 
-	public int setName(User user, String name) {
-		return user.setName(name);
-	}
-
-	public int setUnitNumber(Address address, String unitNumber) {
-		return address.setUnitNumber(unitNumber);
-	}
-
-	public int setStreetName(Address address, String streetName) {
-		return address.setStreetName(streetName);
-	}
-
-	public int setDistrict(Address address, String district) {
-		return address.setDistrict(district);
+	public void setDistrict(Address address, String district) {
+		address.setDistrict(district);
 	}
 
 	public List<DeliveryCost> getAreaList() {
 		return deliveryInfo.getAreaList(); // placeholder
 	}
 
-	// validate set area
-	// 0 : successful
-	// 1 : out of range
-	public int setArea(Address address, int areaCode) {
+	public void setArea(Address address, int areaCode) {
 
+		areaCode--; // needed because input starts from 1, not 0
 		String areaName = deliveryInfo.getAreaName(areaCode);
+		address.setArea(areaName);
 
-		if (areaName.isBlank()) {
-			return 1;
-		} else {
-			address.setArea(areaName);
-			return 0;
-		}
 	}
 
-	public int setPostalCode(Address address, int postalCode) {
-		return address.setPostalCode(postalCode);
+	public void setPostalCode(Address address, int postalCode) {
+		address.setPostalCode(postalCode);
 	}
 
 	public void setAddress(User user, Address address) {

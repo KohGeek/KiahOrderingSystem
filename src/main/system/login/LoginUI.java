@@ -61,60 +61,38 @@ public class LoginUI {
 	}
 
 	public void login() {
-		int status = -1;
-		Member member = loginCtrl.createMember();
 		String username = "";
 		String password = "";
-		String password2 = "";
 
-		while (status != 0) {
-			System.out.print("Enter username ----> ");
-			username = scanner.nextLine();
-			status = loginCtrl.setUsername(member, username);
-			if (status == 1) {
-				System.out.println("Username must be at least 5 character long.");
-			} else if (status == 2) {
-				System.out.println("Username is blank!");
-			}
-		}
+		System.out.print("Enter username ----> ");
+		username = scanner.nextLine();
 
-		status = -1;
+		System.out.print("Enter password ----> ");
+		password = scanner.nextLine();
 
-		while (status != 0) {
-			System.out.print("Enter password ----> ");
-			password = scanner.nextLine();
-			status = loginCtrl.setPassword(member, password, password);
-			if (status == 1) {
-				System.out.println("Password must be at least 5 character long.");
-			} else if (status == 2) {
-				System.out.println("Password is blank!");
-			}
-		}
-
-		boolean VAL = loginCtrl.validateMember(username, password);
-		if (!VAL) {
+		if (loginCtrl.validateMember(username, password)) {
 			this.user = null;
 			System.out.println("The username or password is invalid!!\n\n");
-		} else if (VAL) {
+		} else {
 			this.user = loginCtrl.getMember(username);
 			System.out.printf("%n%nWelcome back %s%n", this.user.getName());
 		}
 	}
 
 	public void guestLogin() {
-		int status = -1;
-		Guest guest = loginCtrl.createGuest();
+		boolean status = false;
+		Guest guest = null;
 		Address address;
 		String name = "";
 
-		while (status != 0) {
-			System.out.print("Enter your name ----> ");
-			name = scanner.nextLine();
-			status = loginCtrl.setName(guest, name);
-			if (status == 1) {
-				System.out.println("Name must be at least 5 character long.");
-			} else if (status == 2) {
-				System.out.println("Name is blank!");
+		while (!status) {
+			try {
+				System.out.print("Enter your name ----> ");
+				name = scanner.nextLine();
+				guest = loginCtrl.createGuest(name);
+				status = true;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 
@@ -125,8 +103,8 @@ public class LoginUI {
 	}
 
 	public void signUp() {
-		int status = -1;
-		Member member = loginCtrl.createMember();
+		boolean status = false;
+		Member member = null;
 		String username = "";
 		String password = "";
 		String password2 = "";
@@ -134,159 +112,156 @@ public class LoginUI {
 		String name = "";
 		Address address;
 
-		while (status != 0) {
-			System.out.print("Enter username ----> ");
-			username = scanner.nextLine();
-			status = loginCtrl.setUsername(member, username);
-			if (status == 1) {
-				System.out.println("Username must be at least 5 character long.");
-			} else if (loginCtrl.searchUsername(username)) {
-				status = 3;
-				System.out.println("Username has been taken!");
-			} else if (status == 2) {
-				System.out.println("Username is blank!");
+		while (!status) {
+			try {
+				System.out.print("Enter username ----> ");
+				username = scanner.nextLine();
+				member = loginCtrl.createMember(username);
+				status = true;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 
-		status = -1;
+		status = false;
 
-		while (status != 0) { // expected behaviour - submit both password before checking, but if you don't
-								// want you can split it
-			System.out.print("Enter password ----> ");
-			password = scanner.nextLine();
-			System.out.print("Enter password again ----> ");
-			password2 = scanner.nextLine();
-			status = loginCtrl.setPassword(member, password, password2);
-			if (status == 1) {
-				System.out.println("Password must be at least 5 character long.");
-			} else if (status == 2) {
-				System.out.println("Password is blank!");
-			} else if (status == 3) {
-				System.out.println("Password does not match!");
+		while (!status) {
+			try {
+				System.out.print("Enter password ----> ");
+				password = scanner.nextLine();
+				System.out.print("Enter password again ----> ");
+				password2 = scanner.nextLine();
+				loginCtrl.setPassword(member, password, password2);
+				status = true;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 
-		status = -1;
+		status = false;
 
-		while (status != 0) {
-			System.out.print("Enter your name ----> ");
-			name = scanner.nextLine();
-			status = loginCtrl.setName(member, name);
-			if (status == 1) {
-				System.out.println("Name must be at least 5 character long.");
-			} else if (status == 2) {
-				System.out.println("Name is blank!");
+		while (!status) {
+			try {
+				System.out.print("Enter your name ----> ");
+				name = scanner.nextLine();
+				loginCtrl.setName(member, name);
+				status = true;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 
-		status = -1;
+		status = false;
 
-		while (status != 0) {
-			System.out.print("Enter your phone number ----> ");
-			phoneNumber = scanner.nextLine();
-			status = loginCtrl.setPhoneNumber(member, phoneNumber);
-			if (status == 1) {
-				System.out.println("Phone number must be between 10-11 character long.");
-			} else if (status == 2) {
-				System.out.println("Phone number must be numbers only, without spaces!");
+		while (!status) {
+			try {
+				System.out.print("Enter your phone number ----> ");
+				phoneNumber = scanner.nextLine();
+				loginCtrl.setPhoneNumber(member, phoneNumber);
+				status = true;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 
 		address = fillAddressDets();
 		loginCtrl.setAddress(member, address);
 		loginCtrl.addMember(member);
+		
 		this.user = member;
 		System.out.printf("%n%nWelcome %s%n", this.user.getName());
 	}
 
 	private Address fillAddressDets() {
-		int status = -1;
+		boolean status = false;
 		ArrayList<DeliveryCost> deliveryCosts = (ArrayList<DeliveryCost>) loginCtrl.getAreaList();
-		Address address = loginCtrl.createAddress();
+		Address address = null;
 		String unitNumber = "";
 		String streetName = "";
 		String district = "";
-		int areaCode;
+		int areaNo;
 		int postalCode;
 
 		System.out.println("Please note that the address is restricted to within the Melacca state.");
 		System.out.println("Kindly enter the following details:-");
 
-		while (status != 0) {
-			System.out.print("Unit Number ----> ");
-			unitNumber = scanner.nextLine();
-			status = loginCtrl.setUnitNumber(address, unitNumber);
-			if (status == 1) {
-				System.out.println("Unit number is blank!");
+		while (!status) {
+			try {
+				System.out.print("Unit Number ----> ");
+				unitNumber = scanner.nextLine();
+				address = loginCtrl.createAddress(unitNumber);
+				status = true;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 
-		status = -1;
+		status = false;
 
-		while (status != 0) {
-			System.out.print("Street Name ----> ");
-			streetName = scanner.nextLine();
-			status = loginCtrl.setStreetName(address, streetName);
-			if (status == 1) {
-				System.out.println("Street name must be at least 5 character long.");
-			} else if (status == 2) {
-				System.out.println("Street name is blank!");
+		while (!status) {
+			try {
+				System.out.print("Street Name ----> ");
+				streetName = scanner.nextLine();
+				loginCtrl.setStreetName(address, streetName);
+				status = true;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 
-		status = -1;
+		status = false;
 
-		while (status != 0) {
-			System.out.print("District ----> ");
-			district = scanner.nextLine();
-			status = loginCtrl.setDistrict(address, district);
-			if (status == 1) {
-				System.out.println("District must be at least 5 character long.");
-			} else if (status == 2) {
-				System.out.println("District is blank!");
+		while (!status) {
+			try {
+				System.out.print("District ----> ");
+				district = scanner.nextLine();
+				loginCtrl.setDistrict(address, district);
+				status = true;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 
-		status = -1;
+		status = false;
 
 		System.out.println();
-		int counter = 1;
+		int noCounter = 1;
 		System.out.printf("%-5s%-20s\n", "No.", "Area");
 		for (DeliveryCost dc : deliveryCosts) {
-			System.out.printf("%-5d%-20s\n", counter, loginCtrl.getArea(dc));
-			counter++;
+			System.out.printf("%-5d%-20s\n", noCounter, loginCtrl.getArea(dc));
+			noCounter++;
 		}
 		System.out.println();
 
-		while (status != 0) {
+		while (!status) {
 			try {
 				System.out.print("Area code ----> ");
-				areaCode = scanner.nextInt();
+				areaNo = scanner.nextInt();
 				scanner.nextLine();
-				status = loginCtrl.setArea(address, areaCode);
+				loginCtrl.setArea(address, areaNo);
+				status = true;
 			} catch (InputMismatchException e) {
-				System.out.println("Numbers only!");
+				System.out.println("Input must be numerical only!");
 				scanner.nextLine();
-			}
-			if (status == 1) {
-				System.out.println("Please select the numbers shown above only!");
+			} catch (IndexOutOfBoundsException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 
-		status = -1;
+		status = false;
 
-		while (status != 0) {
+		while (!status) {
 			try {
 				System.out.print("Postal Code ----> ");
 				postalCode = scanner.nextInt();
 				scanner.nextLine();
-				status = loginCtrl.setPostalCode(address, postalCode);
+				loginCtrl.setPostalCode(address, postalCode);
+				status = true;
 			} catch (InputMismatchException e) {
-				System.out.println("Numbers only!");
+				System.out.println("Input must be numerical only!");
 				scanner.nextLine();
-			}
-			if (status == 1) {
-				System.out.println("Only values between 75000-78999 is accepted.");
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 
