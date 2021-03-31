@@ -1,6 +1,6 @@
 package system.menu;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 import system.login.User;
@@ -21,53 +21,61 @@ public class MenuCtrl {
 	public User getUser() {
 		return this.order.getUser();
 	}
-	
+
 	public Order getOrder() {
 		return this.order;
 	}
 
-	public List<Item> getItemList() {
-		return this.itemList.getItemList();
-	}
-
-	public int getItemListSize() {
-		return this.itemList.getItemListSize();
-	}
-
-	public Item getItem(int itemNo) {
-		return this.itemList.getItem(itemNo);
+	public Item getItemFromList(int itemNo) {
+		return this.itemList.getItemFromList(itemNo);
 	}
 
 	public void addItem(Item item, int qty) {
 		this.order.getCart().addItem(item, qty);
 	}
 
-	public LinkedHashMap<Item, Integer> getCart() {
-		return this.order.getCart().getCart();
+	public double getCartTotalPrice(User user) {
+		return this.order.getCart().getCartTotalPrice(user);
 	}
 
-	public double getCartTotalPrice(boolean isMember) {
-		return this.order.getCart().getCartTotalPrice(isMember);
-	}
-
-	public int getCartSize() {
-		return this.order.getCart().getCartSize();
-	}
-	
 	public Item getCartItem(int itemNo) {
 		return this.order.getCart().getCartItem(itemNo);
 	}
-	
+
 	public void editItem(Item item, int qty) {
 		this.order.getCart().editItem(item, qty);
 	}
 
-	public double getDeliveryRate(String area) {
-		return this.deliveryInfo.getRate(area);
-	}
-	
 	public void setDeliveryFee(String area) {
 		double fee = this.deliveryInfo.getRate(area);
 		this.order.setDeliveryFee(fee);
+	}
+
+	public void checkIsCartEmpty() throws IllegalAccessException {
+		this.order.getCart().checkIsCartEmpty();
+	}
+
+	public String getName(User user) {
+		return user.getName();
+	}
+
+	public String getAddress(User user) {
+		return user.getAddress().getFullAddress();
+	}
+
+	public double getDeliveryFee(Order order) {
+		return order.getDeliveryFee();
+	}
+
+	public double getTotalPrice(Order order) {
+		return order.getTotalPrice();
+	}
+
+	public List<ArrayList<Object>> getCartData(User user) {
+		return this.order.getCart().getCartData(user);
+	}
+
+	public List<ArrayList<Object>> getItemData() {
+		return this.itemList.getItemDataList();
 	}
 }

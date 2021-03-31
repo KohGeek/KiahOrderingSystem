@@ -40,15 +40,4 @@ public class Item {
 	public double getDiscountRate() {
 		return this.discountRate;
 	}
-	
-	public boolean itemQtyVal(int itemQty) {
-
-		if (itemQty > 100 || itemQty<1) {
-			return false;
-		}
-		else {
-			return true;
-		}
-		
-	}
 }
