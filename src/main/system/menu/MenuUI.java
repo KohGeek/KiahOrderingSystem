@@ -20,8 +20,6 @@ public class MenuUI {
 
 	public void start() {
 
-		menuCtrl.setDeliveryFee(this.menuCtrl.getUser().getAddress().getArea());
-
 		int choice = 0;
 		do {
 			System.out.println("\nSelect a option to continue:- ");
@@ -87,14 +85,13 @@ public class MenuUI {
 				try {
 					System.out.print("Select item ----> ");
 					itemNo = scanner.nextInt();
-					scanner.nextInt();
-					item = this.menuCtrl.getItemFromList(itemNo);
-					proceed = true;
-					if (item == null) {
+					scanner.nextLine();
+					if (itemNo == 99) {
 						return; // exit menu
 					}
+					item = this.menuCtrl.getItemFromList(itemNo-1);
+					proceed = true;
 				} catch (IllegalArgumentException e) {
-					scanner.nextLine();
 					System.out.println(e.getMessage());
 					proceed = false;
 				} catch (InputMismatchException e) {
@@ -104,15 +101,16 @@ public class MenuUI {
 				}
 			}
 
+			proceed = false;
+			
 			while (!proceed) {
 				try {
 					System.out.print("Enter the item's quantity ----> ");
 					itemQty = scanner.nextInt();
-					scanner.nextInt();
+					scanner.nextLine();
 					this.menuCtrl.addItem(item, itemQty);
 					proceed = true;
 				} catch (IllegalArgumentException e) {
-					scanner.nextLine();
 					System.out.println(e.getMessage());
 					proceed = false;
 				} catch (InputMismatchException e) {
@@ -122,6 +120,7 @@ public class MenuUI {
 				}
 			}
 			System.out.println("Item added to the cart!\n");
+			proceed = false;
 		} while (loop);
 	}
 
@@ -133,36 +132,25 @@ public class MenuUI {
 
 		try {
 			this.menuCtrl.checkIsCartEmpty();
-		} catch (IllegalAccessException e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return; // exit menu
 		}
 
-		System.out.printf("%-6s%-35s%12s%12s%19s%n", "No.", "Name", "Price", "Quantity", "Promotion(5% off)");
-
-		int itemNumber = 1;
 		double cartTotalPrice = 0;
-		User user = this.menuCtrl.getUser();
-		List<ArrayList<Object>> cartDataArr = this.menuCtrl.getCartData(user);
-
+		List<ArrayList<Object>> cartDataArr = this.menuCtrl.getCartData();
+				
+		System.out.printf("%n%-6s%-35s%12s%12s%19s%n", "No.", "Name", "Price", "Quantity", "Promotion(5% off)");
 		for (ArrayList<Object> cartData : cartDataArr) {
-			System.out.printf("%-6s%-35s%12.2f%12d%19s%n", itemNumber, cartData);
-			itemNumber++;
+			System.out.printf("%-6d%-35s%12.2f%12d%19s%n", cartData.toArray());
 		}
 
-		cartTotalPrice = this.menuCtrl.getCartTotalPrice(user);
+		cartTotalPrice = this.menuCtrl.getCartTotalPrice();
 
 		System.out.printf("%n%41s%12.2f\n\n", "Cart Total Price = ", cartTotalPrice);
 	}
 
 	public void editCart() {
-		try {
-			this.menuCtrl.checkIsCartEmpty();
-		} catch (IllegalAccessException e) {
-			System.out.println(e.getMessage());
-			return; // exit menu
-		}
-
 		int itemNo = 0;
 		int newQty = 0;
 		Item item = null;
@@ -170,15 +158,21 @@ public class MenuUI {
 		boolean loop = false;
 
 		do {
+			try {
+				this.menuCtrl.checkIsCartEmpty();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				return; // exit menu
+			}
 			while (!proceed) {
 				try {
 					viewCart();
 					System.out.print("Enter the item number to be edited ----> ");
 					itemNo = scanner.nextInt();
-					item = this.menuCtrl.getCartItem(itemNo);
+					scanner.nextLine();
+					item = this.menuCtrl.getCartItem(itemNo-1);
 					proceed = true;
 				} catch (IllegalArgumentException e) {
-					scanner.nextLine();
 					System.out.println(e.getMessage());
 					proceed = false;
 				} catch (InputMismatchException e) {
@@ -188,6 +182,8 @@ public class MenuUI {
 				}
 			}
 
+			proceed = false;
+			
 			while (!proceed) {
 				try {
 					System.out.print("Enter the new quantity of the item ----> ");
@@ -196,18 +192,17 @@ public class MenuUI {
 					this.menuCtrl.editItem(item, newQty);
 					proceed = true;
 				} catch (IllegalArgumentException e) {
-					scanner.nextLine();
 					System.out.println(e.getMessage());
 					proceed = false;
 				} catch (InputMismatchException e) {
-					scanner.nextLine();
 					System.out.println("Input must be numerical only.");
 					proceed = false;
 				}
 			}
 
 			System.out.println("\n--------Cart updated!--------");
-
+			proceed = false;
+			
 			int choice;
 			while (!proceed) {
 				try {
@@ -215,6 +210,7 @@ public class MenuUI {
 					System.out.println("Continue editing cart?");
 					System.out.println("1 - Continue.");
 					System.out.println("00 - Back to the menu.");
+					System.out.print("----> ");
 					choice = scanner.nextInt();
 					scanner.nextLine();
 					System.out.println("");
@@ -234,6 +230,7 @@ public class MenuUI {
 					proceed = false;
 				}
 			}
+			proceed = false;
 		} while (loop);
 	}
 
@@ -250,7 +247,7 @@ public class MenuUI {
 
 		try {
 			this.menuCtrl.checkIsCartEmpty();
-		} catch (IllegalAccessException e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return; // exit menu
 		}
@@ -307,10 +304,9 @@ public class MenuUI {
 		System.out.printf("%-6s%-35s%12s%17s%19s%n", "No.", "Name", "MemberPrice", "nonMemberPrice",
 				"Promotion(5% off)");
 
-		int itemNumber = 1;
 		List<ArrayList<Object>> itemDataList = this.menuCtrl.getItemData();
 		for (ArrayList<Object> itemData : itemDataList) {
-			System.out.printf("%-6d%-35s%12.2f%17.2f%19s%n", itemNumber, itemData);
+			System.out.printf("%-6d%-35s%12s%17s%19s%n", itemData.toArray());
 		}
 		System.out.println("99    Exit\n");
 	}

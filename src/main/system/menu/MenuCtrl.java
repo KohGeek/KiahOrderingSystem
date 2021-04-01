@@ -10,12 +10,34 @@ public class MenuCtrl {
 
 	private Order order;
 	private IItem itemList;
-	private IDelivery deliveryInfo;
 
 	public MenuCtrl(Order order, IItem itemList, IDelivery deliveryInfo) {
 		this.order = order;
 		this.itemList = itemList;
-		this.deliveryInfo = deliveryInfo;
+	}
+
+	public Item getItemFromList(int itemNo) {
+		return this.itemList.getItemFromList(itemNo);
+	}
+	
+	public void addItem(Item item, int qty) {
+		this.order.addItem(item, qty);
+	}
+	
+	public List<ArrayList<Object>> getCartData() {
+		return this.order.getCartData();
+	}
+	
+	public double getCartTotalPrice() {
+		return this.order.getCartTotalPrice();
+	}
+	
+	public Item getCartItem(int itemNo) {
+		return this.order.getItemFromCart(itemNo);
+	}
+	
+	public void editItem(Item item, int qty) {
+		this.order.editItem(item, qty);
 	}
 
 	public User getUser() {
@@ -24,35 +46,6 @@ public class MenuCtrl {
 
 	public Order getOrder() {
 		return this.order;
-	}
-
-	public Item getItemFromList(int itemNo) {
-		return this.itemList.getItemFromList(itemNo);
-	}
-
-	public void addItem(Item item, int qty) {
-		this.order.getCart().addItem(item, qty);
-	}
-
-	public double getCartTotalPrice(User user) {
-		return this.order.getCart().getCartTotalPrice(user);
-	}
-
-	public Item getCartItem(int itemNo) {
-		return this.order.getCart().getCartItem(itemNo);
-	}
-
-	public void editItem(Item item, int qty) {
-		this.order.getCart().editItem(item, qty);
-	}
-
-	public void setDeliveryFee(String area) {
-		double fee = this.deliveryInfo.getRate(area);
-		this.order.setDeliveryFee(fee);
-	}
-
-	public void checkIsCartEmpty() throws IllegalAccessException {
-		this.order.getCart().checkIsCartEmpty();
 	}
 
 	public String getName(User user) {
@@ -71,8 +64,8 @@ public class MenuCtrl {
 		return order.getTotalPrice();
 	}
 
-	public List<ArrayList<Object>> getCartData(User user) {
-		return this.order.getCart().getCartData(user);
+	public void checkIsCartEmpty() {
+		this.order.checkIsCartEmpty();
 	}
 
 	public List<ArrayList<Object>> getItemData() {

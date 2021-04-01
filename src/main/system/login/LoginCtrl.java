@@ -15,11 +15,10 @@ public class LoginCtrl {
 		this.deliveryInfo = deliveryInfo;
 	}
 
-	public boolean validateMember(String username, String password) {
+	public Member getMember(String username, String password) {
 		String $username = username;
 		String $password = password;
-		boolean VAL = this.memberList.validateMember($username, $password);
-		return VAL; // VAL = validate status
+		return this.memberList.getMember($username, $password);
 	}
 
 	public Member getMember(String username) {

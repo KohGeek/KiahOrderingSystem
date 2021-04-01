@@ -5,22 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import system.file.IDatabase;
-
-public class ItemList implements IItem, IDatabase {
+public class ItemList implements IItem {
 
 	private List<Item> itemList;
 
 	public ItemList(String fileName) {
 		this.itemList = new ArrayList<Item>();
-		initDataFromFile(fileName);
-	}
-
-	@Override
-	public void initDataFromFile(String fileName) {
-		String $filename = fileName;
 		try {
-			Scanner s = new Scanner(new File($filename));
+			Scanner s = new Scanner(new File(fileName));
 			s.useDelimiter("(,|\r\n|\r|\n)");
 			while (s.hasNext()) {
 				this.itemList.add(new Item(s.next(), s.next(), s.nextDouble(), s.nextDouble(), s.nextBoolean()));
@@ -32,47 +24,34 @@ public class ItemList implements IItem, IDatabase {
 	}
 
 	@Override
-	public void updateDataToFile(String fileName) {
-
-	}
-
 	public Item getItemFromList(int itemNo) {
-		int $itemNo = itemNo;
-		if ($itemNo > this.itemList.size()) {
+		if (itemNo >= this.itemList.size()) {
 			throw new IllegalArgumentException("Item is not shown in the provided list.");
-		} else if ($itemNo <= 0) {
+		} else if (itemNo < 0) {
 			throw new IllegalArgumentException("Item number is invalid.");
-		} else if ($itemNo == 99) {
-			return null; // exit menu
 		}
 
-		return this.itemList.get(itemNo - 1);
-	}
-
-	public boolean isitemInputVAL(int itemNo) {
-		if (this.itemList.size() <= 0 || this.itemList.size() > 20) {
-			return false;
-		} else {
-			return true;
-		}
-
+		return this.itemList.get(itemNo);
 	}
 
 	@Override
 	public List<ArrayList<Object>> getItemDataList() {
 		List<ArrayList<Object>> itemDataArr = new ArrayList<ArrayList<Object>>();
 		ArrayList<Object> itemData;
+		int count = 1;
 		for (Item item : this.itemList) {
 			itemData = new ArrayList<Object>();
+			itemData.add(count);
 			itemData.add(item.getName());
-			itemData.add(item.getMemberPrice());
-			itemData.add(item.getNonMemberPrice());
+			itemData.add(Double.toString(item.getMemberPrice()));
+			itemData.add(Double.toString(item.getNonMemberPrice()));
 			if (item.getIsPromotional() == true) {
 				itemData.add("Yes");
 			} else if (item.getIsPromotional() == false) {
 				itemData.add("No");
 			}
 			itemDataArr.add(itemData);
+			count++;
 		}
 		return itemDataArr;
 	}

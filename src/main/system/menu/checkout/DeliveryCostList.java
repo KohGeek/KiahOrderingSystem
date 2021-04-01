@@ -5,16 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import system.file.IDatabase;
 import system.menu.IDelivery;
 
-public class DeliveryCostList implements IDelivery, IDatabase {
+public class DeliveryCostList implements IDelivery {
 
 	private List<DeliveryCost> deliveryInfo;
 
 	public DeliveryCostList(String fileName) {
 		this.deliveryInfo = new ArrayList<DeliveryCost>();
-		initDataFromFile(fileName);
+		String $filename = fileName;
+		try {
+			Scanner s = new Scanner(new File($filename));
+			s.useDelimiter("(,|\r\n|\r|\n)");
+			while (s.hasNext()) {
+				this.deliveryInfo.add(new DeliveryCost(s.next(), s.nextDouble()));
+			}
+			s.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -41,26 +50,5 @@ public class DeliveryCostList implements IDelivery, IDatabase {
 				break;
 			}
 		return rate;
-	}
-
-	@Override
-	public void initDataFromFile(String fileName) {
-		String $filename = fileName;
-		try {
-			Scanner s = new Scanner(new File($filename));
-			s.useDelimiter("(,|\r\n|\r|\n)");
-			while (s.hasNext()) {
-				this.deliveryInfo.add(new DeliveryCost(s.next(), s.nextDouble()));
-			}
-			s.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void updateDataToFile(String fileName) {
-		// TODO Auto-generated method stub
-
 	}
 }

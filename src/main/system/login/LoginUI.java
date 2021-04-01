@@ -29,7 +29,7 @@ public class LoginUI {
 			boolean inputCorrect = false;
 			while (!inputCorrect) {
 				try {
-					System.out.println("Enter your choice (1-4) ---->");
+					System.out.print("Enter your choice (1-4) ----> ");
 					choice = scanner.nextInt();
 					scanner.nextLine();
 					inputCorrect = true;
@@ -37,7 +37,6 @@ public class LoginUI {
 					System.out.println("Input is not a number, please try again.");
 					scanner.nextLine();
 				}
-
 			}
 
 			switch (choice) {
@@ -69,13 +68,12 @@ public class LoginUI {
 
 		System.out.print("Enter password ----> ");
 		password = scanner.nextLine();
-
-		if (loginCtrl.validateMember(username, password)) {
-			this.user = null;
-			System.out.println("The username or password is invalid!!\n\n");
-		} else {
-			this.user = loginCtrl.getMember(username);
+		
+		try {
+			user = this.loginCtrl.getMember(username, password);
 			System.out.printf("%n%nWelcome back %s%n", this.user.getName());
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -167,7 +165,7 @@ public class LoginUI {
 		address = fillAddressDets();
 		loginCtrl.setAddress(member, address);
 		loginCtrl.addMember(member);
-		
+
 		this.user = member;
 		System.out.printf("%n%nWelcome %s%n", this.user.getName());
 	}
