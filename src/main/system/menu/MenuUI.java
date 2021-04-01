@@ -292,7 +292,7 @@ public class MenuUI {
 
 		proceed = false;
 		String msg = "";
-		PaymentMethod PM = null;
+		PaymentMethod PM = PaymentMethod.CreditCard;
 		if (choice == 1) {
 			while (!proceed) {
 				try {
@@ -301,11 +301,15 @@ public class MenuUI {
 					System.out.print("Select payment method ----> ");
 					choice = scanner.nextInt();
 					scanner.nextLine();
-					PM.selectPaymentMethod(choice);
+					PM = PM.selectPaymentMethod(choice);
 					msg = this.menuCtrl.makePayment(PM);
 					proceed = true;
 				} catch (IllegalArgumentException e) {
 					System.out.println(e.getMessage());
+					proceed = false;
+				} catch (InputMismatchException e) {
+					scanner.nextLine();
+					System.out.println("Input must be numerical only.");
 					proceed = false;
 				}
 			}

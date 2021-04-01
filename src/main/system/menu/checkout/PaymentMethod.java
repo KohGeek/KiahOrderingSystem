@@ -7,9 +7,9 @@ public enum PaymentMethod {
 	public PaymentMethod selectPaymentMethod(int option) {
 		PaymentMethod PM;
 		if (option == 1) {
-			PM = CreditCard;
+			PM = PaymentMethod.CreditCard;
 		} else if (option == 2) {
-			PM = ePayment;
+			PM = PaymentMethod.ePayment;
 		} else {
 			throw new IllegalArgumentException("Invalid selection!");
 		}
