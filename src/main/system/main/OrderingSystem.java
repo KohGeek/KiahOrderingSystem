@@ -27,7 +27,8 @@ public class OrderingSystem {
 		User user = login.getUser();
 		Order order = new Order(user, deliveryInfo);
 		IItem itemList = new ItemList("itemData.txt");
-		MenuCtrl menuCtrl = new MenuCtrl(order, itemList, deliveryInfo);
+		ProceedPayment pPayment = new ProceedPayment();
+		MenuCtrl menuCtrl = new MenuCtrl(order, itemList, pPayment);
 		MenuUI menu = new MenuUI(menuCtrl, scanner);
 		menu.start();
 

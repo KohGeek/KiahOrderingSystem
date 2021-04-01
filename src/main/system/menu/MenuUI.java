@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import system.login.User;
 import system.menu.checkout.Order;
+import system.menu.checkout.PaymentMethod;
 
 public class MenuUI {
 
@@ -89,7 +90,7 @@ public class MenuUI {
 					if (itemNo == 99) {
 						return; // exit menu
 					}
-					item = this.menuCtrl.getItemFromList(itemNo-1);
+					item = this.menuCtrl.getItemFromList(itemNo - 1);
 					proceed = true;
 				} catch (IllegalArgumentException e) {
 					System.out.println(e.getMessage());
@@ -102,7 +103,7 @@ public class MenuUI {
 			}
 
 			proceed = false;
-			
+
 			while (!proceed) {
 				try {
 					System.out.print("Enter the item's quantity ----> ");
@@ -139,7 +140,7 @@ public class MenuUI {
 
 		double cartTotalPrice = 0;
 		List<ArrayList<Object>> cartDataArr = this.menuCtrl.getCartData();
-				
+
 		System.out.printf("%n%-6s%-35s%12s%12s%19s%n", "No.", "Name", "Price", "Quantity", "Promotion(5% off)");
 		for (ArrayList<Object> cartData : cartDataArr) {
 			System.out.printf("%-6d%-35s%12.2f%12d%19s%n", cartData.toArray());
@@ -170,7 +171,7 @@ public class MenuUI {
 					System.out.print("Enter the item number to be edited ----> ");
 					itemNo = scanner.nextInt();
 					scanner.nextLine();
-					item = this.menuCtrl.getCartItem(itemNo-1);
+					item = this.menuCtrl.getCartItem(itemNo - 1);
 					proceed = true;
 				} catch (IllegalArgumentException e) {
 					System.out.println(e.getMessage());
@@ -183,7 +184,7 @@ public class MenuUI {
 			}
 
 			proceed = false;
-			
+
 			while (!proceed) {
 				try {
 					System.out.print("Enter the new quantity of the item ----> ");
@@ -202,7 +203,7 @@ public class MenuUI {
 
 			System.out.println("\n--------Cart updated!--------");
 			proceed = false;
-			
+
 			int choice;
 			while (!proceed) {
 				try {
@@ -289,14 +290,34 @@ public class MenuUI {
 			}
 		}
 
+		proceed = false;
+		String msg = "";
+		PaymentMethod PM = null;
 		if (choice == 1) {
-			order.getPaymentDetails().makePayment(order);
-			System.out.println("Payment has successful!");
+			while (!proceed) {
+				try {
+					System.out.println("1. Pay with CreditCard.");
+					System.out.println("2. Pay with ePayment.");
+					System.out.print("Select payment method ----> ");
+					choice = scanner.nextInt();
+					scanner.nextLine();
+					PM.selectPaymentMethod(choice);
+					msg = this.menuCtrl.makePayment(PM);
+					proceed = true;
+				} catch (IllegalArgumentException e) {
+					System.out.println(e.getMessage());
+					proceed = false;
+				}
+			}
+
+			System.out.println(msg);
 			System.out.println("Thank you for using Kiah Ordering System.");
 			System.exit(0);
+
 		} else if (choice == 2) {
 			return;
 		}
+
 	}
 
 	private void displayItemList() {

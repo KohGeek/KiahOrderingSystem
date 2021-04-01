@@ -5,15 +5,19 @@ import java.util.List;
 
 import system.login.User;
 import system.menu.checkout.Order;
+import system.menu.checkout.PaymentMethod;
+import system.menu.checkout.ProceedPayment;
 
 public class MenuCtrl {
 
 	private Order order;
 	private IItem itemList;
+	private ProceedPayment pPayment;
 
-	public MenuCtrl(Order order, IItem itemList, IDelivery deliveryInfo) {
+	public MenuCtrl(Order order, IItem itemList, ProceedPayment pPayment) {
 		this.order = order;
 		this.itemList = itemList;
+		this.pPayment = pPayment;
 	}
 
 	public Item getItemFromList(int itemNo) {
@@ -70,5 +74,9 @@ public class MenuCtrl {
 
 	public List<ArrayList<Object>> getItemData() {
 		return this.itemList.getItemDataList();
+	}
+	
+	public String makePayment(PaymentMethod PM) {
+		return this.pPayment.makePayment(this.order, PM);
 	}
 }
