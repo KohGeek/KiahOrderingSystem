@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import system.login.User;
-import system.menu.checkout.Order;
-import system.menu.checkout.PaymentMethod;
-import system.menu.checkout.ProceedPayment;
+import system.payment.Order;
+import system.payment.PaymentMethod;
+import system.payment.ProceedPayment;
 
 public class MenuCtrl {
 
@@ -76,7 +76,11 @@ public class MenuCtrl {
 		return this.itemList.getItemDataList();
 	}
 	
-	public String makePayment(PaymentMethod PM) {
-		return this.pPayment.makePayment(this.order, PM);
+	public void makePayment(PaymentMethod PM) {
+		this.pPayment.makePayment(this.order, PM);
+	}
+	
+	public String getPaymentStatus() {
+		return this.pPayment.getPaymentStatus();
 	}
 }

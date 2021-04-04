@@ -1,4 +1,4 @@
-package system.menu.checkout;
+package system.payment;
 
 public enum PaymentMethod {
 	CreditCard,

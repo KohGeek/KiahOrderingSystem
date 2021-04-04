@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import system.login.*;
 import system.menu.*;
-import system.menu.checkout.*;
+import system.payment.*;
 
 public class OrderingSystem {
 

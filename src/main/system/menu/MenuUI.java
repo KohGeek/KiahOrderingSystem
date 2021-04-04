@@ -6,8 +6,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import system.login.User;
-import system.menu.checkout.Order;
-import system.menu.checkout.PaymentMethod;
+import system.payment.Order;
+import system.payment.PaymentMethod;
 
 public class MenuUI {
 
@@ -302,7 +302,8 @@ public class MenuUI {
 					choice = scanner.nextInt();
 					scanner.nextLine();
 					PM = PM.selectPaymentMethod(choice);
-					msg = this.menuCtrl.makePayment(PM);
+					this.menuCtrl.makePayment(PM);
+					msg = this.menuCtrl.getPaymentStatus();
 					proceed = true;
 				} catch (IllegalArgumentException e) {
 					System.out.println(e.getMessage());

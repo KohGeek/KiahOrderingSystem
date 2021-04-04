@@ -3,7 +3,7 @@ package system.login;
 import java.util.List;
 
 import system.menu.IDelivery;
-import system.menu.checkout.DeliveryCost;
+import system.payment.DeliveryCost;
 
 public class LoginCtrl {
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import system.menu.checkout.DeliveryCost;
+import system.payment.DeliveryCost;
 
 public class LoginUI {
 

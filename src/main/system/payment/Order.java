@@ -1,4 +1,4 @@
-package system.menu.checkout;
+package system.payment;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -136,6 +136,16 @@ public class Order {
 		setDeliveryCost(deliveryInfo);
 	}
 
+	public Order() {
+		this.cart = new Cart();
+		this.paymentDetails = new Payment();
+	}
+
+	public Order(Payment payment) {
+		this.cart = new Cart();
+		this.paymentDetails = payment;
+	}
+
 	private void setDeliveryCost(IDelivery deliveryInfo) {
 		this.deliveryCost = deliveryInfo.getRate(this.user.getAddress().getArea());
 	}
@@ -218,5 +228,13 @@ public class Order {
 
 	public Payment getPaymentDetails() {
 		return this.paymentDetails;
+	}
+
+	public void updatePayStatus(PayStatus payStatus) {
+		this.paymentDetails.setPayStatus(payStatus);
+	}
+
+	public void updatePaymentMethod(PaymentMethod paymentMethod) {
+		this.paymentDetails.setPaymentMethod(paymentMethod);
 	}
 }

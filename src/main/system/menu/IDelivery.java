@@ -2,7 +2,7 @@ package system.menu;
 
 import java.util.List;
 
-import system.menu.checkout.DeliveryCost;
+import system.payment.DeliveryCost;
 
 public interface IDelivery {
 
