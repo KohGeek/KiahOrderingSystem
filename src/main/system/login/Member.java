@@ -54,8 +54,8 @@ public class Member extends User {
 
 		if (phoneNumber.matches("\\D+")) {
 			throw new IllegalArgumentException("Input must be numerical only!");
-		} else if (phoneNumber.length() < 11 || phoneNumber.length() > 12) {
-			throw new IllegalArgumentException("Phone number must be between 11-12 characters long.");
+		} else if (phoneNumber.length() < 10 || phoneNumber.length() > 11) {
+			throw new IllegalArgumentException("Phone number must be between 10-11 characters long.");
 		}
 
 		this.phoneNumber = phoneNumber;
