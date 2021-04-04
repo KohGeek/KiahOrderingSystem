@@ -135,6 +135,12 @@ public class Order {
 		this.totalPrice = 0;
 		setDeliveryCost(deliveryInfo);
 	}
+	
+	public Order(User user) {
+		this.user = user;
+		this.cart = new Cart();
+		this.paymentDetails = new Payment();
+	}
 
 	public Order() {
 		this.cart = new Cart();
