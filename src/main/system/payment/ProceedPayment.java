@@ -1,13 +1,20 @@
 package system.payment;
 
 class ExternalPaymentSystem {
-	public PayStatus validatePayment(PaymentMethod paymentMethod) {
+
+	private double amount;
+	private PaymentMethod paymentMethod;
+
+	public PayStatus validatePayment(double amount, PaymentMethod paymentMethod) {
 		/*
 		 * connected to an external payment system to proceed the payment
 		 * and return a validate status
 		 * 
 		 * this is SUT, not ready to be executed
 		 */
+
+		this.amount = amount;
+		this.paymentMethod = paymentMethod;
 		return PayStatus.Successful;
 	}
 }
@@ -15,7 +22,9 @@ class ExternalPaymentSystem {
 public class ProceedPayment {
 
 	private ExternalPaymentSystem EPS;
-	private PayStatus validateStatus;
+	private PayStatus payStatus;
+	private PaymentMethod paymentMethod;
+	private double totalPrice;
 
 	public ProceedPayment(ExternalPaymentSystem EPS) {
 		this.EPS = EPS;
@@ -31,16 +40,19 @@ public class ProceedPayment {
 			throw new NullPointerException("PaymentMethod cannot be null!");
 		}
 
-		this.validateStatus = this.EPS.validatePayment(paymentMethod);
+		this.paymentMethod = paymentMethod;
+		this.totalPrice = order.getTotalPrice();
+
+		this.payStatus = this.EPS.validatePayment(this.totalPrice, paymentMethod);
 		order.updatePaymentMethod(paymentMethod);
-		order.updatePayStatus(this.validateStatus);
+		order.updatePayStatus(this.payStatus);
 	}
 
 	public String getPaymentStatus() {
 		String msg = "";
-		if (this.validateStatus == PayStatus.Successful) {
+		if (this.payStatus == PayStatus.Successful) {
 			msg = "Paid & Ready for Delivery";
-		} else if (this.validateStatus == PayStatus.Unsuccessful) {
+		} else if (this.payStatus == PayStatus.Unsuccessful) {
 			msg = "Pending for Payment";
 		}
 

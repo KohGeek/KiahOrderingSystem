@@ -43,8 +43,8 @@ public class ItemList implements IItem {
 			itemData = new ArrayList<Object>();
 			itemData.add(count);
 			itemData.add(item.getName());
-			itemData.add(Double.toString(item.getMemberPrice()));
-			itemData.add(Double.toString(item.getNonMemberPrice()));
+			itemData.add(item.getMemberPrice());
+			itemData.add(item.getNonMemberPrice());
 			if (item.getIsPromotional() == true) {
 				itemData.add("Yes");
 			} else if (item.getIsPromotional() == false) {
