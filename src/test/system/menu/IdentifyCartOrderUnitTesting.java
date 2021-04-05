@@ -14,21 +14,14 @@ import system.payment.Order;
 
 @RunWith(JUnitParamsRunner.class)
 public class IdentifyCartOrderUnitTesting {
-		
-	Item OrderItemTest = new Item("TestOrderEmpty" , "Test", 10, 15, true);
-	Item invalid_item = null;
 	
 	@Test (expected = IllegalArgumentException.class)
-	@Parameters (method = "IdentifyCart") 
-	public void IdentifyCartOrderUnitTest (Item item, int qty) {
+
+	public void IdentifyCartOrderUnitTest () {
 		Order order = new Order();
-		order.addItem(item, qty);
+		order.checkIsCartEmpty();
 	}
 	
-	private Object[] IdentifyCart () {
-		return new Object[] {
-				new Object[] { "", 1},
-		};
-	}
+	
 
 }
