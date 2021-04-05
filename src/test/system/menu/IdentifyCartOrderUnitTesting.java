@@ -16,7 +16,6 @@ import system.payment.Order;
 public class IdentifyCartOrderUnitTesting {
 	
 	@Test (expected = IllegalArgumentException.class)
-
 	public void IdentifyCartOrderUnitTest () {
 		Order order = new Order();
 		order.checkIsCartEmpty();
