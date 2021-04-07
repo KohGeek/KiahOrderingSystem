@@ -18,7 +18,7 @@ public class IdentifyCartOrderUnitTesting {
 	/*
 	 * Order Module Unit Testing
 	 * Test Cases 7.1.1
-	 * Boundary Value Analysis
+	 *
 	 */
 	@Test (expected = IllegalArgumentException.class)
 	public void IdentifyCartOrderUnitTest () {

@@ -21,7 +21,7 @@ public class GetCartData {
 	/*
 	 * Order Module Unit Testing
 	 * Test Cases 3.1.1
-	 * - Boundary Value Analysis
+	 * 
 	 */
 	@Test
 	@Parameters (method = "GetCartData")
