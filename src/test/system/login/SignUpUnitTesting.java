@@ -12,62 +12,6 @@ import junitparams.Parameters;
 @RunWith(JUnitParamsRunner.class)
 public class SignUpUnitTesting {
 	
-	private Object[] getNameTestValid() {
-		return new Object[] {
-				new Object[] {"Lim Xiao Ming"},
-		};
-	}
-	
-	private Object[] getNameTestInvalid() {
-		return new Object[] {
-				new Object[] {"Lim"},
-				new Object[] {""}
-		};
-	}
-	
-	private Object[] getUserNameTestValid() {
-		return new Object[] {
-				new Object[] {"XiaoMing00"}
-
-		};
-	}
-	
-	private Object[] getUserNameTestInvalid() {
-		return new Object[] {
-				new Object[] {"user1111"},
-				new Object[] {""},
-				new Object[] {"user"}
-		};
-	}
-	
-	private Object[] getPasswordTestValid() {
-		return new Object[] {
-				new Object[] {"password1234", "password1234"},
-		};
-	}
-	
-	private Object[] getPasswordTestInvalid() {
-		return new Object[] {
-				new Object[] {"pass1234", "pass123"},
-				new Object[] {"pass", "pass"},
-				new Object[] {"", ""}
-		};
-	}
-	
-	private Object[] getPhoneNumTestValid() {
-		return new Object[] {
-				new Object[] {"0123456789"},
-		};
-	}
-	
-	private Object[] getPhoneNumTestInvalid() {
-		return new Object[] {
-				new Object[] {"012345678"},
-				new Object[] {"0112233456789"},
-				new Object[] {""},
-
-		};
-	}
 	
 	/*
 	* Login Module Unit Test
@@ -83,6 +27,12 @@ public class SignUpUnitTesting {
 		assertEquals(name, actualResult);
 	}
 	
+	private Object[] getNameTestValid() {
+		return new Object[] {
+				new Object[] {"Lim Xiao Ming"},
+		};
+	}
+	
 	/*
 	* Login Module Unit Test
 	* Test case 3.1.2 ~ 3.1.3
@@ -95,6 +45,13 @@ public class SignUpUnitTesting {
 		$name.setName(name);
 	}
 	
+	private Object[] getNameTestInvalid() {
+		return new Object[] {
+				new Object[] {"Lim"},
+				new Object[] {""}
+		};
+	}
+	
 	/*
 	* Login Module Unit Test
 	* Test case 3.2.1
@@ -103,11 +60,16 @@ public class SignUpUnitTesting {
 	@Test
 	@Parameters(method="getUserNameTestValid")
 	public void testUserNameValid(String username) {
-		Member $member = new Member(username);
-		MemberList $member1 = new MemberList("memberData.txt"); // Username is taken //
-		String actualResult = $member.getUsername(); 
-		boolean actualResult1 = $member1.searchUsername("user1111"); // Username is taken //
-		assertEquals(username, actualResult);
+		MemberList $memberlist = new MemberList("memberData.txt"); // Username is taken //
+		Member actualResult = $memberlist.searchUsername(username); // Username is taken //
+		assertEquals(username, actualResult.getUsername());
+	}
+	
+	private Object[] getUserNameTestValid() {
+		return new Object[] {
+				new Object[] {"XiaoMing00"}
+
+		};
 	}
 	
 	/*
@@ -118,10 +80,16 @@ public class SignUpUnitTesting {
 	@Test (expected = IllegalArgumentException.class)
 	@Parameters(method="getUserNameTestInvalid")
 	public void testUserNameInvalid(String username) {
-		Member $member = new Member(username);
-		String actualResult = $member.getUsername(); // Username is taken //
-		MemberList $member1 = new MemberList("memberData.txt");
-		boolean actualResult1 = $member1.searchUsername("user1111"); // Username is taken //
+		MemberList $memberlist = new MemberList("memberData.txt"); // Username is taken //
+		Member actualResult = $memberlist.searchUsername(username); // Username is taken //
+	}
+	
+	private Object[] getUserNameTestInvalid() {
+		return new Object[] {
+				new Object[] {"user1111"},
+				new Object[] {""},
+				new Object[] {"user"}
+		};
 	}
 	
 	/*
@@ -135,8 +103,13 @@ public class SignUpUnitTesting {
 		Member $member = new Member(null, password, null , null, null);
 		$member.setPassword(password, password2);
 		String actualResult = $member.getPassword();
-		password.equals(password2);
 		assertEquals(password, actualResult);
+	}
+	
+	private Object[] getPasswordTestValid() {
+		return new Object[] {
+				new Object[] {"password1234", "password1234"},
+		};
 	}
 	
 	/*
@@ -150,6 +123,14 @@ public class SignUpUnitTesting {
 		Member $member = new Member("user1111");
 		$member.setPassword(password, password2);
 		String actualResult = $member.getPassword();
+	}
+	
+	private Object[] getPasswordTestInvalid() {
+		return new Object[] {
+				new Object[] {"pass1234", "pass123"},
+				new Object[] {"pass", "pass"},
+				new Object[] {"", ""}
+		};
 	}
 	
 	/*
@@ -166,6 +147,12 @@ public class SignUpUnitTesting {
 		assertEquals(phoneNumber, actualResult);
 	}
 	
+	private Object[] getPhoneNumTestValid() {
+		return new Object[] {
+				new Object[] {"0123456789"},
+		};
+	}
+	
 	/*
 	* Login Module Unit Test
 	* Test case 3.4.2 ~` 3.4.4
@@ -179,7 +166,14 @@ public class SignUpUnitTesting {
 		String actualResult = $member.getPhoneNumber();
 	}
 	
-	
+	private Object[] getPhoneNumTestInvalid() {
+		return new Object[] {
+				new Object[] {"012345678"},
+				new Object[] {"0112233456789"},
+				new Object[] {""},
+				new Object[] {"asdasdasda"}
+		};
+	}
 	
 	
 }

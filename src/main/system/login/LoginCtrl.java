@@ -47,10 +47,7 @@ public class LoginCtrl {
 
 	public Member createMember(String username) {
 
-		if (memberList.searchUsername(username))
-			throw new IllegalArgumentException("Username has been taken!");
-
-		return new Member(username);
+		return memberList.searchUsername(username);
 
 	}
 

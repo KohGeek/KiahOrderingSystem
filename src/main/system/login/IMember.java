@@ -6,7 +6,7 @@ public interface IMember {
 
 	public void addMember(Member member);
 
-	public boolean searchUsername(String username);
+	public Member searchUsername(String username);
 
 	public Member getMember(String username);
 	

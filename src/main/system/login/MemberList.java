@@ -58,14 +58,14 @@ public class MemberList implements IMember {
 	}
 
 	@Override
-	public boolean searchUsername(String username) {
+	public Member searchUsername(String username) {
 		String $username = username;
 		for (Member member : memberList) {
 			if ($username.equals(member.getUsername())) {
-				return true;
+				throw new IllegalArgumentException("Username has been taken!");
 			}
 		}
-		return false;
+		return new Member($username);
 	}
 
 	@Override
