@@ -16,7 +16,7 @@ public class SignUpUnitTesting {
 	/*
 	* Login Module Unit Test
 	* Test case 3.1.1
-	* -- 
+	* -Equivalence Partitioning
 	*/
 	@Test
 	@Parameters(method="getNameTestValid")
@@ -36,7 +36,7 @@ public class SignUpUnitTesting {
 	/*
 	* Login Module Unit Test
 	* Test case 3.1.2 ~ 3.1.3
-	* -- 
+	* --Equivalence Partitioning 
 	*/
 	@Test (expected = IllegalArgumentException.class)
 	@Parameters (method = "getNameTestInvalid")
@@ -55,7 +55,7 @@ public class SignUpUnitTesting {
 	/*
 	* Login Module Unit Test
 	* Test case 3.2.1
-	* -- 
+	* ----- 
 	*/
 	@Test
 	@Parameters(method="getUserNameTestValid")
@@ -75,7 +75,7 @@ public class SignUpUnitTesting {
 	/*
 	* Login Module Unit Test
 	* Test case 3.2.2 ~ 3.2.4
-	* -- 
+	* -----
 	*/
 	@Test (expected = IllegalArgumentException.class)
 	@Parameters(method="getUserNameTestInvalid")
@@ -95,7 +95,7 @@ public class SignUpUnitTesting {
 	/*
 	* Login Module Unit Test
 	* Test case 3.3.1
-	* -- 
+	* -Equivalence Partitioning
 	*/
 	@Test
 	@Parameters(method="getPasswordTestValid")
@@ -115,7 +115,7 @@ public class SignUpUnitTesting {
 	/*
 	* Login Module Unit Test
 	* Test case 3.3.2 ~` 3.3.4
-	* -- 
+	* -Equivalence Partitioning
 	*/
 	@Test (expected = IllegalArgumentException.class)
 	@Parameters(method="getPasswordTestInvalid")
@@ -136,7 +136,7 @@ public class SignUpUnitTesting {
 	/*
 	* Login Module Unit Test
 	* Test case 3.4.1
-	* -- 
+	* -Equivalence Partitioning
 	*/
 	@Test
 	@Parameters(method="getPhoneNumTestValid")
@@ -156,7 +156,7 @@ public class SignUpUnitTesting {
 	/*
 	* Login Module Unit Test
 	* Test case 3.4.2 ~` 3.4.4
-	* -- 
+	* -Equivalence Partitioning
 	*/
 	@Test (expected = IllegalArgumentException.class)
 	@Parameters(method="getPhoneNumTestInvalid")
