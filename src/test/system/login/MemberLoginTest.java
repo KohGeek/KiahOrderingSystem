@@ -19,7 +19,7 @@ public class MemberLoginTest {
 	 * Equivalence Partitioning
 	 */
 	@Test
-	@Parameters (method = "loginMemberValidParam")
+	@Parameters (method = "LoginMemberValidParam")
 	public void LoginMemberTestValid(String username, String password) { 
 		 MemberList ml = new MemberList("memberData.txt");
 		 Member m = ml.getMember(username, password); 

@@ -204,12 +204,10 @@ public class Order {
 	public void addItem(Item item, int qty) {
 		if (item == null) {
 			throw new NullPointerException("Item cannot be null.");
-		} else if (qty == 0) {
-			throw new IllegalArgumentException("Item quantity cannot be 0.");
+		} else if (qty <= 0) {
+			throw new IllegalArgumentException("Item quantity cannot be 0 or negative.");
 		} else if (qty > 100) {
 			throw new IllegalArgumentException("Item quantity can only accept 1~100.");
-		} else if (qty < 0) {
-			throw new IllegalArgumentException("Item quantity cannot be negative.");
 		}
 
 		this.cart.addItem(item, qty);

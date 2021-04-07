@@ -10,7 +10,7 @@ import junitparams.Parameters;
 import system.payment.Order;
 
 @RunWith(JUnitParamsRunner.class)
-public class editItemsInCartUnitTesting {
+public class EditItemsInCartUnitTesting {
 	
 	Item valid_item = new Item("Test Item", "Test", 10, 15, false);
 	Item invalid_item = null;

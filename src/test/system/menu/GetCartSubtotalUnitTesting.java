@@ -22,7 +22,7 @@ public class GetCartSubtotalUnitTesting {
 	Item invalid_item = null;
 	
 	@Test 
-	@Parameters (method = "GetCartSubtotal")
+	@Parameters (method = "getCartSubtotal")
 	public void getCartSubtotalUnitTest (User user, Item item, int qty, double cartPrice) {
 		Order order = new Order(user);
 		order.addItem(item, qty);
