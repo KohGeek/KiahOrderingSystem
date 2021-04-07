@@ -38,8 +38,10 @@ public class ProceedPaymentUnitTest {
 	}
 
 	private Object[] parametersForMakePaymentTestValid() {
-		return new Object[] { new Object[] { PaymentMethod.CreditCard, PaymentMethod.CreditCard },
-				new Object[] { PaymentMethod.ePayment, PaymentMethod.ePayment } };
+		return new Object[] { 
+				new Object[] { PaymentMethod.CreditCard, PaymentMethod.CreditCard },
+				new Object[] { PaymentMethod.ePayment, PaymentMethod.ePayment }
+		};
 	}
 
 	/*
@@ -59,7 +61,43 @@ public class ProceedPaymentUnitTest {
 	private Object[] parametersForMakePaymentTestInvalid() {
 		return new Object[] { new Object[] { null } };
 	}
-
+	
+	/*
+	 * Payment Module Unit Test
+	 * Test case 1.2.1 ~ 1.2.2
+	 */
+	@Test
+	@Parameters
+	public void selectPaymentMethodTestValid(int option, PaymentMethod expectedResult) {
+		PaymentMethod paymentMethod = PaymentMethod.Undefine;
+		PaymentMethod actualResult = paymentMethod.selectPaymentMethod(option);
+		assertEquals(expectedResult, actualResult);
+	}
+	
+	private Object[] parametersForSelectPaymentMethodTestValid() {
+		return new Object [] {
+				new Object [] {1, PaymentMethod.CreditCard},
+				new Object [] {2, PaymentMethod.ePayment}
+		};
+	}
+	
+	/*
+	 * Payment Module Unit Test
+	 * Test case 1.2.3
+	 */
+	@Test (expected = IllegalArgumentException.class)
+	@Parameters
+	public void selectPaymentMethodTestInvalid(int option) {
+		PaymentMethod paymentMethod = PaymentMethod.Undefine;
+		PaymentMethod actualResult = paymentMethod.selectPaymentMethod(option);
+	}
+	
+	private Object[] parametersForSelectPaymentMethodTestInvalid() {
+		return new Object [] {
+				new Object [] {3}
+		};
+	}
+	
 	/*
 	 * Payment Module Unit Test
 	 * Test case 2.1.1 ~ 2.1.2
@@ -72,13 +110,15 @@ public class ProceedPaymentUnitTest {
 		ExternalPaymentSystem mock = mock(ExternalPaymentSystem.class);
 		when(mock.validatePayment(anyDouble(), any(PaymentMethod.class))).thenReturn(payStatus);
 		PP = new ProceedPayment(mock);
-		PP.makePayment(order, PaymentMethod.CreditCard); // any paymentMethod doesn't affect
+		PP.makePayment(order, PaymentMethod.Undefine);
 		String actualResult = PP.getPaymentStatus();
 		assertEquals(expectedResult, actualResult);
 	}
 
 	private Object[] parametersForGetPaymentStatusTest() {
-		return new Object[] { new Object[] { PayStatus.Successful, "Paid & Ready for Delivery" },
-				new Object[] { PayStatus.Unsuccessful, "Pending for Payment" } };
+		return new Object[] { 
+				new Object[] { PayStatus.Successful, "Paid & Ready for Delivery" },
+				new Object[] { PayStatus.Unsuccessful, "Pending for Payment" } 
+		};
 	}
 }

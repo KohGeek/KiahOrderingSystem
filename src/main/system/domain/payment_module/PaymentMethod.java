@@ -1,6 +1,7 @@
 package system.domain.payment_module;
 
 public enum PaymentMethod {
+	Undefine,
 	CreditCard,
 	ePayment;
 	

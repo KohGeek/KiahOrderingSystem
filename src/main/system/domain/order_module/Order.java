@@ -26,6 +26,9 @@ class Cart {
 	public void addItem(Item item, int qty) {
 		if (this.cartList.containsKey(item)) {
 			qty += this.cartList.get(item);
+			if (qty >100 ) {
+				throw new IllegalArgumentException();
+			}
 			this.cartList.replace(item, qty);
 		} else {
 			this.cartList.put(item, qty);
@@ -179,7 +182,11 @@ public class Order {
 			throw new IllegalArgumentException("Item quantity can only accept 1~100.");
 		}
 
-		this.cart.addItem(item, qty);
+		try {
+			this.cart.addItem(item, qty);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("New added item quantity cannot exceed 100!");
+		}
 	}
 
 	public void editItem(Item item, int newQty) {
