@@ -20,6 +20,11 @@ public class GetCartTotalPriceUnitTesting {
 	Item promotionalItem = new Item("TestPromotional" , "Test2", 10, 15, true);
 	Item invalid_item = null;
 	
+	/*
+	 * Order Module Unit Testing
+	 * Test Cases 5.1.1 ~ 5.1.2
+	 * - Boundary Value Analysis
+	 */
 	@Test
 	@Parameters (method = "GetCartTotalPrice")
 	public void GetCartTotalPriceUnitTest (Item item, int qty, double totalPrice) {

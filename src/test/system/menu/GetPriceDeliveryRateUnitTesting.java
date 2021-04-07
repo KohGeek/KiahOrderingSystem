@@ -19,6 +19,12 @@ import system.payment.Order;
 public class GetPriceDeliveryRateUnitTesting {
 		IDelivery dcl = new DeliveryCostList("deliveryCostData.txt");
 		
+		
+		/*
+		 * Order Module Unit Testing
+		 * Test Cases 6.1.1
+		 * - Boundary Value Analysis
+		 */
 		@Test
 		@Parameters (method = "getPriceDeliveryRate")
 		public void getPriceDeliveryRateUnitTesting (String area, double deliveryCost) {
