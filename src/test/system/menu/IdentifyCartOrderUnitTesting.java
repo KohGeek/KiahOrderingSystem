@@ -15,6 +15,11 @@ import system.payment.Order;
 @RunWith(JUnitParamsRunner.class)
 public class IdentifyCartOrderUnitTesting {
 	
+	/*
+	 * Order Module Unit Testing
+	 * Test Cases 7.1.1
+	 *
+	 */
 	@Test (expected = IllegalArgumentException.class)
 	public void IdentifyCartOrderUnitTest () {
 		Order order = new Order();

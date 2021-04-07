@@ -16,6 +16,11 @@ import system.payment.Order;
 
 public class GetCartSubtotalUnitTesting {
 	
+	/*
+	 * Order Module Unit Testing
+	 * Test Cases 4.1.1 ~ 4.1.4
+	 * - Boundary Value Analysis
+	 */
 	
 	Item nonPromotionalItem = new Item("TestNonPromotional" , "Test", 10, 15, false);
 	Item promotionalItem = new Item("TestPromotional" , "Test2", 10, 15, true);
