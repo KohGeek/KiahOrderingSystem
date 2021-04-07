@@ -2,9 +2,16 @@ package system.main;
 
 import java.util.Scanner;
 
-import system.login.*;
-import system.menu.*;
-import system.payment.*;
+import system.boundary.LoginUI;
+import system.boundary.MenuUI;
+import system.controller.LoginCtrl;
+import system.controller.MenuCtrl;
+import system.domain.item_module.*;
+import system.domain.login_module.*;
+import system.domain.order_module.DeliveryCostList;
+import system.domain.order_module.IDelivery;
+import system.domain.order_module.Order;
+import system.domain.payment_module.*;
 
 public class OrderingSystem {
 
@@ -12,6 +19,8 @@ public class OrderingSystem {
 		/*
 		 * Section 1: Login (login as Guest or Member is required before proceed to next
 		 * Section)
+		 * testing username: user1111
+		 * testing password: pass1111
 		 * Section 2: Menu
 		 */
 
