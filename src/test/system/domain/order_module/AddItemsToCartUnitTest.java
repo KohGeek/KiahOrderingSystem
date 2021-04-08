@@ -20,8 +20,8 @@ import system.domain.order_module.Order;
 @RunWith(JUnitParamsRunner.class)
 public class AddItemsToCartUnitTest {
 	
-	Item valid_item = new Item("Test Item", "Test", 10, 15, false);
-	Item invalid_item = null;
+	Item validItem = new Item("Test Item", "Test", 10, 15, false);
+	Item invalidItem = null;
 	
 	/*
 	 * Order Module Unit Test
@@ -29,16 +29,16 @@ public class AddItemsToCartUnitTest {
 	 * - Boundary Value Analysis
 	 */
 	@Test (expected = IllegalArgumentException.class)
-	@Parameters (method = "AddItemEmptyCartIllegalArgumentParams")
-	public void AddItemEmptyCartIllegalArgumentTests(Item item, int quantity) {
+	@Parameters (method = "addItemEmptyCartIllegalArgumentParams")
+	public void addItemEmptyCartIllegalArgumentTests(Item item, int quantity) {
 		Order order = new Order();
 		order.addItem(item, quantity);
 	}
 	
-	private Object[] AddItemEmptyCartIllegalArgumentParams() {
+	private Object[] addItemEmptyCartIllegalArgumentParams() {
 		return new Object[] {
-			new Object[] { valid_item, 0 },
-			new Object[] { valid_item, 101 },
+			new Object[] { validItem, 0 },
+			new Object[] { validItem, 101 },
 		};
 	}
 	
@@ -48,8 +48,8 @@ public class AddItemsToCartUnitTest {
 	 * - Boundary Value Analysis
 	 */
 	@Test 
-	@Parameters (method = "AddItemEmptyCartValidParams")
-	public void AddItemEmptyCartValidTests(Item item, int quantity) {
+	@Parameters (method = "addItemEmptyCartValidParams")
+	public void addItemEmptyCartValidTests(Item item, int quantity) {
 		Order order = new Order();
 		order.addItem(item, quantity);
 		LinkedHashMap<Item,Integer> expectedResult = new LinkedHashMap<>();
@@ -57,10 +57,10 @@ public class AddItemsToCartUnitTest {
 		assertEquals(expectedResult, order.getCart().getCart());
 	}
 	
-	private Object[] AddItemEmptyCartValidParams() {
+	private Object[] addItemEmptyCartValidParams() {
 		return new Object[] {
-			new Object[] { valid_item, 1  },
-			new Object[] { valid_item, 100 }
+			new Object[] { validItem, 1  },
+			new Object[] { validItem, 100 }
 		};
 	}
 	
@@ -70,18 +70,18 @@ public class AddItemsToCartUnitTest {
 	 * - Boundary Value Analysis
 	 */
 	@Test (expected = NullPointerException.class)
-	@Parameters (method = "AddItemEmptyCartNullPointerParams")
-	public void AddItemEmptyCartNullPointerTests(Item item, int quantity) {
+	@Parameters (method = "addItemEmptyCartNullPointerParams")
+	public void addItemEmptyCartNullPointerTests(Item item, int quantity) {
 		Order order = new Order();
 		order.addItem(item, quantity);
 	}
 	
-	private Object[] AddItemEmptyCartNullPointerParams() {
+	private Object[] addItemEmptyCartNullPointerParams() {
 		return new Object[] {
-			new Object[] { invalid_item, 0 },
-			new Object[] { invalid_item, 1 },
-			new Object[] { invalid_item, 100 },
-			new Object[] { invalid_item, 101 }
+			new Object[] { invalidItem, 0 },
+			new Object[] { invalidItem, 1 },
+			new Object[] { invalidItem, 100 },
+			new Object[] { invalidItem, 101 }
 		};
 	}
 	
@@ -91,8 +91,8 @@ public class AddItemsToCartUnitTest {
 	 * - Decision Table
 	 */
 	@Test 
-	@Parameters (method = "AddDuplicateItemValidParams")
-	public void AddDuplicateItemValidTests(Item item, int quantity) {
+	@Parameters (method = "addDuplicateItemValidParams")
+	public void addDuplicateItemValidTests(Item item, int quantity) {
 		Order order = new Order();
 		order.addItem(item, 1);
 		order.addItem(item, quantity);
@@ -101,9 +101,9 @@ public class AddItemsToCartUnitTest {
 		assertEquals(expectedResult, order.getCart().getCart());
 	}
 	
-	private Object[] AddDuplicateItemValidParams() {
+	private Object[] addDuplicateItemValidParams() {
 		return new Object[] {
-			new Object[] { valid_item, 50 }
+			new Object[] { validItem, 50 }
 		};
 	}
 	
@@ -114,16 +114,16 @@ public class AddItemsToCartUnitTest {
 	 * - Decision Table
 	 */
 	@Test (expected = IllegalArgumentException.class)
-	@Parameters (method = "AddDuplicateItemInvalidParams")
-	public void AddDuplicateItemInvalidTests(Item item, int quantity) {
+	@Parameters (method = "addDuplicateItemInvalidParams")
+	public void addDuplicateItemInvalidTests(Item item, int quantity) {
 		Order order = new Order();
 		order.addItem(item, 99);
 		order.addItem(item, quantity);
 	}
 	
-	private Object[] AddDuplicateItemInvalidParams() {
+	private Object[] addDuplicateItemInvalidParams() {
 		return new Object[] {
-			new Object[] { valid_item, 50 }
+			new Object[] { validItem, 50 }
 		};
 	}
 	

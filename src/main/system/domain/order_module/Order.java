@@ -14,6 +14,10 @@ import system.domain.payment_module.PaymentMethod;
 
 class Cart {
 	private LinkedHashMap<Item, Integer> cartList;
+	
+	public Cart(LinkedHashMap<Item, Integer> cartList) {
+		this.cartList = cartList;
+	}
 
 	public Cart() {
 		this.cartList = new LinkedHashMap<Item, Integer>();
@@ -148,6 +152,11 @@ public class Order {
 
 	public Order() {
 		this.cart = new Cart();
+		this.paymentDetails = new Payment();
+	}
+	
+	public Order(LinkedHashMap<Item, Integer> cartList) {
+		this.cart = new Cart(cartList);
 		this.paymentDetails = new Payment();
 	}
 

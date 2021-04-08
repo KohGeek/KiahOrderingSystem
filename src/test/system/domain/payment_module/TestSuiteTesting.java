@@ -1,8 +1,5 @@
 package system.domain.payment_module;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -13,16 +10,17 @@ import system.domain.order_module.*;
 
 @RunWith(value = Suite.class)
 @SuiteClasses(value = {
+		GetItemFromItemListTest.class,
 		AddressInfoUnitTesting.class,
 		MemberLoginTest.class,
 		SignUpUnitTesting.class,
 		AddItemsToCartUnitTest.class,
-		EditItemsInCartUnitTesting.class,
-		GetCartData.class,
+		EditItemsInCartUnitTest.class,
+		GetCartDataUnitTest.class,
 		GetCartSubtotalUnitTesting.class,
 		GetCartTotalPriceUnitTesting.class,
 		GetPriceDeliveryRateUnitTesting.class,
-		IdentifyCartOrderUnitTesting.class,
+		IdentifyIfCartEmptyUnitTest.class,
 		ProceedPaymentIntegrationTest.class,
 		ProceedPaymentUnitTest.class
 })

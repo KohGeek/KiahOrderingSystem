@@ -15,12 +15,12 @@ import system.domain.login_module.User;
 import system.domain.order_module.Order;
 
 @RunWith(JUnitParamsRunner.class)
-public class GetCartData {
+public class GetCartDataUnitTest {
 	
 	Item cartItem = new Item("TestCartItem" , "Test" , 10, 15, true);
 
 	/*
-	 * Order Module Unit Testing
+	 * Order Module Unit Test
 	 * Test Cases 3.1.1
 	 * 
 	 */
