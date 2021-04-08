@@ -21,8 +21,8 @@ public class MemberLoginTest {
 	 * Equivalence Partitioning
 	 */
 	@Test
-	@Parameters (method = "LoginMemberValidParam")
-	public void LoginMemberTestValid(String username, String password) { 
+	@Parameters (method = "loginMemberValidParam")
+	public void loginMemberTestValid(String username, String password) { 
 		 MemberList ml = new MemberList("memberData.txt");
 		 Member m = ml.getMember(username, password); 
 		 String aMResult = m.getUsername();
@@ -30,10 +30,9 @@ public class MemberLoginTest {
 	}
 	
 
-	private Object [] LoginMemberValidParam () {
+	private Object [] loginMemberValidParam () {
 		return new Object[] {
-		new Object [] { "user0000", "pass0000" },
-		
+			new Object [] { "user0000", "pass0000" },
 		};
 	}
 	
@@ -43,27 +42,24 @@ public class MemberLoginTest {
 	 * Equivalence Partitioning
 	 */
 	@Test (expected = IllegalArgumentException.class)
-	@Parameters (method = "LoginMemberInvalidParam")
-	public void LoginMemberTestInvalid(String username, String password) { 
+	@Parameters (method = "loginMemberInvalidParams")
+	public void loginMemberTestInvalid(String username, String password) { 
 		 MemberList ml = new MemberList("memberData.txt");
 		 Member m = ml.getMember(username, password); 
 		 
 	}
 	
 
-	private Object [] LoginMemberInvalidParam () {
+	private Object [] loginMemberInvalidParams () {
 		return new Object[] {
-		new Object [] { "user0000", "pass9999" },
-		new Object [] { "user9999", "pass0000" },
-		new Object [] { "user9999", "pass9999" },
-		new Object [] { "", "pass9999" },
-		new Object [] { "", "pass0000" },
-		new Object [] { "user9999", "" },
-		new Object [] { "user0000", "" },
-		new Object [] { "", "" },
-		
+			new Object [] { "user0000", "pass9999" },
+			new Object [] { "user9999", "pass0000" },
+			new Object [] { "user9999", "pass9999" },
+			new Object [] { "", "pass9999" },
+			new Object [] { "", "pass0000" },
+			new Object [] { "user9999", "" },
+			new Object [] { "user0000", "" },
+			new Object [] { "", "" },
 		};
 	}
-	
-	
 }

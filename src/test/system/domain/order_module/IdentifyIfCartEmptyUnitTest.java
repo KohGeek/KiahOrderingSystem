@@ -11,7 +11,7 @@ public class IdentifyIfCartEmptyUnitTest {
 	
 	/*
 	 * Order Module Unit Test
-	 * Test Cases 7.1.1
+	 * Test Cases 8.1.1
 	 * - Equivalence Partitioning 
 	 */
 	@Test (expected = IllegalArgumentException.class)
@@ -22,7 +22,7 @@ public class IdentifyIfCartEmptyUnitTest {
 	
 	/*
 	 * Order Module Unit Test
-	 * Test Cases 7.1.2
+	 * Test Cases 8.1.2
 	 * - Equivalence Partitioning
 	 */
 	@Test (expected = Test.None.class /* no exception expected */)

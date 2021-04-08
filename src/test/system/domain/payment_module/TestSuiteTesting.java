@@ -11,15 +11,15 @@ import system.domain.order_module.*;
 @RunWith(value = Suite.class)
 @SuiteClasses(value = {
 		GetItemFromItemListTest.class,
-		AddressInfoUnitTesting.class,
+		AddressInfoUnitTest.class,
 		MemberLoginTest.class,
-		SignUpUnitTesting.class,
+		MemberSignUpUnitTest.class,
 		AddItemsToCartUnitTest.class,
 		EditItemsInCartUnitTest.class,
 		GetCartDataUnitTest.class,
 		GetCartTotalPriceIntegrationTest.class,
 		GetOrderTotalPriceIntegrationTest.class,
-		GetPriceDeliveryRateUnitTesting.class,
+		GetPriceDeliveryRateUnitTest.class,
 		IdentifyIfCartEmptyUnitTest.class,
 		ProceedPaymentIntegrationTest.class,
 		ProceedPaymentUnitTest.class,
@@ -27,4 +27,5 @@ import system.domain.order_module.*;
 })
 
 public class TestSuiteTesting {
+	
 }
