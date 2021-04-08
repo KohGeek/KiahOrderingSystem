@@ -78,7 +78,7 @@ public class GetItemFromItemListTest {
 	 * - Analysis
 	 */
 	@Test
-	public void getItemDataList() {
+	public void getItemDataListTest() {
 		Item item = null;
 		try {
 			Scanner s = new Scanner(new File("itemModuleTestData.txt"));

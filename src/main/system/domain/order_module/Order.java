@@ -160,11 +160,6 @@ public class Order {
 		this.paymentDetails = new Payment();
 	}
 
-	public Order(Payment payment) {
-		this.cart = new Cart();
-		this.paymentDetails = payment;
-	}
-
 	private void setDeliveryCost(IDelivery deliveryInfo) {
 		this.deliveryCost = deliveryInfo.getRate(this.user.getAddress().getArea());
 	}

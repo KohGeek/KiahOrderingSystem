@@ -23,7 +23,8 @@ import system.domain.order_module.*;
 		IdentifyIfCartEmptyUnitTest.class,
 		ProceedPaymentIntegrationTest.class,
 		ProceedPaymentUnitTest.class,
-		GetItemFromItemListTest.class
+		GetItemFromItemListTest.class,
+		GetItemFromCartTest.class
 })
 
 public class TestSuiteTesting {

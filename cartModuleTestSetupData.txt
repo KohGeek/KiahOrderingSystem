@@ -1,0 +1,3 @@
+Butter cake,Cake,46.00,46.80,false
+Marble cake,Cake,76.50,77.20,false
+Burnt Cheesecake,Cake,120.00,125.00,false
