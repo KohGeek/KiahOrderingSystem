@@ -303,6 +303,7 @@ public class MenuUI {
 				}
 			}
 
+			System.out.println("Order ID: " + this.menuCtrl.getOrderID());
 			System.out.println(msg);
 			System.out.println("Thank you for using Kiah Ordering System.");
 			System.exit(0);

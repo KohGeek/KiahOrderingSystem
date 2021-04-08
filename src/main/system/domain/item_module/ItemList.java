@@ -52,7 +52,7 @@ public class ItemList implements IItem {
 			itemData.add(item.getNonMemberPrice());
 			if (item.getIsPromotional() == true) {
 				itemData.add("Yes");
-			} else if (item.getIsPromotional() == false) {
+			} else { //item.getIsPromotional() == false
 				itemData.add("No");
 			}
 			itemDataArr.add(itemData);

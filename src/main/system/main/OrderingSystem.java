@@ -34,7 +34,7 @@ public class OrderingSystem {
 		login.start();
 
 		User user = login.getUser();
-		Order order = new Order(user, deliveryInfo);
+		Order order = new Order(user, deliveryInfo, "orderIDData.txt");
 		IItem itemList = new ItemList("itemData.txt");
 		ProceedPayment pPayment = new ProceedPayment();
 		MenuCtrl menuCtrl = new MenuCtrl(order, itemList, pPayment);

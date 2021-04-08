@@ -30,7 +30,7 @@ public class GetPriceDeliveryRateUnitTest {
 		member.setAddress(addr);
 		when(addr.getArea()).thenReturn(area);
 
-		Order order = new Order(member, dcl);
+		Order order = new Order(member, dcl, "orderIDData.txt");
 
 		double actualResult = order.getDeliveryFee();
 		assertEquals(expectedResult, actualResult, 0.001);
