@@ -13,8 +13,13 @@ import junitparams.Parameters;
 import system.domain.item_module.Item;
 
 @RunWith(JUnitParamsRunner.class)
-public class GetItemFromCartTest {
+public class GetItemFromCartUnitTest {
 
+	/*
+	 * Order Module Unit Test 
+	 * Test Cases 6.1.1 
+	 * - Analysis
+	 */
 	@Test
 	@Parameters
 	public void getItemFromCartTestValid(int index, int expectedResultIndex) {
@@ -50,6 +55,11 @@ public class GetItemFromCartTest {
 		};
 	}
 	
+	/*
+	 * Order Module Unit Test 
+	 * Test Cases 6.1.2
+	 * - Analysis
+	 */
 	@Test (expected = IllegalArgumentException.class)
 	@Parameters
 	public void getItemFromCartTestInvalid(int index) {

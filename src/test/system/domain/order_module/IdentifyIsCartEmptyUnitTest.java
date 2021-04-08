@@ -7,7 +7,7 @@ import junitparams.JUnitParamsRunner;
 import system.domain.item_module.Item;
 
 @RunWith(JUnitParamsRunner.class)
-public class IdentifyIfCartEmptyUnitTest {
+public class IdentifyIsCartEmptyUnitTest {
 	
 	/*
 	 * Order Module Unit Test

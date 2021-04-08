@@ -22,12 +22,12 @@ public class GetCartDataUnitTest {
 
 	/*
 	 * Order Module Unit Test
-	 * Test Cases 3.1.1
-	 * 
+	 * Test Cases 3.1.1 ~ 3.1.2
+	 * - Analysis
 	 */
 	@Test
 	@Parameters (method = "getCartDataParams")
-	public void getCartDataUnitTesting (User user, Item item, int qty, double price) {
+	public void getCartDataUnitTest (User user, Item item, int qty, double price) {
 		Order order = new Order(user);
 		order.addItem(item, qty);
 		

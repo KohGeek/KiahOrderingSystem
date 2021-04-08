@@ -122,7 +122,6 @@ public class MemberSignUpUnitTest {
 	public void passwordInvalidTest(String password, String password2) {
 		Member $member = new Member("user1111");
 		$member.setPassword(password, password2);
-		String actualResult = $member.getPassword();
 	}
 	
 	private Object[] passwordInvalidTestParams() {
@@ -163,7 +162,6 @@ public class MemberSignUpUnitTest {
 	public void phoneNumberInvalidTest(String phoneNumber) {
 		Member $member = new Member("user1111");
 		$member.setPhoneNumber(phoneNumber);
-		String actualResult = $member.getPhoneNumber();
 	}
 	
 	private Object[] phoneNumberInvalidTestParams() {

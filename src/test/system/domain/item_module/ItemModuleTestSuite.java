@@ -6,7 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(value = Suite.class)
 @SuiteClasses(value = {
-	GetItemFromItemListUnitTest.class
+	GetItemFromItemListUnitTest.class,
+	GetItemListDataUnitTest.class
 })
 
 public class ItemModuleTestSuite {

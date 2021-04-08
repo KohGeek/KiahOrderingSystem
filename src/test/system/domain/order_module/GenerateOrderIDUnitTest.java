@@ -6,6 +6,11 @@ import org.junit.Test;
 
 public class GenerateOrderIDUnitTest {
 
+	/*
+	 * Order Module Unit Test 
+	 * Test Cases 9.1.1 
+	 * - Analysis
+	 */
 	@Test
 	public void test() {
 		Order order = new Order ("orderModuleOrderIDData.txt");

@@ -18,7 +18,7 @@ import system.domain.item_module.Item;
 import system.domain.order_module.Order;
 
 @RunWith(JUnitParamsRunner.class)
-public class AddItemsToCartUnitTest {
+public class AddItemToCartUnitTest {
 	
 	Item validItem = new Item("Test Item", "Test", 10, 15, false);
 	Item invalidItem = null;

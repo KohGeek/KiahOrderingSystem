@@ -93,28 +93,4 @@ public class ProceedPaymentUnitTest {
 				new Object [] {3}
 		};
 	}
-	
-	/*
-	 * Payment Module Unit Test
-	 * Test case 2.1.1 ~ 2.1.2
-	 * - Equivalence Partitioning
-	 */
-	@Test
-	@Parameters
-	public void getPaymentStatusTest(PayStatus payStatus, String expectedResult) {
-		order = new Order();
-		ExternalPaymentSystem mock = mock(ExternalPaymentSystem.class);
-		when(mock.validatePayment(anyDouble(), any(PaymentMethod.class))).thenReturn(payStatus);
-		PP = new ProceedPayment(mock);
-		PP.makePayment(order, PaymentMethod.Undefine);
-		String actualResult = PP.getPaymentStatus();
-		assertEquals(expectedResult, actualResult);
-	}
-
-	private Object[] parametersForGetPaymentStatusTest() {
-		return new Object[] { 
-				new Object[] { PayStatus.Successful, "Paid & Ready for Delivery" },
-				new Object[] { PayStatus.Unsuccessful, "Pending for Payment" } 
-		};
-	}
 }

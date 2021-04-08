@@ -6,15 +6,15 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(value = Suite.class)
 @SuiteClasses(value = { 
-		AddItemsToCartUnitTest.class, 
-		EditItemsInCartUnitTest.class, 
+		AddItemToCartUnitTest.class, 
+		EditItemInCartUnitTest.class, 
 		GenerateOrderIDUnitTest.class,
 		GetCartDataUnitTest.class,
 		GetCartTotalPriceIntegrationTest.class,
-		GetItemFromCartTest.class,
+		GetItemFromCartUnitTest.class,
 		GetOrderTotalPriceIntegrationTest.class,
 		GetPriceDeliveryRateUnitTest.class, 
-		IdentifyIfCartEmptyUnitTest.class 
+		IdentifyIsCartEmptyUnitTest.class 
 })
 
 public class OrderModuleTestSuite {
