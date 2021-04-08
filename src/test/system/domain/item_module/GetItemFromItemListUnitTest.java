@@ -14,7 +14,7 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 @RunWith(JUnitParamsRunner.class)
-public class GetItemFromItemListTest {
+public class GetItemFromItemListUnitTest {
 	
 	
 	/*

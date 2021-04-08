@@ -12,7 +12,7 @@ import system.domain.login_module.Member;
 import system.domain.login_module.MemberList;
 
 @RunWith(JUnitParamsRunner.class)
-public class MemberLoginTest {
+public class MemberLoginUnitTest {
 	//Member member = new Member( "user0000", "pass0000", "", "", null);
 	
 	/* 
