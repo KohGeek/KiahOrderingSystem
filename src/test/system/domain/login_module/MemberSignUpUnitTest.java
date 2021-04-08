@@ -155,7 +155,7 @@ public class MemberSignUpUnitTest {
 	
 	/*
 	* Login Module Unit Test
-	* Test case 3.4.2 ~ 3.4.4
+	* Test case 3.4.2 ~ 3.4.5
 	* -Equivalence Partitioning
 	*/
 	@Test (expected = IllegalArgumentException.class)
