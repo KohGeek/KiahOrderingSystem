@@ -53,6 +53,10 @@ public class MenuCtrl {
 	public Order getOrder() {
 		return this.order;
 	}
+	
+	public int getOrderID() {
+		return this.order.getID();
+	}
 
 	public String getName(User user) {
 		return user.getName();

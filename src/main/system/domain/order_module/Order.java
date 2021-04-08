@@ -1,8 +1,10 @@
 package system.domain.order_module;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Map.Entry;
 
 import system.domain.item_module.Item;
@@ -71,15 +73,17 @@ class Cart {
 			for (Entry<Item, Integer> item : this.cartList.entrySet()) {
 				if (item.getKey().getIsPromotional())
 					totalPrice += item.getKey().getMemberPrice() * item.getValue() * item.getKey().getDiscountRate();
-				else if (!item.getKey().getIsPromotional())
+				else { //!item.getKey().getIsPromotional()
 					totalPrice += item.getKey().getMemberPrice() * item.getValue();
+				}
 			}
 		else if (user instanceof Guest)
 			for (Entry<Item, Integer> item : this.cartList.entrySet()) {
 				if (item.getKey().getIsPromotional())
 					totalPrice += item.getKey().getNonMemberPrice() * item.getValue() * item.getKey().getDiscountRate();
-				else if (!item.getKey().getIsPromotional())
+				else { //!item.getKey().getIsPromotional()
 					totalPrice += item.getKey().getNonMemberPrice() * item.getValue();
+				}
 			}
 		return totalPrice;
 	}
@@ -98,13 +102,13 @@ class Cart {
 				cartData.add(item.getValue());
 				if (item.getKey().getIsPromotional() == true) {
 					cartData.add("Yes");
-				} else if (item.getKey().getIsPromotional() == false) {
+				} else { //item.getKey().getIsPromotional() == false
 					cartData.add("No");
 				}
 				cartDataArr.add(cartData);
 				count++;
 			}
-		} else if (user instanceof Guest) {
+		} else { //user instanceof Guest
 			for (Entry<Item, Integer> item : this.cartList.entrySet()) {
 				cartData = new ArrayList<Object>();
 				cartData.add(count);
@@ -113,7 +117,7 @@ class Cart {
 				cartData.add(item.getValue());
 				if (item.getKey().getIsPromotional() == true) {
 					cartData.add("Yes");
-				} else if (item.getKey().getIsPromotional() == false) {
+				} else { //item.getKey().getIsPromotional() == false
 					cartData.add("No");
 				}
 				cartDataArr.add(cartData);
@@ -136,11 +140,12 @@ public class Order {
 	private double minOrderValue = 25;
 	private double extraCharge = 3;
 
-	public Order(User user, IDelivery deliveryInfo) {
+	public Order(User user, IDelivery deliveryInfo, String fileName) {
 		this.user = user;
 		this.cart = new Cart();
 		this.paymentDetails = new Payment();
 		this.totalPrice = 0;
+		this.orderID = generateOrderID(fileName);
 		setDeliveryCost(deliveryInfo);
 	}
 	
@@ -150,6 +155,10 @@ public class Order {
 		this.paymentDetails = new Payment();
 	}
 
+	public Order(String fileName) {
+		this.orderID = generateOrderID(fileName);
+	}
+	
 	public Order() {
 		this.cart = new Cart();
 		this.paymentDetails = new Payment();
@@ -164,12 +173,24 @@ public class Order {
 		this.deliveryCost = deliveryInfo.getRate(this.user.getAddress().getArea());
 	}
 
-	public int generateOrderID() {
-		// not complete
-		return 0;
+	private int generateOrderID(String fileName) {
+		int tempID = 0;
+		try {
+			Scanner s = new Scanner(new File(fileName));
+			s.useDelimiter("(,|\r\n|\r|\n)");
+			while (s.hasNext()) {
+				tempID = s.nextInt();
+			}
+			s.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		tempID ++;
+		this.orderID = tempID;
+		return tempID;
 	}
 
-	public int getOrderID() {
+	public int getID() {
 		return orderID;
 	}
 

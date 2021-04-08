@@ -24,7 +24,8 @@ import system.domain.order_module.*;
 		ProceedPaymentIntegrationTest.class,
 		ProceedPaymentUnitTest.class,
 		GetItemFromItemListTest.class,
-		GetItemFromCartTest.class
+		GetItemFromCartTest.class,
+		GenerateOrderIDTest.class
 })
 
 public class TestSuiteTesting {

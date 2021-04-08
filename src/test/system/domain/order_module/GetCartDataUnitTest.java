@@ -13,7 +13,6 @@ import system.domain.item_module.Item;
 import system.domain.login_module.Guest;
 import system.domain.login_module.Member;
 import system.domain.login_module.User;
-import system.domain.order_module.Order;
 
 @RunWith(JUnitParamsRunner.class)
 public class GetCartDataUnitTest {
