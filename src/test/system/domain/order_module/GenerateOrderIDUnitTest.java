@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class GenerateOrderIDTest {
+public class GenerateOrderIDUnitTest {
 
 	@Test
 	public void test() {
