@@ -15,32 +15,32 @@ import system.domain.login_module.User;
 import system.domain.order_module.Order;
 
 @RunWith(JUnitParamsRunner.class)
-public class GetCartTotalPriceUnitTesting {
+public class GetOrderTotalPriceIntegrationTest {
 	
-	Item nonPromotionalItem = new Item("TestNonPromotional" , "Test", 10, 15, false);
-	Item promotionalItem = new Item("TestPromotional" , "Test2", 10, 15, true);
-	Item invalid_item = null;
+	Item below25 = new Item("TestItem" , "Test", 10, 10, false);
+	Item above25 = new Item("TestItem" , "Test2", 30, 30, false);
 	
 	/*
 	 * Order Module Unit Testing
 	 * Test Cases 5.1.1 ~ 5.1.2
 	 * - Boundary Value Analysis
 	 */
+	
 	@Test
-	@Parameters (method = "GetCartTotalPrice")
-	public void GetCartTotalPriceUnitTest (Item item, int qty, double totalPrice) {
-		Member member = new Member("user0000");
-		Order order = new Order(member);
+	@Parameters (method = "getOrderTotalPriceTest")
+	public void getOrderTotalPriceTest (User user, Item item, int qty, double totalPrice) {
+		Order order = new Order(user);
 		order.addItem(item, qty);
 		double actualResult = order.getTotalPrice();
-		assertEquals(totalPrice, actualResult,0.001);
+		assertEquals(totalPrice, actualResult, 0);
 	}
 	
-	private Object [] GetCartTotalPrice () {
+	private Object [] getOrderTotalPriceTest () {
 		return new Object [] {
-				new Object[] { nonPromotionalItem, 1, (1*10)+3 },
-				new Object[] { nonPromotionalItem, 10, 10*10 },
-			
+				new Object[] { new Member(), below25, 1, 13},
+				new Object[] { new Member(), above25, 1, 30},
+				new Object[] { new Guest(), below25, 1, 13},
+				new Object[] { new Guest(), above25, 1, 30},
 		};
 	}
 }

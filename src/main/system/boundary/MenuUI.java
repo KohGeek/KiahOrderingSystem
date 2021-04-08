@@ -93,21 +93,7 @@ public class MenuUI {
 						return; // exit menu
 					}
 					item = this.menuCtrl.getItemFromList(itemNo - 1);
-					proceed = true;
-				} catch (IllegalArgumentException e) {
-					System.out.println(e.getMessage());
-					proceed = false;
-				} catch (InputMismatchException e) {
-					scanner.nextLine();
-					System.out.println("Input must be numerical only.");
-					proceed = false;
-				}
-			}
 
-			proceed = false;
-
-			while (!proceed) {
-				try {
 					System.out.print("Enter the item's quantity ----> ");
 					itemQty = scanner.nextInt();
 					scanner.nextLine();

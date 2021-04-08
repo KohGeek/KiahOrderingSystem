@@ -22,7 +22,8 @@ import system.domain.order_module.*;
 		GetPriceDeliveryRateUnitTesting.class,
 		IdentifyIfCartEmptyUnitTest.class,
 		ProceedPaymentIntegrationTest.class,
-		ProceedPaymentUnitTest.class
+		ProceedPaymentUnitTest.class,
+		GetItemFromItemListTest.class
 })
 
 public class TestSuiteTesting {

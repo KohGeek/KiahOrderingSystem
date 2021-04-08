@@ -10,10 +10,6 @@ import org.junit.runner.RunWith;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import system.domain.order_module.Order;
-import system.domain.payment_module.ExternalPaymentSystem;
-import system.domain.payment_module.PayStatus;
-import system.domain.payment_module.PaymentMethod;
-import system.domain.payment_module.ProceedPayment;
 
 @RunWith(JUnitParamsRunner.class)
 public class ProceedPaymentUnitTest {

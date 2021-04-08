@@ -4,7 +4,10 @@ package system.domain.login_module;
 public class Guest extends User {
 	
 	public Guest(String name) {
-		super.setName(name);
+		this.name = name;
 	}
 	
+	public Guest() {
+		
+	}
 }

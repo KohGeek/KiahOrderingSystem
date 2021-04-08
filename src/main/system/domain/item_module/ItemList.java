@@ -22,6 +22,11 @@ public class ItemList implements IItem {
 			e.printStackTrace();
 		}
 	}
+	
+	public ItemList(Item item) {
+		this.itemList = new ArrayList<Item>();
+		this.itemList.add(item);
+	}
 
 	@Override
 	public Item getItemFromList(int itemNo) {

@@ -22,6 +22,10 @@ public class Member extends User {
 		this.username = username;
 	}
 
+	public Member() {
+		
+	}
+	
 	public String getUsername() {
 		return this.username;
 	}
