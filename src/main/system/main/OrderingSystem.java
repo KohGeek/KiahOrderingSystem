@@ -42,7 +42,5 @@ public class OrderingSystem {
 		menu.start();
 
 		System.out.println("Thank you for using Kiah Ordering System.");
-		
-		// TODO: save the files
 	}
 }

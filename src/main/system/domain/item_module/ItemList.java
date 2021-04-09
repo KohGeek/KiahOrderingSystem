@@ -29,17 +29,6 @@ public class ItemList implements IItem {
 	}
 
 	@Override
-	public Item getItemFromList(int itemNo) {
-		if (itemNo >= this.itemList.size()) {
-			throw new IllegalArgumentException("Item is not shown in the provided list.");
-		} else if (itemNo < 0) {
-			throw new IllegalArgumentException("Item number is invalid.");
-		}
-
-		return this.itemList.get(itemNo);
-	}
-
-	@Override
 	public List<ArrayList<Object>> getItemDataList() {
 		List<ArrayList<Object>> itemDataArr = new ArrayList<ArrayList<Object>>();
 		ArrayList<Object> itemData;
@@ -59,5 +48,16 @@ public class ItemList implements IItem {
 			count++;
 		}
 		return itemDataArr;
+	}
+
+	@Override
+	public Item getItemFromList(int itemNo) {
+		if (itemNo >= this.itemList.size()) {
+			throw new IllegalArgumentException("Item is not shown in the provided list.");
+		} else if (itemNo < 0) {
+			throw new IllegalArgumentException("Item number is invalid.");
+		}
+
+		return this.itemList.get(itemNo);
 	}
 }

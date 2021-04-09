@@ -22,28 +22,32 @@ public class MenuCtrl {
 		this.pPayment = pPayment;
 	}
 
-	public Item getItemFromList(int itemNo) {
-		return this.itemList.getItemFromList(itemNo);
+	public void editItem(Item item, int qty) {
+		this.order.editItem(item, qty);
 	}
-	
+
 	public void addItem(Item item, int qty) {
 		this.order.addItem(item, qty);
 	}
-	
+
+	public void checkIsCartEmpty() {
+		this.order.checkIsCartEmpty();
+	}
+
+	public void makePayment(PaymentMethod PM) {
+		this.pPayment.makePayment(this.order, PM);
+	}
+
 	public List<ArrayList<Object>> getCartData() {
 		return this.order.getCartData();
 	}
-	
+
 	public double getCartTotalPrice() {
 		return this.order.getCartTotalPrice();
 	}
-	
+
 	public Item getCartItem(int itemNo) {
 		return this.order.getItemFromCart(itemNo);
-	}
-	
-	public void editItem(Item item, int qty) {
-		this.order.editItem(item, qty);
 	}
 
 	public User getUser() {
@@ -53,7 +57,7 @@ public class MenuCtrl {
 	public Order getOrder() {
 		return this.order;
 	}
-	
+
 	public int getOrderID() {
 		return this.order.getID();
 	}
@@ -66,6 +70,10 @@ public class MenuCtrl {
 		return user.getAddress().getFullAddress();
 	}
 
+	public Item getItemFromList(int itemNo) {
+		return this.itemList.getItemFromList(itemNo);
+	}
+	
 	public double getDeliveryFee(Order order) {
 		return order.getDeliveryFee();
 	}
@@ -74,16 +82,8 @@ public class MenuCtrl {
 		return order.getTotalPrice();
 	}
 
-	public void checkIsCartEmpty() {
-		this.order.checkIsCartEmpty();
-	}
-
 	public List<ArrayList<Object>> getItemData() {
 		return this.itemList.getItemDataList();
-	}
-	
-	public void makePayment(PaymentMethod PM) {
-		this.pPayment.makePayment(this.order, PM);
 	}
 	
 	public String getPaymentStatus() {

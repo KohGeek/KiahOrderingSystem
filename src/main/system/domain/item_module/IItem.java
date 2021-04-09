@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface IItem {
 
-	public Item getItemFromList(int itemNo);
-
 	public List<ArrayList<Object>> getItemDataList();
+
+	public Item getItemFromList(int itemNo);
 }

@@ -25,21 +25,6 @@ public class DeliveryCostList implements IDelivery {
 	}
 
 	@Override
-	public List<DeliveryCost> getAreaList() {
-		return this.deliveryInfo;
-	}
-
-	@Override
-	public String getAreaName(int areaNo) {
-
-		if (areaNo < 0 || areaNo >= deliveryInfo.size())
-			throw new IndexOutOfBoundsException("Please select the numbers shown above only!");
-
-		return this.deliveryInfo.get(areaNo).getArea();
-
-	}
-
-	@Override
 	public double getRate(String area) {
 		double rate = 0;
 		for (int i = 0; i < this.deliveryInfo.size(); i++)
@@ -48,5 +33,20 @@ public class DeliveryCostList implements IDelivery {
 				break;
 			}
 		return rate;
+	}
+
+	@Override
+	public String getAreaName(int areaNo) {
+	
+		if (areaNo < 0 || areaNo >= deliveryInfo.size())
+			throw new IndexOutOfBoundsException("Please select the numbers shown above only!");
+	
+		return this.deliveryInfo.get(areaNo).getArea();
+	
+	}
+
+	@Override
+	public List<DeliveryCost> getAreaList() {
+		return this.deliveryInfo;
 	}
 }

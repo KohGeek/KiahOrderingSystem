@@ -25,10 +25,6 @@ class Cart {
 		this.cartList = new LinkedHashMap<Item, Integer>();
 	}
 
-	public LinkedHashMap<Item, Integer> getCart() {
-		return this.cartList;
-	}
-
 	public void addItem(Item item, int qty) {
 		if (this.cartList.containsKey(item)) {
 			qty += this.cartList.get(item);
@@ -47,6 +43,10 @@ class Cart {
 		} else {
 			this.cartList.put(item, newQty);
 		}
+	}
+
+	public LinkedHashMap<Item, Integer> getCart() {
+		return this.cartList;
 	}
 
 	public Item getCartItem(int itemNo) {
@@ -149,6 +149,11 @@ public class Order {
 		setDeliveryCost(deliveryInfo);
 	}
 	
+	public Order(LinkedHashMap<Item, Integer> cartList) {
+		this.cart = new Cart(cartList);
+		this.paymentDetails = new Payment();
+	}
+
 	public Order(User user) {
 		this.user = user;
 		this.cart = new Cart();
@@ -164,13 +169,38 @@ public class Order {
 		this.paymentDetails = new Payment();
 	}
 	
-	public Order(LinkedHashMap<Item, Integer> cartList) {
-		this.cart = new Cart(cartList);
-		this.paymentDetails = new Payment();
+	public void addItem(Item item, int qty) {
+		if (item == null) {
+			throw new NullPointerException("Item cannot be null.");
+		} else if (qty <= 0) {
+			throw new IllegalArgumentException("Item quantity cannot be 0 or negative.");
+		} else if (qty > 100) {
+			throw new IllegalArgumentException("Item quantity can only accept 1~100.");
+		}
+	
+		try {
+			this.cart.addItem(item, qty);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("New added item quantity cannot exceed 100!");
+		}
 	}
 
-	private void setDeliveryCost(IDelivery deliveryInfo) {
-		this.deliveryCost = deliveryInfo.getRate(this.user.getAddress().getArea());
+	public void editItem(Item item, int newQty) {
+		if (item == null) {
+			throw new NullPointerException("Item cannot be null.");
+		} else if (newQty > 100) {
+			throw new IllegalArgumentException("Item quantity can only accept 1~100.");
+		} else if (newQty < 0) {
+			throw new IllegalArgumentException("Item quantity cannot be negative.");
+		}
+	
+		this.cart.editItem(item, newQty);
+	}
+
+	public void checkIsCartEmpty() {
+		if (this.cart.getCart().size() == 0) {
+			throw new IllegalArgumentException("You have not added item yet.");
+		}
 	}
 
 	private int generateOrderID(String fileName) {
@@ -190,50 +220,20 @@ public class Order {
 		return tempID;
 	}
 
+	private void setDeliveryCost(IDelivery deliveryInfo) {
+		this.deliveryCost = deliveryInfo.getRate(this.user.getAddress().getArea());
+	}
+
+	public void updatePayStatus(PayStatus payStatus) {
+		this.paymentDetails.setPayStatus(payStatus);
+	}
+
+	public void updatePaymentMethod(PaymentMethod paymentMethod) {
+		this.paymentDetails.setPaymentMethod(paymentMethod);
+	}
+
 	public int getID() {
 		return orderID;
-	}
-
-	public Item getItemFromCart(int itemNum) {
-		return this.cart.getCartItem(itemNum);
-	}
-
-	public void addItem(Item item, int qty) {
-		if (item == null) {
-			throw new NullPointerException("Item cannot be null.");
-		} else if (qty <= 0) {
-			throw new IllegalArgumentException("Item quantity cannot be 0 or negative.");
-		} else if (qty > 100) {
-			throw new IllegalArgumentException("Item quantity can only accept 1~100.");
-		}
-
-		try {
-			this.cart.addItem(item, qty);
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("New added item quantity cannot exceed 100!");
-		}
-	}
-
-	public void editItem(Item item, int newQty) {
-		if (item == null) {
-			throw new NullPointerException("Item cannot be null.");
-		} else if (newQty > 100) {
-			throw new IllegalArgumentException("Item quantity can only accept 1~100.");
-		} else if (newQty < 0) {
-			throw new IllegalArgumentException("Item quantity cannot be negative.");
-		}
-
-		this.cart.editItem(item, newQty);
-	}
-
-	public void checkIsCartEmpty() {
-		if (this.cart.getCart().size() == 0) {
-			throw new IllegalArgumentException("You have not added item yet.");
-		}
-	}
-
-	public List<ArrayList<Object>> getCartData() {
-		return this.cart.getCartData(this.user);
 	}
 
 	public User getUser() {
@@ -242,6 +242,14 @@ public class Order {
 
 	public Cart getCart() {
 		return this.cart;
+	}
+
+	public List<ArrayList<Object>> getCartData() {
+		return this.cart.getCartData(this.user);
+	}
+
+	public Item getItemFromCart(int itemNum) {
+		return this.cart.getCartItem(itemNum);
 	}
 
 	public double getDeliveryFee() {
@@ -267,14 +275,6 @@ public class Order {
 		return this.paymentDetails;
 	}
 
-	public void updatePayStatus(PayStatus payStatus) {
-		this.paymentDetails.setPayStatus(payStatus);
-	}
-
-	public void updatePaymentMethod(PaymentMethod paymentMethod) {
-		this.paymentDetails.setPaymentMethod(paymentMethod);
-	}
-	
 	public class Payment {
 
 		private double totalPrice;
@@ -286,10 +286,6 @@ public class Order {
 			this.paymentStatus = PayStatus.Unsuccessful;
 		}
 
-		public double getPaymentTotalPrice() {
-			return this.totalPrice;
-		}
-		
 		public void setPayStatus(PayStatus payStatus) {
 			this.paymentStatus = payStatus;
 		}
@@ -304,6 +300,10 @@ public class Order {
 		
 		public PaymentMethod getPaymentMethod() {
 			return this.paymentMethod;
+		}
+
+		public double getPaymentTotalPrice() {
+			return this.totalPrice;
 		}
 	}
 
